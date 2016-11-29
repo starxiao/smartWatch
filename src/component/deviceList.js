@@ -51,7 +51,7 @@ var DeviceList = React.createClass({
 
     },
     handleMsg: function () {
-        var that = this;
+
         return this.state.dataList.map(function (data, index) {
             return (
                 <div className="ListCell weui_cells weui_cells_access" style={{marginTop: '0px'}} key={index}>
@@ -76,20 +76,20 @@ var DeviceList = React.createClass({
                 {
                     this.handleMsg()
                 }
-                <a href="build.html#/deviceAdd" className="add_btn btn" style={{color: "black"}}>
+                <a href="test.html#/deviceAdd" className="add_btn btn" style={{color: "black"}}>
                     添加设备
                 </a>
-                <a href="build.html#/deviceChange" className="change_btn btn" style={{color: "black"}}>
+                <a href="test.html#/deviceChange" className="change_btn btn" style={{color: "black"}}>
                     切换设备
                 </a>
-                <a href="build.html#/deviceDelete" className="delete_btn btn" style={{color: "black"}}>
+                <a href="test.html#/deviceDelete" className="delete_btn btn" style={{color: "black"}}>
                     删除设备
                 </a>
                 <div className="footer">
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
-                            <a href="build.html#/setting">
-                                <i className="iconfont">&#xe6f4;</i>关于我
+                            <a href="test.html#/setting">
+                                <i className="iconfont">&#xe6f4;</i>设备
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>

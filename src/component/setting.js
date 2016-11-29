@@ -10,12 +10,12 @@ import Cookie from './cookie';
 var Setting = React.createClass({
 
     handleClick:function(){
-
         var username  = Cookie("username"),
-            ticket = Cookie("ticket");
+            ticket = Cookie("ticket"),
+            url = 'http://api.smartlocate.cn/v1/';
         CreateXHR({
             type:"POST",
-            url:"http://api.smartlocate.cn/v1/user/"+username+"/logout",
+            url:url + "user/"+username+"/logout",
             data:{
                 ticket:ticket
             },
@@ -30,106 +30,136 @@ var Setting = React.createClass({
                         hashHistory.push('/login');
                         break;
                     default:
+                        hashHistory.push('/login');
                         break;
                 }
             },
             error:function(xhr){
                 console.log(xhr.status + xhr.statusText);
+                hashHistory.push('/login');
             }
 
         })
     },
     render:function(){
         return(
-            <div className="container">
-                <div className="weui_cells weui_cells_access" style={{marginTop:'0px'}}>
-                    <a className="weui_cell" href="javascript:;">
+            <div className="page settingPage">
+                <div className="weui_cells weui_cells_access">
+                    <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{color:"#FF70FA",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe648;</i>
+                            <i className="iconfont" style={{
+                                color: "#D7E2AA",
+                                width: "20px",
+                                marginRight: "10px",
+                                marginTop: "3px"
+                            }}>&#xe648;</i>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>个人资料</p>
                         </div>
-                        <div className="weui_cell_ft">
-                        </div>
                     </a>
-                    <a className="weui_cell" href="javascript:;">
+                    <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{color:"#E279C9",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe648;</i>
+                            <i className="iconfont" style={{
+                                color: "#D7E2AA",
+                                width: "20px",
+                                marginRight: "10px",
+                                marginTop: "3px"
+                            }}>&#xe648;</i>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>宝贝资料</p>
                         </div>
-                        <div className="weui_cell_ft">
-                        </div>
                     </a>
-                    <a className="weui_cell" href="build.html#/deviceList">
+                    <a className="weui_cell" href="test.html#/deviceList">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{color:"#48E28B",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe64b;</i>
+                            <i className="iconfont" style={{
+                                color: "#D7E2AA",
+                                width: "20px",
+                                marginRight: "10px",
+                                marginTop: "3px"
+                            }}>&#xe64b;</i>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>设备列表</p>
                         </div>
-                        <div className="weui_cell_ft">
-                        </div>
                     </a>
-                    <a className="weui_cell" href="build.html#/userUpdated">
+                    <a className="weui_cell" href="test.html#/userUpdated">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{color:"#A0E22F",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe63d;</i>
+                            <i className="iconfont" style={{
+                                color: "#D7E2AA",
+                                width: "20px",
+                                marginRight: "10px",
+                                marginTop: "3px"
+                            }}>&#xe63d;</i>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>密码修改</p>
                         </div>
-                        <div className="weui_cell_ft">
-                        </div>
                     </a>
-                    <a className="weui_cell" href="javascript:;">
+                    <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{color:"#476AE2",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe626;</i>
+                            <i className="iconfont" style={{
+                                color: "#D7E2AA",
+                                width: "20px",
+                                marginRight: "10px",
+                                marginTop: "3px"
+                            }}>&#xe626;</i>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>意见建议</p>
                         </div>
-                        <div className="weui_cell_ft">
-                        </div>
                     </a>
-                    <a className="weui_cell" href="javascript:;">
+                    <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{color:"#476AE2",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe626;</i>
+                            <i className="iconfont" style={{
+                                color: "#D7E2AA",
+                                width: "20px",
+                                marginRight: "10px",
+                                marginTop: "3px"
+                            }}>&#xe626;</i>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>常见问题</p>
                         </div>
-                        <div className="weui_cell_ft">
-                        </div>
                     </a>
-                    <a className="weui_cell" href="javascript:;">
+                    <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{color:"#476AE2",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe626;</i>
+                            <i className="iconfont" style={{
+                                color: "#D7E2AA",
+                                width: "20px",
+                                marginRight: "10px",
+                                marginTop: "3px"
+                            }}>&#xe626;</i>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>关于</p>
                         </div>
-                        <div className="weui_cell_ft">
-                        </div>
                     </a>
-                    <a className="weui_cell" href="javascript:;">
+                    <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{color:"#476AE2",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe626;</i>
+                            <i className="iconfont" style={{
+                                color: "#D7E2AA",
+                                width: "20px",
+                                marginRight: "10px",
+                                marginTop: "3px"
+                            }}>&#xe626;</i>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>帮助</p>
                         </div>
-                        <div className="weui_cell_ft">
-                        </div>
                     </a>
+                    <div className="weui_btn_area">
+                        <a className="weui_btn weui_btn_warn" href="javascript:void(0);" onClick={this.handleClick}>
+                            退出登录
+                        </a>
+                    </div>
                 </div>
-                <a href="javascript:" className="weui_btn weui_btn_primary" style={{margin:'20px 10px',backgroundColor:'#4B7EE2'}} onClick={this.handleClick}>退出登录</a>
                 <div className="footer">
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
-                            <a href="build.html#/setting">
-                                <i className="iconfont">&#xe6f4;</i>关于我
+                            <a href="test.html#/setting">
+                                <i className="iconfont">&#xe6f4;</i>设备
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>

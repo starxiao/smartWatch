@@ -148,8 +148,8 @@ var DeviceDelete = React.createClass({
                 <div className="footer">
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
-                            <a href="build.html#/setting">
-                                <i className="iconfont">&#xe6f4;</i>关于我
+                            <a href="test.html#/setting">
+                                <i className="iconfont">&#xe6f4;</i>设备
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>

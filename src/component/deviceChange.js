@@ -138,10 +138,10 @@ var DeviceChange = React.createClass({
     },
 
     handleMsg: function () {
-        var that = this;
-        return that.state.dataList.map(function (data, index) {
+
+        return this.state.dataList.map(function (data, index) {
             return (
-                <div className="DeleteCell weui_cells weui_cells_access guiqing_cells" style={{marginTop: '0px'}} key={index}>
+                <div className="DeleteCell weui_cells weui_cells_access" style={{marginTop: '0px'}} key={index}>
                     <div className="weui_cell">
                         <div className="weui_cell_hd">
                             <i className="iconfont" style={{color:"#48E28B",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe64b;</i>
@@ -164,8 +164,8 @@ var DeviceChange = React.createClass({
                 <div className="footer">
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
-                            <a href="build.html#/setting">
-                                <i className="iconfont">&#xe6f4;</i>关于我
+                            <a href="test.html#/setting">
+                                <i className="iconfont">&#xe6f4;</i>设备
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>

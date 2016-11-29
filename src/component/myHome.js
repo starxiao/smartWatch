@@ -288,7 +288,7 @@ var MyHome = React.createClass({
                         <div className="left">
                             <ul>
                                 <li style={{backgroundColor: "#324CE6"}}>
-                                    <a href="build.html#/chat">
+                                    <a href="test.html#/chat">
                                         <i className="iconfont">&#xe672;</i>微聊
                                     </a>
                                 </li>
@@ -298,12 +298,12 @@ var MyHome = React.createClass({
                                     </a>
                                 </li>
                                 <li style={{backgroundColor: "#0C219A"}}>
-                                    <a href="build.html#/locus">
+                                    <a href="test.html#/locus">
                                         <i className="iconfont">&#xe638;</i>足迹
                                     </a>
                                 </li>
                                 <li style={{backgroundColor: "#09155A"}}>
-                                    <a href="build.html#/rail">
+                                    <a href="test.html#/rail">
                                         <i className="iconfont">&#xe635;</i>安全区域
                                     </a>
                                 </li>
@@ -317,7 +317,7 @@ var MyHome = React.createClass({
                                     </a>
                                 </li>
                                 <li style={{backgroundColor: "#E68D3D"}}>
-                                    <a href="build.html#/device">
+                                    <a href="test.html#/device">
                                         <i className="iconfont">&#xe61a;</i>设置
                                     </a>
                                 </li>
@@ -337,12 +337,12 @@ var MyHome = React.createClass({
                                 </a>
                             </li>
                             <li style={{backgroundColor: "#15E267"}}>
-                                <a href="build.html#/alarm">
+                                <a href="test.html#/alarm">
                                     <i className="iconfont">&#xe626;</i>手表闹钟
                                 </a>
                             </li>
                             <li style={{backgroundColor: "#CAD622"}}>
-                                <a href="build.html#/find">
+                                <a href="test.html#/find">
                                     <i className="iconfont">&#xe626;</i>找手表
                                 </a>
                             </li>
@@ -352,8 +352,8 @@ var MyHome = React.createClass({
                 <div className="footer">
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
-                            <a href="build.html#/setting">
-                                <i className="iconfont">&#xe6f4;</i>关于我
+                            <a href="test.html#/setting">
+                                <i className="iconfont">&#xe6f4;</i>设备
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>

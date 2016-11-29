@@ -132,3 +132,12 @@
     line-height: 80px;
     margin: 10px;
 }
+
+/*deviceAddPage*/
+
+.deviceAddPage .content .weui_cells:after{
+    content: none;
+}
+.deviceAddPage .content .weui_cells:before{
+    content: none;
+}
