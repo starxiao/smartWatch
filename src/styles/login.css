@@ -1,0 +1,52 @@
+/*@media screen and (min-width: 300px) {*/
+    /*html {font-size: 15px;}*/
+/*}*/
+/*@media screen and (min-width: 360px) {*/
+    /*html {font-size: 17px;}*/
+/*}*/
+
+/*@media screen and (min-width: 400px) {*/
+    /*html {font-size: 17px;}*/
+/*}*/
+
+/*@media screen and (min-width: 440px) {*/
+    /*html {font-size: 17px;}*/
+/*}*/
+
+/*@media screen and (min-width: 480px) {*/
+    /*html {font-size: 20px;}*/
+/*}*/
+
+/*@media screen and (min-width: 640px) {*/
+    /*html {font-size: 20px;}*/
+/*}*/
+/*@media screen and (min-width:750px){*/
+    /*html {font-size: 16px;}*/
+/*}*/
+
+.loginPage header{
+    display: flex;
+    justify-content: center;
+}
+.loginPage .content .i{
+    display: block;
+    width: 20px;
+    margin-right: 5px;
+}
+.loginPage .content .password{
+    position: relative;
+    top: 2rem;
+}
+.loginPage .content .passwordUpdated{
+    display:flex;
+    justify-content: space-around;
+    font-size: 14px;
+    color: #C9C9C9;
+}
+.loginPage .content .passwordUpdated:first-child{
+    margin-right: 5px;
+}
+.loginPage footer{
+    position: relative;
+    top: 6rem;
+}

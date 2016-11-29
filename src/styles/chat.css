@@ -1,0 +1,123 @@
+
+.chatPage .content .message{
+    margin-top: 10px;
+}
+.chatPage .content .message:last-child{
+    margin-bottom: 6rem;
+}
+.chatPage .content .message .date{
+    width: 9.5rem;
+    margin: 0 auto;
+    padding-left: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #ccc7b6;
+    color: #fff;
+}
+.chatPage .content .message .bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+.chatPage .content .message .bottom p{
+    padding: 10px;
+    margin-left:5rem;
+    border-radius: 5px;
+    background-color: #16ff36;
+}
+.chatPage .content .message .bottom .bot{
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #16ff36;
+    margin: 15px 5px 0 0 ;
+}
+.chatPage .content .message .bottom img{
+    height: 3rem;
+}
+.chatPage .content .message .deviceBottom{
+    flex-direction: row-reverse;
+}
+.chatPage .content .message .deviceBottom .bot{
+    border-left: 10px solid transparent;
+    border-right: 10px solid #16ff36;
+    margin: 15px 0 0 0 ;
+}
+
+
+
+
+.chatPage footer{
+    width:100%;
+    height:4.5rem;
+    position:fixed;
+    bottom:0;
+    border-top:1px solid rgba(150,150,150,0.5);
+}
+.chatPage footer .btn{
+    height: 70%;
+    padding: 10px 0;
+}
+.chatPage footer .btn ul{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+.chatPage footer .btn ul li{
+    height: 100%;
+    display: flex;
+}
+.chatPage footer .btn ul .icon{
+    margin-left: 5px;
+    border-radius: 50%;
+    border: 1px solid rgba(150,150,150,0.5);
+}
+.chatPage footer .btn ul .icon img{
+    height: 100%;
+}
+.chatPage footer .btn ul .record{
+    width: 65%;
+    border-radius: 5px;
+    border: 1px solid rgba(150,150,150,0.5);
+    margin-left: 10px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+
+    user-select:none;   /* 防止用户长按录音按钮导致调用微信浏览器的长按复制接口*/
+}
+.chatPage footer .text{
+    display: none;
+    width: 100%;
+    height: 70%;
+    padding: 10px 0;
+    flex-direction: row;
+}
+.chatPage footer .text img{
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(150,150,150,0.5);
+    margin-left: 5px;
+}
+.chatPage footer .text input{
+    width: 65%;
+    border-radius: 5px;
+    border: 1px solid rgba(150,150,150,0.5);
+    margin-left: 10px;
+    font-size: 16px;
+}
+.chatPage footer .text a{
+    width: 20%;
+    border-radius: 5px;
+    border: 1px solid rgba(150,150,150,0.5);
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #000;
+}

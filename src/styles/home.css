@@ -1,0 +1,134 @@
+
+*{margin: 0;padding: 0;}
+@media screen and (max-width: 340px) {
+    html {font-size: 13px;}
+}
+@media screen and (min-width: 340px) {
+    html {font-size: 15px;}
+}
+@media screen and (min-width: 360px) {
+    html {font-size: 17px;}
+}
+
+@media screen and (min-width: 400px) {
+    html {font-size: 18px;}
+}
+
+@media screen and (min-width: 440px) {
+    html {font-size: 19px;}
+}
+
+@media screen and (min-width: 480px) {
+    html {font-size: 20px;}
+}
+
+@media screen and (min-width: 640px) {
+    html {font-size: 20px;}
+}
+@media screen and (min-width:750px){
+    html {font-size: 16px;}
+}
+
+/*header*/
+.homePage .header{
+    padding: 10px;
+    background-color: #49dfff;
+}
+.homePage .header .headerImage{
+    height: 3rem;
+}
+.homePage .header p{
+    color: #ffffff;
+}
+.homePage .header .headerImage img{
+    height: 3rem;
+    padding-right: 10px;
+    float: left;
+    border-radius: 50%;
+}
+.homePage .header .nick{
+    font-size: 1.5rem;
+}
+
+/*content*/
+.homePage .content{
+    padding: 10px;
+}
+.homePage .content .top{
+    display: flex;
+    flex-direction: row;
+}
+.homePage .content .top .left{
+    width: 60%;
+}
+.homePage .content .top .right{
+    width: 40%;
+}
+.homePage .content ul li{
+    height: 3rem;
+    border-radius: 10px;
+    list-style: none;
+    margin: 0 10px 10px 0;
+    display: flex;
+}
+.homePage .content ul li a{
+    width: 100%;
+    height: 100%;
+    line-height: 3rem;
+    color: #fff;
+    text-decoration: none;
+}
+.homePage .content .top ul li a i{
+    margin: 0 10px 0 20px;
+}
+.homePage .content .bottom ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.homePage .content .bottom ul li{
+    width: 33%;
+}
+.homePage .content .bottom ul li a{
+    padding-left:0.5rem;
+}
+
+/*footer*/
+
+.footer{
+    width: 100%;
+    height: 3.5rem;
+    position: absolute;
+    bottom: 0;
+}
+.footer ul{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.footer ul li{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    list-style: none;
+}
+.footer ul li a {
+    width: 100%;
+    height: 100%;
+    line-height: 3.5rem;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.listPage .btn{
+    display:inline-block;
+    width: 80px;
+    height:80px;
+    border-radius: 50%;
+    border: 1px solid #26E22B;
+    text-align: center;
+    line-height: 80px;
+    margin: 10px;
+}

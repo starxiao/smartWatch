@@ -1,0 +1,76 @@
+
+/*according to device height to set html  */
+/*@media screen and (min-width: 300px) {*/
+    /*html {font-size: 15px;}*/
+/*}*/
+/*@media screen and (min-width: 360px) {*/
+    /*html {font-size: 17px;}*/
+/*}*/
+
+/*@media screen and (min-width: 400px) {*/
+    /*html {font-size: 17px;}*/
+/*}*/
+
+/*@media screen and (min-width: 440px) {*/
+    /*html {font-size: 17px;}*/
+/*}*/
+
+/*@media screen and (min-width: 480px) {*/
+    /*html {font-size: 20px;}*/
+/*}*/
+
+/*@media screen and (min-width: 640px) {*/
+    /*html {font-size: 20px;}*/
+/*}*/
+/*@media screen and (min-width:750px){*/
+    /*html {font-size: 16px;}
+}*/
+
+.locatePage #container{
+    width: 100%;
+    height: 100vh;      /* set container width and device height*/
+}
+.locatePage h3{
+    font-size: 1rem;    /* according to html to set size=1*html size*/
+}
+.locatePage .bd .locateImg{                    /* set button position*/
+    position: absolute;
+    width: 50%;
+    bottom: 10rem;                         /* bottom = 10* html size*/
+    z-index: 10;
+}
+.locatePage .bd .locateImg:hover{
+    opacity: 0.7;
+}
+.locatePage .bd .weui_btn_primary{
+    left: 5px;
+}
+.locatePage .bd .weui_btn_warn{
+    right: 5px;
+}
+
+.locatePage .locate_img{
+    font-size: 1.5rem;
+    color: #16ff36;
+}
+.locatePage .locate_img .iconfont{
+    font-size: 2.5rem;
+}
+.locatePage .info{
+    font-size: 0.8rem;
+    border: 2px #7dff46;
+    border-radius: 25px;
+    background-color: rgba(73,223,255,0.5);
+    color: #5c4f60;
+}
+
+.locatePage .info .row{
+    margin-left: 1rem;
+}
+.locatePage .canvas{
+    position: absolute;
+    margin-left: 100px;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 30px solid rgba(73,223,255,0.5);
+}
