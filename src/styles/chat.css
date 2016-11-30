@@ -22,7 +22,6 @@
 }
 .chatPage .content .message .bottom p{
     padding: 10px;
-    margin-left:5rem;
     border-radius: 5px;
     background-color: #16ff36;
 }
@@ -33,6 +32,7 @@
     border-bottom: 10px solid transparent;
     border-left: 10px solid #16ff36;
     margin: 15px 5px 0 0 ;
+
 }
 .chatPage .content .message .bottom img{
     height: 3rem;
@@ -45,8 +45,6 @@
     border-right: 10px solid #16ff36;
     margin: 15px 0 0 0 ;
 }
-
-
 
 
 .chatPage footer{
