@@ -25,6 +25,21 @@
     border-radius: 5px;
     background-color: #16ff36;
 }
+.chatPage .content .message .bottom li{
+    list-style: none;
+    transform: rotate(180deg);
+}
+.chatPage .content .message .bottom .iconfont{
+    font-size: 1rem;
+    padding: 0 1.5rem;
+    color: grey;
+}
+.chatPage .content .message .bottom .icon-voice-1{
+    display: none;
+}
+.chatPage .content .message .bottom .icon-voice-2{
+    display: none;
+}
 .chatPage .content .message .bottom .bot{
     width: 0;
     height: 0;

@@ -13,6 +13,7 @@ import ToastError from './ToastError';
 
 import 'weui';
 import '../styles/chat.css';
+import '../styles/iconfont.css';
 
 
 var Chat = React.createClass({
@@ -23,7 +24,8 @@ var Chat = React.createClass({
             url: 'http://api.smartlocate.cn/v1/',
             key: 0,
             startTime: 0,
-            num:0,
+            num: 0,
+            node: null,
             message: [],
         }
     },
@@ -50,7 +52,7 @@ var Chat = React.createClass({
                                             <div className="message" key={i}>
                                                 <p className="date">{res.data[i].created_at}</p>
                                                 <div className="bottom">
-                                                    <p style={{marginLeft:"5rem"}}>{res.data[i].content}</p>
+                                                    <p style={{marginLeft: "5rem"}}>{res.data[i].content}</p>
                                                     <div className="bot"></div>
                                                     <img src="../app/src/image/headImage.jpg"/>
                                                 </div>
@@ -64,20 +66,19 @@ var Chat = React.createClass({
                                             <div className="message" key={i}>
                                                 <p className="date">{res.data[i].created_at}</p>
                                                 <div className="bottom">
-                                                    <div style={{fontSize:"1rem",margin:"15px 10px 0 0",color:"grey"}}>{res.data[i].duration}</div>
-                                                    <p onClick={that.playVoice} data-url={res.data[i].voiceUrl}>
-                                                        <i className="iconfont" data-url={res.data[i].voiceUrl}
-                                                           style={{
-                                                               fontSize: "15px",
-                                                               paddingRight: "1.5rem"
-                                                           }}>&#xe626;</i>
+                                                    <div style={{
+                                                        fontSize: "1rem",
+                                                        margin: "15px 10px 0 0",
+                                                        color: "grey"
+                                                    }}>{res.data[i].duration + '"'}</div>
+                                                    <p onTouchStart={that.playVoice} onTouchEnd={that.endVoice}>
+                                                        <audio src={res.data[i].voiceUrl}></audio>
+                                                        <li>
+                                                            <i className="iconfont icon-voice-1"></i>
+                                                            <i className="iconfont icon-voice-2"></i>
+                                                            <i className="iconfont icon-voice-3"></i>
+                                                        </li>
                                                     </p>
-                                                    {/*<p onClick={that.playVoice}>*/}
-                                                        {/*<audio src={res.data[i].voiceUrl} style={{width:"100%",height:"100%"}}>*/}
-                                                            {/*<i className="iconfont"*/}
-                                                               {/*style={{fontSize: "15px", paddingRight: "1.5rem"}}>&#xe626;</i>*/}
-                                                        {/*</audio>*/}
-                                                    {/*</p>*/}
                                                     <div className="bot"></div>
                                                     <img src="../app/src/image/headImage.jpg"/>
                                                 </div>
@@ -92,17 +93,17 @@ var Chat = React.createClass({
                                         <div className="message" key={i}>
                                             <p className="date">{res.data[i].created_at}</p>
                                             <div className="bottom deviceBottom">
-                                                <div style={{fontSize:"1rem",margin:"15px 0 0 10px",color:"grey"}}>{res.data[i].duration}</div>
-                                                <p onClick={that.playVoice} data-url={res.data[i].voiceUrl}>
-                                                    <i className="iconfont" data-url={res.data[i].voiceUrl}
-                                                       style={{fontSize: "15px", paddingRight: "1.5rem"}}>&#xe626;</i>
+                                                <div style={{
+                                                    fontSize: "1rem",
+                                                    margin: "15px 0 0 10px",
+                                                    color: "grey"
+                                                }}>{res.data[i].duration + '"'}</div>
+                                                <p onTouchStart={that.playVoice} onTouchEnd={that.endVoice}>
+                                                    <audio src={res.data[i].voiceUrl}></audio>
+                                                    <i className="iconfont icon-voice-1"></i>
+                                                    <i className="iconfont icon-voice-2"></i>
+                                                    <i className="iconfont icon-voice-3"></i>
                                                 </p>
-                                                {/*<p onClick={that.playVoice}>*/}
-                                                    {/*<audio src={res.data[i].voiceUrl} style={{width:"100%",height:"100%"}}>*/}
-                                                        {/*<i className="iconfont"*/}
-                                                           {/*style={{fontSize: "15px", paddingRight: "1.5rem"}}>&#xe626;</i>*/}
-                                                    {/*</audio>*/}
-                                                {/*</p>*/}
                                                 <div className="bot"></div>
                                                 <img src="../app/src/image/headImage.jpg"/>
                                             </div>
@@ -189,11 +190,16 @@ var Chat = React.createClass({
                     <div className="message" key={'user' + that.state.key}>
                         <p className="date">{message.content.extra.created_at}</p>
                         <div className="bottom deviceBottom">
-                            <div style={{fontSize:"1rem",margin:"15px 0 0 10px",color:"grey"}}>{message.content.extra.duration}</div>
-                            <p onClick={that.playVoice} data-url={message.content.extra.mp3Url}>
-                                <i className="iconfont" data-url={message.content.extra.mp3Url}
-                                   style={{fontSize: "15px", paddingRight: "1.5rem"}}>&#xe626;
-                                </i>
+                            <div style={{
+                                fontSize: "1rem",
+                                margin: "15px 0 0 10px",
+                                color: "grey"
+                            }}>{message.content.extra.duration + '"'}</div>
+                            <p onTouchStart={that.playVoice} onTouchEnd={that.endVoice}>
+                                <audio src={message.content.extra.mp3Url}></audio>
+                                <i className="iconfont icon-voice-1"></i>
+                                <i className="iconfont icon-voice-2"></i>
+                                <i className="iconfont icon-voice-3"></i>
                             </p>
                             <div className="bot"></div>
                             <img src="../app/src/image/headImage.jpg"/>
@@ -246,14 +252,18 @@ var Chat = React.createClass({
                                         <div className="message" key={'user' + that.state.key}>
                                             <p className="date" style={{width: "2.9rem"}}>{date}</p>
                                             <div className="bottom">
-                                                <div style={{fontSize:"1rem",margin:"15px 10px 0 0",color:"grey"}}>{data.data.duration}</div>
-                                                <p onClick={that.playVoice} data-url={data.data.voiceUrl}>
-                                                    <i className="iconfont" data-url={data.data.voiceUrl}
-                                                       style={{fontSize: "15px", paddingRight: "1.5rem"}}>&#xe626;</i>
-                                                    {/*<audio src={data.data.voiceUrl} style={{width:"100%",height:"100%"}}>*/}
-                                                    {/*<i className="iconfont" data-url={data.data.voiceUrl}*/}
-                                                       {/*style={{fontSize: "15px", paddingRight: "1.5rem"}}>&#xe626;</i>*/}
-                                                    {/*</audio>*/}
+                                                <div style={{
+                                                    fontSize: "1rem",
+                                                    margin: "15px 10px 0 0",
+                                                    color: "grey"
+                                                }}>{data.data.duration + '"'}</div>
+                                                <p onTouchStart={that.playVoice} onTouchEnd={that.endVoice}>
+                                                    <audio src={data.data.voiceUrl}></audio>
+                                                    <li>
+                                                        <i className="iconfont icon-voice-1"></i>
+                                                        <i className="iconfont icon-voice-2"></i>
+                                                        <i className="iconfont icon-voice-3"></i>
+                                                    </li>
                                                 </p>
                                                 <div className="bot"></div>
                                                 <img src="../app/src/image/headImage.jpg"/>
@@ -281,7 +291,7 @@ var Chat = React.createClass({
                     }
                 });
             },
-            fail:function (res) {
+            fail: function (res) {
                 console.log('fail');
                 console.log(res);
             }
@@ -302,7 +312,7 @@ var Chat = React.createClass({
                 <div className="message" key={'user' + that.state.key}>
                     <p className="date" style={{width: "2.9rem"}}>{date}</p>
                     <div className="bottom">
-                        <p style={{marginLeft:"5rem"}}>{val}</p>
+                        <p style={{marginLeft: "5rem"}}>{val}</p>
                         <div className="bot"></div>
                         <img src="../app/src/image/headImage.jpg"/>
                     </div>
@@ -362,8 +372,8 @@ var Chat = React.createClass({
     touchMove: function (e) {
         e.preventDefault();
         console.log('move');
-        this.setState({num:this.state.num+1});
-        if(this.state.num > 100){
+        this.setState({num: this.state.num + 1});
+        if (this.state.num > 50) {
             this.setState({content: "松开手指,取消发送", flag: false});
         }
 
@@ -399,7 +409,7 @@ var Chat = React.createClass({
                         alert(res.localId);
                         that.chatRecord(res);
                     } else {
-                        that.setState({content: "手指上滑,取消发送",flag: true,num:0});
+                        that.setState({content: "手指上滑,取消发送", flag: true, num: 0});
                     }
                 },
                 fail: function (res) {
@@ -411,36 +421,70 @@ var Chat = React.createClass({
     playVoice: function (e) {
         var that = this;
         console.log('playVoice');
-        // console.log(e.target.getAttribute('src'));
-        // console.log(e.target);
-        // e.target.play();
 
-        // console.log(e.target.dataset);
-        // var ele = e.target;
-        //
-        // ele.style.backgroundColor = "#16962B";
-        //
-        // window.setTimeout(function () {
-        //     ele.style.backgroundColor = "#16ff36";
-        // },500);
-        var url = e.target.dataset.url;
-        console.log(url);
+        console.log(e.target);         // 只关注点击的元素。
+        console.log(e.currentTarget);  //返回绑定事件的元素
+        var node = e.currentTarget;
 
-        wx.downloadVoice({
-            serverId: url,              // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-            success: function (res) {          // 返回音频的本地ID
-                console.log(res);
-                alert(res.localId);
-                wx.playVoice({
-                    localId: res.localId,
-                });
+
+        if (this.state.node !== null) {
+            console.log('pause');
+            this.state.node.firstElementChild.pause();
+        }
+        this.setState({node: node});
+
+    },
+    endVoice: function (e) {
+
+
+        console.log(this.state.node);
+        this.animate(this.state.node);
+        this.state.node.firstElementChild.play();
+        console.log('play');
+
+
+    },
+    animate: function (e) {
+        console.log(e.children);
+        var eleArr = e.children;
+        var arr = [];
+        for (var i = 0; i < eleArr.length; i++) {
+            console.log(eleArr[i].tagName);
+            if (eleArr[i].tagName === 'I') {
+                arr.push(eleArr[i]);
             }
-        });
+        }
+        console.log(arr);
+
+        for (var j = 0; j < arr.length; j++) {
+            (function (index) {
+                if (index === 0) {
+                    window.setTimeout(function () {
+                        arr[index + 2].style.display = 'none';
+                        arr[index].style.display = 'block';
+                        arr[index + 1].style.display = 'none';
+                    },(index+1)*500);
+
+                } else if (index === 1) {
+                    window.setTimeout(function () {
+                        arr[index - 1].style.display = 'none';
+                        arr[index].style.display = 'block';
+                        arr[index + 1].style.display = 'none';
+                    },(index+1)*500);
+                } else {
+                    window.setTimeout(function () {
+                        arr[index - 2].style.display = 'none';
+                        arr[index - 1].style.display = 'none';
+                        arr[index].style.display = 'block';
+                    },(index+1)*500);
+                }
+            })(j);
+        }
 
     },
     shouldComponentUpdate: function (nextState) {
 
-        if(this.state.message !== nextState.message) {
+        if (this.state.message !== nextState.message) {
             return true;
         } else {
             return false;
@@ -458,7 +502,8 @@ var Chat = React.createClass({
                             <li className="icon">
                                 <img src='../app/src/image//record.png' onClick={this.toggleText}/>
                             </li>
-                            <li ref="record" className="record" onTouchStart={this.touchStart} onTouchMove={this.touchMove}
+                            <li ref="record" className="record" onTouchStart={this.touchStart}
+                                onTouchMove={this.touchMove}
                                 onTouchCancel={this.touchCancel} onTouchEnd={this.touchEnd}>
                                 按住 录音
                             </li>
