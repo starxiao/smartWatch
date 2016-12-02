@@ -311,7 +311,7 @@ var MyHome = React.createClass({
                         </div>
                         <div className="right">
                             <ul>
-                                <li style={{height:"6rem",padding:"5px 0",backgroundColor:"#671ED6"}}>
+                                <li style={{height:"6rem",padding:"15px 0",backgroundColor:"#671ED6"}}>
                                     <a style={{lineHeight:"6rem"}} href="test.html#/locate" className="aright_1">
                                         <i className="iconfont">&#xe609;</i>地图
                                     </a>

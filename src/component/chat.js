@@ -71,7 +71,7 @@ var Chat = React.createClass({
                                                         margin: "15px 10px 0 0",
                                                         color: "grey"
                                                     }}>{res.data[i].duration + '"'}</div>
-                                                    <p onTouchStart={that.playVoice} onTouchEnd={that.endVoice}>
+                                                    <p onClick={that.playVoice}>
                                                         <audio src={res.data[i].voiceUrl}></audio>
                                                         <li>
                                                             <i className="iconfont icon-voice-1"></i>
@@ -98,7 +98,7 @@ var Chat = React.createClass({
                                                     margin: "15px 0 0 10px",
                                                     color: "grey"
                                                 }}>{res.data[i].duration + '"'}</div>
-                                                <p onTouchStart={that.playVoice} onTouchEnd={that.endVoice}>
+                                                <p onClick={that.playVoice}>
                                                     <audio src={res.data[i].voiceUrl}></audio>
                                                     <i className="iconfont icon-voice-1"></i>
                                                     <i className="iconfont icon-voice-2"></i>
@@ -177,7 +177,6 @@ var Chat = React.createClass({
             }
         });
         RongYun(this.RongYunVoice);
-        //Send();
 
     },
     RongYunVoice: function (message) {
@@ -195,7 +194,7 @@ var Chat = React.createClass({
                                 margin: "15px 0 0 10px",
                                 color: "grey"
                             }}>{message.content.extra.duration + '"'}</div>
-                            <p onTouchStart={that.playVoice} onTouchEnd={that.endVoice}>
+                            <p onClick={that.playVoice}>
                                 <audio src={message.content.extra.mp3Url}></audio>
                                 <i className="iconfont icon-voice-1"></i>
                                 <i className="iconfont icon-voice-2"></i>
@@ -257,7 +256,7 @@ var Chat = React.createClass({
                                                     margin: "15px 10px 0 0",
                                                     color: "grey"
                                                 }}>{data.data.duration + '"'}</div>
-                                                <p onTouchStart={that.playVoice} onTouchEnd={that.endVoice}>
+                                                <p onClick={that.playVoice}>
                                                     <audio src={data.data.voiceUrl}></audio>
                                                     <li>
                                                         <i className="iconfont icon-voice-1"></i>
@@ -305,7 +304,8 @@ var Chat = React.createClass({
             ticket = Cookie("ticket");
         var val = that.refs.content.value;
         that.refs.content.value = '';
-        var Obj = new Date(), hour = Obj.getHours(), minute = Obj.getMinutes(),
+        var Obj = new Date(), hour = Obj.getHours() < 10 ? '0'+Obj.getHours():Obj.getHours() ,
+            minute = Obj.getMinutes()<10 ? '0' + Obj.getMinutes():Obj.getMinutes(),
             date = hour + ':' + minute;
         var ele = function () {
             return (
@@ -354,7 +354,12 @@ var Chat = React.createClass({
     },
 
     touchStart: function (e) {
+
+
+        console.log(e);
         e.preventDefault();
+        console.log(e.touches);
+        console.log(e.touches[0].pageY);
         var that = this;
         console.log('start');
         that.refs.record.style.backgroundColor = '#C8C8C8';
@@ -362,7 +367,8 @@ var Chat = React.createClass({
         wx.startRecord();
         this.refs.toastLoad.show();
         var time = new Date().getTime();
-        this.setState({startTime: time});
+        this.setState({startTime: time,num:e.touches[0].pageY});
+
         wx.onVoiceRecordEnd({                     // 录音时间超过一分钟没有停止的时候会执行 complete 回调
             complete: function (res) {
                 that.chatRecord(res);
@@ -370,10 +376,12 @@ var Chat = React.createClass({
         });
     },
     touchMove: function (e) {
+        console.log(e.changedTouches);
         e.preventDefault();
         console.log('move');
+
         this.setState({num: this.state.num + 1});
-        if (this.state.num > 50) {
+        if ((this.state.num-e.changedTouches[0].pageY) > 20) {
             this.setState({content: "松开手指,取消发送", flag: false});
         }
 
@@ -383,6 +391,9 @@ var Chat = React.createClass({
     },
     touchEnd: function (e) {
         e.preventDefault();
+        console.log(e);
+        console.log(e.changedTouches);
+
         var that = this,
             IMEI = Cookie("IMEI"),
             username = Cookie("username"),
@@ -406,7 +417,6 @@ var Chat = React.createClass({
                     console.log(res);           //返回本地ID res.localId
 
                     if (that.state.flag) {
-                        alert(res.localId);
                         that.chatRecord(res);
                     } else {
                         that.setState({content: "手指上滑,取消发送", flag: true, num: 0});
@@ -431,6 +441,9 @@ var Chat = React.createClass({
             console.log('pause');
             this.state.node.firstElementChild.pause();
         }
+        this.animate(node);
+        node.firstElementChild.play();
+        console.log('play');
         this.setState({node: node});
 
     },
@@ -445,13 +458,23 @@ var Chat = React.createClass({
 
     },
     animate: function (e) {
+
+
         console.log(e.children);
+
         var eleArr = e.children;
         var arr = [];
         for (var i = 0; i < eleArr.length; i++) {
             console.log(eleArr[i].tagName);
             if (eleArr[i].tagName === 'I') {
                 arr.push(eleArr[i]);
+            }
+            if(eleArr[i].tagName === 'LI'){
+                var node = eleArr[i].children;
+                console.log(node);
+                for(var j=0 ;j<node.length; j++){
+                    arr.push(node[j]);
+                }
             }
         }
         console.log(arr);

@@ -60,7 +60,7 @@ var Login = React.createClass({
                     case 0:
                         Cookie("username", username);    //store username and ticket
                         Cookie("ticket", data.data.ticket);    //store username and ticket
-                        hashHistory.push('#/');   //redirect url
+                        hashHistory.push('/');   //redirect url
                         break;
                     case 20003:
                         that.setState({title: "登录失败"});

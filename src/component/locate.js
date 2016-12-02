@@ -178,12 +178,16 @@ var Locate = React.createClass({
 
 
     },
-    handleBaby: function () {                   //click baby btn to update map
+    touchStart:function () {
+      this.refs.locateImg.style.opacity = '0.5';
+    },
+    touchEnd: function () {                   //click baby btn to update map
 
         var username = Cookie("username"),
             ticket = Cookie("ticket"),
             IMEI = Cookie("IMEI"),
             that = this;
+        this.refs.locateImg.style.opacity = '1';
         that.refs.toastLoad.show();
         CreateXHR({
             url: "http://api.smartlocate.cn/v1/device/"+IMEI+"/action/location",
@@ -213,7 +217,8 @@ var Locate = React.createClass({
             <div className="locatePage page">
                 <div className="bd">
                     <div id={this.state.id}></div>
-                    <img className="locateImg" src="../app/src/image/locate.png" style={{width:"100px",height:"100px"}} onClick={this.handleBaby}/>
+                    <img className="locateImg" ref="locateImg" src="../app/src/image/locate.png"
+                         onTouchStart={this.touchStart} onTouchEnd={this.touchEnd}/>
                     {/*<a href="javascript:" className="image weui_btn weui_btn_mini weui_btn_warn"*/}
                        {/*onClick={this.handleBaby}>baby</a>*/}
                 </div>
