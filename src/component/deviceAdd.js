@@ -13,19 +13,53 @@ import ToastError from './ToastError';
 var DeviceAdd = React.createClass({
     getInitialState: function () {
         return {
+            url:'http://api.smartlocate.cn/v1/',
             content: '',
-            toast: null
+            toast: ''
         }
     },
-
+    componentDidMount:function () {
+        CreateXHR({
+            type: "GET",
+            url: this.state.url + "/system?pageUrl=" + encodeURIComponent(window.location.href),
+            success: function (data) {
+                switch (data.errcode) {
+                    case 0:
+                        console.log(data);
+                        wx.config({
+                            debug: false,
+                            appId: data.data.appId,
+                            timestamp: data.data.timestamp,
+                            nonceStr: data.data.nonceStr,
+                            signature: data.data.signature,
+                            jsApiList: [
+                                'scanQRCode'
+                            ]
+                        });
+                        wx.error(function () {
+                            hashHistory.push('/login');
+                        });
+                        break;
+                    case 44001:
+                        hashHistory.push('/login');
+                        break;
+                    default:
+                        break;
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.status + xhr.statusText);
+                hashHistory.push('/login');
+            }
+        });
+    },
     handleClick: function () {
         var IMEI = this.refs.IMEI.value.trim(),
             nick = this.refs.nick.value.trim(),
             username = Cookie("username"),
             ticket = Cookie("ticket"),
             that = this,
-            flag = /[0-9]/;
-        //到时这里需要输入判断格式问题
+            flag = /[0-9]/;        //到时这里需要输入判断格式问题
 
         if (!(IMEI || nick || flag.test(IMEI))) {
 
@@ -78,6 +112,18 @@ var DeviceAdd = React.createClass({
             }
         });
     },
+    handleCode:function () {
+        var that  = this;
+        console.log('code');
+        wx.scanQRCode({
+            needResult: 1,
+            scanType: ["qrCode","barCode"],
+            success: function (res) {
+                that.refs.IMEI.value = res.resultStr;
+            }
+        });
+
+    },
     render: function () {
         return (
             <div className="page deviceAddPage">
@@ -90,6 +136,9 @@ var DeviceAdd = React.createClass({
                             <div className="weui_cell_bd weui_cell_primary">
                                 <input className="weui_input" type="number" pattern="[0-9]*" placeholder="输入IMEI号" ref="IMEI"/>
                             </div>
+                            <div className="weui_cell_ft">
+                                <img src="../app/src/image/code.png" onClick={this.handleCode}/>
+                            </div>
                         </div>
                         <div className="weui_cell" style={{borderRadius:"5px",border:"1px solid #04be02",padding:"20px",marginTop:"10px"}}>
                             <div className="weui_cell_hd">
@@ -101,7 +150,7 @@ var DeviceAdd = React.createClass({
                         </div>
                         <div className="weui_btn_area">
                             <a className="weui_btn weui_btn_primary" href="javascript:void(0);" onClick={this.handleClick}>
-                                确定
+                                添加
                             </a>
                         </div>
                     </div>

@@ -1,6 +1,8 @@
 
 import React from 'react';
+import {hashHistory} from 'react-router';
 import ToastLoad from './ToastLoad';
+import ToastError from './ToastError';
 import CreateXHR from './xhr';
 import Cookie from './cookie';
 import RongYun from './RongYun';
@@ -10,9 +12,10 @@ import '../styles/locate.css';
 
 var Locate = React.createClass({
 
-    getInitialState: function () {
+    getInitialState: function () {             //初始化参数
         return {
             id: 'container',
+            url:'http://api.smartlocate.cn/v1/',
             map: null,
             data: {
                 nick: '',
@@ -25,18 +28,16 @@ var Locate = React.createClass({
         };
     },
 
-
-    componentWillMount: function () {
-        var IMEI = Cookie("IMEI"),
+    componentWillMount: function () {                //组件render之前请求设备的数据
+        var that = this,
+            IMEI = Cookie("IMEI"),
             username = Cookie("username"),
-            ticket = Cookie("ticket"),
-            that = this;
+            ticket = Cookie("ticket");
 
         CreateXHR({
-            url: "http://api.smartlocate.cn/v1/device/" + IMEI + "?username=" + username + "&ticket=" + ticket,
+            url: that.state.url + 'device/' + IMEI + "?username=" + username + "&ticket=" + ticket,
             type: "get",
             success: function (data) {
-
                 switch (data.errcode) {
                     case 0:
                         console.log(data);
@@ -44,8 +45,6 @@ var Locate = React.createClass({
                             location = {
                                 nick: data.data.nick,
                                 electricity: data.data.electricity,
-                                //style: "GPS/LBS",
-                                //time: '2016-08-03 10:02:05',
                                 time: locationData.created_at,
                                 style: locationData.type,
                                 position: locationData.location.split(","),
@@ -58,48 +57,27 @@ var Locate = React.createClass({
                     case 20004:
                         break;
                     case 44001:
-                        console.log("is error");
-                        window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
+                        hashHistory.push('/login');
                         break;
                     default:
                         break;
                 }
             },
-
-            complete: function () {
+            complete: function () {            //在成功得到数据后渲染地图
                 that.myLocation();
-                CreateXHR({                         //get rongCloudAppKey and rongCloudToken
-                    url: "http://api.smartlocate.cn/v1/user/" + username + "?ticket=" + ticket,
-                    type: "get",
-                    success: function (data) {
-                        switch (data.errcode) {
-                            case 0:
-                                Cookie("appKey", data.data.rongCloudAppKey);
-                                Cookie("token", data.data.rongCloudToken);
-                                break;
-                            case 44001:
-                                console.log("is error");
-                                window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
-                                break;
-                            default:
-                                break;
-                        }
-                    },
-                    error: function (status, err) {
-                        console.error(status, err.toString());
-                    }
-                });
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
+            error: function () {
+                that.refs.toastError.show();
+                window.setTimeout(function () {
+                    that.refs.toastError.hide();
+                },500);
             }
         });
         RongYun(that.handleData);
     },
 
-    myLocation: function () {
+    myLocation: function () {   //渲染地图
         var that = this;
-        this.setState({id: 'container'});
         var map = new AMap.Map(that.state.id, {    // create map
             zoom: 17,
             center: that.state.data.position
@@ -115,12 +93,9 @@ var Locate = React.createClass({
         });
         that.setState({map: map});
         map.on("complete", this.completeEventHandler);
-
-
-
     },
 
-    completeEventHandler: function () {
+    completeEventHandler: function () {        //初始化地图后添加地图插件
         var marker, circle, map = this.state.map,
             content = '<div class="locate_img"><i class="iconfont">&#xe609;</i></div>'; //set icon
         marker = new AMap.Marker({                        //set marker
@@ -155,13 +130,9 @@ var Locate = React.createClass({
         infoWindow.open(map, this.state.data.position);
     },
 
-    handleData: function (message) {
-
-        console.log("handle data");
+    handleData: function (message) {             //融云得到数据后处理
         this.refs.toastLoad.hide();
         if (message.content.content === "LocationUpdated") {
-            console.log(message);
-
             var objData = {
                 nick: message.content.extra.nick,
                 style: message.content.extra.locationType,
@@ -174,23 +145,21 @@ var Locate = React.createClass({
         }
         this.myLocation();
     },
-    handleIphone: function () {    //handle click iphone
-
-
-    },
     touchStart:function () {
       this.refs.locateImg.style.opacity = '0.5';
     },
-    touchEnd: function () {                   //click baby btn to update map
+    touchEnd: function () {              //实时请求定位数据     //click baby btn to update map
 
-        var username = Cookie("username"),
+        var that = this,
+            username = Cookie("username"),
             ticket = Cookie("ticket"),
-            IMEI = Cookie("IMEI"),
-            that = this;
-        this.refs.locateImg.style.opacity = '1';
+            IMEI = Cookie("IMEI");
+
+        that.refs.locateImg.style.opacity = '1';
         that.refs.toastLoad.show();
+
         CreateXHR({
-            url: "http://api.smartlocate.cn/v1/device/"+IMEI+"/action/location",
+            url: that.state.url + 'device/' + IMEI + "/action/location",
             type: "post",
             data:{
                 username:username,
@@ -201,14 +170,17 @@ var Locate = React.createClass({
                     case 0:
                         break;
                     case 44001:
-                        window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
+                        hashHistory.push('/login');
                         break;
                     default:
                         break;
                 }
             },
-            error: function (status, err) {
-                console.error(status, err.toString());
+            error: function () {
+                that.refs.toastError.show();
+                window.setTimeout(function () {
+                    that.refs.toastError.hide();
+                },500);
             }
         });
     },
@@ -219,10 +191,9 @@ var Locate = React.createClass({
                     <div id={this.state.id}></div>
                     <img className="locateImg" ref="locateImg" src="../app/src/image/locate.png"
                          onTouchStart={this.touchStart} onTouchEnd={this.touchEnd}/>
-                    {/*<a href="javascript:" className="image weui_btn weui_btn_mini weui_btn_warn"*/}
-                       {/*onClick={this.handleBaby}>baby</a>*/}
                 </div>
                 <ToastLoad ref="toastLoad" content="数据加载中"/>
+                <ToastError ref="toastError" toast="网络错误"/>
             </div>
         )
     }

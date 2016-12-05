@@ -119,7 +119,9 @@ var MyHome = React.createClass({
         that.setState({dialogTitle: '设置昵称'});
         that.setState({dialogNode: child});
         dialog.show(function () {
-            var str = document.getElementsByClassName("nick")[0].value.trim();
+            console.log(that.refs.nick);
+            console.log(document.getElementsByClassName('nick')[1]);
+            var str = document.getElementsByClassName("nick")[1].value.trim();
             console.log(str);
 
             CreateXHR({

@@ -13,6 +13,7 @@ import '../styles/locus.css';
 var Locus = React.createClass({
     getInitialState: function () {
         return ({
+            url:'http://api.smartlocate.cn/v1/',
             toast:"没有定位数据",
             id: 'container',        //地图的id
             map: null,
@@ -24,43 +25,51 @@ var Locus = React.createClass({
     },
     componentWillMount: function () {             //加载组件之前获取数据
 
-            var IMEI = Cookie("IMEI"),
+            var that = this,
+                IMEI = Cookie("IMEI"),
                 username = Cookie("username"),
-                ticket = Cookie("ticket"),
-                that = this;
+                ticket = Cookie("ticket");
+
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + IMEI + "?username=" + username + "&ticket=" + ticket,
+                url: that.state.url + "device/" + IMEI + "?username=" + username + "&ticket=" + ticket,
                 type: "get",
                 success: function (data) {
                     switch (data.errcode) {
                         case 0:
-                            console.log(data);
                             var locationData = JSON.parse(data.data.location),
                                 position = locationData.location.split(",");
                             that.setState({position: position});
-                            console.log(that.state.position);
                             break;
                         case 20003:
                             break;
                         case 20004:
                             break;
                         case 44001:
-                            window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
+                            hashHistory.push('/login');
                             break;
                         default:
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.log(xhr.status + xhr.statusText);
+                error: function () {
+                    that.setState({toast:'网络错误'});
+                    that.refs.toastError.show();
+                    window.setTimeout(function () {
+                        that.refs.toastError.hide();
+                    },500);
+                },
+                complete:function () {
+                    that.location();
                 }
             });
     },
 
-    componentDidMount: function () {
-        var map = new AMap.Map(this.state.id, {    // create map
-            zoom: 15,
-            center: this.state.position
+    location: function () {
+
+        var that = this;
+        var map = new AMap.Map(that.state.id, {    // create map
+            zoom: 17,
+            center: that.state.position
         });
         map.plugin(["AMap.ToolBar", "AMap.Scale"], function () {   //loading toolbar scale
             var tool = new AMap.ToolBar({
@@ -73,13 +82,14 @@ var Locus = React.createClass({
             map.addControl(tool);
             map.addControl(scale);
         });
-        this.setState({map: map});
-        map.on('complete', this.completeEventHandler);   //地图加载完成事件
+        that.setState({map: map});
+        map.on('complete', that.completeEventHandler);   //地图加载完成事件
     },
     completeEventHandler: function () {
-        var map = this.state.map;
+        var that = this;
+        var map = that.state.map;
         var marker = new AMap.Marker({
-            position: this.state.position,
+            position: that.state.position,
             map: map
         })
 
@@ -123,7 +133,7 @@ var Locus = React.createClass({
     },
 
 
-    displayRail: function (data) {         //轨迹回放
+    displayRail: function (data) {                    //轨迹回放
         var marker, polyLine, map = this.state.map,lineArray = [];
             // lineArray = [                 //建立路线数组
             //     [113.931429, 22.529885],
@@ -175,31 +185,36 @@ var Locus = React.createClass({
             username = Cookie("username"),
             ticket = Cookie("ticket"),
             IMEI = Cookie("IMEI");
+
         CreateXHR({
-            url: "http://api.smartlocate.cn/v1/device/"+IMEI+"/locationRecord?username="+username+"&ticket="+ticket+"&startAt="+startAt+"&endAt="+endAt,
+            url: that.state.url + 'device/' + IMEI + "/locationRecord?username="+username+"&ticket="+ticket+"&startAt="+startAt+"&endAt="+endAt,
             type: "get",
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
-                        console.log(data);
                         if (!data.data){
+                            that.setState({toast:'没有定位数据'});
                             that.refs.toastError.show();
                             window.setTimeout(function () {
                                 that.refs.toastError.hide();
-                            },2000);
+                            },1000);
                         }else{
                             func(data.data);
                         }
                         break;
                     case 44001:
-                        window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
+                        hashHistory.push('/login');
                         break;
                     default:
                         break;
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
+            error: function () {
+                that.setState({toast:'网络错误'});
+                that.refs.toastError.show();
+                window.setTimeout(function () {
+                    that.refs.toastError.hide();
+                },500);
             }
         });
     },
@@ -223,8 +238,6 @@ var Locus = React.createClass({
         }
         var startAt = myYear+'-'+myMonth+'-'+myDate+' '+myHour+':'+myMinute+":0",
             func = this.displayMap;
-
-        console.log(startAt,endAt);
         this.handleAjax(startAt,func,endAt);
     },
     handleHour: function () {            //一小时轨迹
@@ -328,7 +341,7 @@ var Locus = React.createClass({
                     </div>
                     <div id={this.state.id}></div>
                 </div>
-                <ToastError ref="toastError" toast ={this.state.toast}/>
+                <ToastError ref="toastError" toast={this.state.toast}/>
             </div>
         )
     }

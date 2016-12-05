@@ -13,13 +13,14 @@ import '../styles/rail.css';
 var Rail = React.createClass({
     getInitialState: function () {   //  init variable
         return {
+            url:'http://api.smartlocate.cn/v1/',
             id: 'container',
-            position: null,
-            flag: 0,
-            radius: 800,
             map: null,
-            toastError: null,
-            toastSuccess: null,
+            toastError: '',
+            toastSuccess: '',
+            flag: 0,
+            location: null,
+            radius: 800,
             geoFencingData: null
         }
 
@@ -30,34 +31,42 @@ var Rail = React.createClass({
             ticket = Cookie("ticket"),
             IMEI = Cookie("IMEI");
         CreateXHR({
-            url: "http://api.smartlocate.cn/v1/device/" + IMEI + "?username=" + username + "&ticket=" + ticket,
+            url: that.state.url + "device/" + IMEI + "?username=" + username + "&ticket=" + ticket,
             type: "get",
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
                         var locationData = JSON.parse(data.data.location),
                             location = locationData.location.split(",");
-                        console.log(location);
-                        that.setState({radius: Number(locationData.radius), location: location});
-
-                        that.setState({geoFencingData: data.data.geoFencingData});
+                        that.setState({
+                            radius: Number(locationData.radius),
+                            location: location,
+                            geoFencingData: data.data.geoFencingData
+                        });
                         break;
                     case 44001:
-                        window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
+                        hashHistory.push('./login');
                         break;
                     default:
                         break;
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
+            error: function () {
+                that.setState({toastError:'网络错误'});
+                that.refs.errorToast.show();
+                window.setTimeout(function () {
+                    that.refs.errorToast.hide();
+                },500);
+            },
+            complete:function () {
+                that.location();
             }
         });
     },
-    componentDidMount: function () {     //loading component
+    location: function () {               //loading component
         var map = new AMap.Map(this.state.id, {   //loading map
             zoom: 16,
-            center: this.state.position,
+            center: this.state.location,
             resizeEnable: true
         });
         map.plugin(["AMap.ToolBar", "AMap.Scale"], function () {   //loading toolbar scale
@@ -68,7 +77,7 @@ var Rail = React.createClass({
             map.addControl(tool);
             map.addControl(scale);
         });
-        this.setState({map: map});   //set map
+        this.setState({map: map});              //set map
         map.on("complete", this.completeEventHandler);  // map complete to trigger event
 
     },
@@ -76,7 +85,7 @@ var Rail = React.createClass({
         var clickListener, position = {}, marker, circle,
             flag = 0, radius = this.state.radius, map = this.state.map;
         var btn = document.getElementsByClassName("btn");   //get btn dom is nodeList
-        var that = this;  //将外部的this 赋值给一个函数内变量使用
+        var that = this;
         AMap.event.addListener(map, 'click', function (e) {  //地图监听事件
             position = {
                 lng: e.lnglat.getLng(),  //get click position
@@ -158,7 +167,6 @@ var Rail = React.createClass({
                                 }, 2000);
 
                             } else {
-
                                 that.handleSubmitBtn();
                             }
                         }
@@ -227,7 +235,6 @@ var Rail = React.createClass({
             setTimeout(function () {
                 that.refs.errorToast.hide();
             }, 2000);
-            console.log('error');
         }
     },
     handleAddBtn: function (e, eMap) {   //增加圆半径函数
@@ -246,7 +253,6 @@ var Rail = React.createClass({
             setTimeout(function () {
                 that.refs.errorToast.hide();
             }, 2000);
-            console.log('error');
         }
     },
     handleSubmitBtn: function (eId, ePosition, eRadius) {  //提交数据函数
@@ -262,7 +268,7 @@ var Rail = React.createClass({
         };
 
         CreateXHR({
-            url: "http://api.smartlocate.cn/v1/device/" + IMEI,
+            url: that.state.url + "device/" + IMEI,
             type: "put",
             data: data,
             success: function (data) {
@@ -275,7 +281,7 @@ var Rail = React.createClass({
                         }, 2000);
                         break;
                     case 44001:
-                        window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
+                        hashHistory.push('/login');
                         break;
                     default:
                         that.setState({toastError: "提交失败"});
@@ -286,12 +292,16 @@ var Rail = React.createClass({
                         break;
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
+            error: function () {
+                that.setState({toastError:'网络错误'});
+                that.refs.errorToast.show();
+                window.setTimeout(function () {
+                    that.refs.errorToast.hide();
+                },500);
             }
         });
     },
-    handleDeleteBtn: function (eId) {   //删除数据函数
+    handleDeleteBtn: function () {   //删除数据函数
         var that = this,
             username = Cookie("username"),
             ticket = Cookie("ticket"),
@@ -306,7 +316,7 @@ var Rail = React.createClass({
 
 
         CreateXHR({
-            url: "http://api.smartlocate.cn/v1/device/" + IMEI,
+            url: that.state.url + "device/" + IMEI,
             type: "put",
             data: data,
             success: function (data) {
@@ -319,7 +329,7 @@ var Rail = React.createClass({
                         }, 2000);
                         break;
                     case 44001:
-                        window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
+                        hashHistory.push('/login');
                         break;
                     default:
                         that.setState({toastError: "删除失败"});
@@ -330,8 +340,12 @@ var Rail = React.createClass({
                         break;
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
+            error: function () {
+                that.setState({toastError:'网络错误'});
+                that.refs.errorToast.show();
+                window.setTimeout(function () {
+                    that.refs.errorToast.hide();
+                },500);
             }
         });
     },
@@ -342,7 +356,7 @@ var Rail = React.createClass({
             IMEI = Cookie("IMEI");
         if (e) {
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + IMEI,
+                url: that.state.url + "device/" + IMEI,
                 type: "put",
                 data: {
                     username: username,
@@ -359,7 +373,7 @@ var Rail = React.createClass({
                             }, 2000);
                             break;
                         case 44001:
-                            window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
+                            hashHistory.push('/login');
                             break;
                         default:
                             that.setState({toastError: "监控失败"});
@@ -370,8 +384,12 @@ var Rail = React.createClass({
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.log(xhr.status + xhr.statusText);
+                error: function () {
+                    that.setState({toastError:'网络错误'});
+                    that.refs.errorToast.show();
+                    window.setTimeout(function () {
+                        that.refs.errorToast.hide();
+                    },500);
                 }
             });
         } else {
@@ -389,7 +407,7 @@ var Rail = React.createClass({
             IMEI = Cookie("IMEI");
         if (e) {
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + IMEI,
+                url: that.state.url + "device/" + IMEI,
                 type: "put",
                 data: {
                     username: username,
@@ -406,7 +424,7 @@ var Rail = React.createClass({
                             }, 2000);
                             break;
                         case 44001:
-                            window.location.href = 'http://app.smartlocate.cn/build/build.html#/login';
+                            hashHistory.push('/login');
                             break;
                         default:
                             that.setState({toastError: "取消失败"});
@@ -417,8 +435,12 @@ var Rail = React.createClass({
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.log(xhr.status + xhr.statusText);
+                error: function () {
+                    that.setState({toastError: "请设置围栏中心"});
+                    that.refs.errorToast.show();
+                    setTimeout(function () {
+                        that.refs.errorToast.hide();
+                    }, 2000);
                 }
             });
         } else {
@@ -427,7 +449,6 @@ var Rail = React.createClass({
             setTimeout(function () {
                 that.refs.errorToast.hide();
             }, 2000);
-            console.log('error');
         }
     },
     render: function () {

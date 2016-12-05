@@ -244,7 +244,9 @@ var Chat = React.createClass({
                         switch (data.errcode) {
                             case 0:
                                 console.log(data);
-                                var Obj = new Date(), hour = Obj.getHours(), minute = Obj.getMinutes(),
+                                var Obj = new Date(),
+                                    hour = Obj.getHours() < 10 ? '0' + Obj.getHours() : Obj.getHours(),
+                                    minute = Obj.getMinutes() < 10 ? '0' + Obj.getMinutes() : Obj.getMinutes(),
                                     date = hour + ':' + minute;
                                 var ele = function () {
                                     return (
@@ -304,8 +306,8 @@ var Chat = React.createClass({
             ticket = Cookie("ticket");
         var val = that.refs.content.value;
         that.refs.content.value = '';
-        var Obj = new Date(), hour = Obj.getHours() < 10 ? '0'+Obj.getHours():Obj.getHours() ,
-            minute = Obj.getMinutes()<10 ? '0' + Obj.getMinutes():Obj.getMinutes(),
+        var Obj = new Date(), hour = Obj.getHours() < 10 ? '0' + Obj.getHours() : Obj.getHours(),
+            minute = Obj.getMinutes() < 10 ? '0' + Obj.getMinutes() : Obj.getMinutes(),
             date = hour + ':' + minute;
         var ele = function () {
             return (
@@ -355,7 +357,6 @@ var Chat = React.createClass({
 
     touchStart: function (e) {
 
-
         console.log(e);
         e.preventDefault();
         console.log(e.touches);
@@ -367,13 +368,21 @@ var Chat = React.createClass({
         wx.startRecord();
         this.refs.toastLoad.show();
         var time = new Date().getTime();
-        this.setState({startTime: time,num:e.touches[0].pageY});
+        this.setState({startTime: time, num: e.touches[0].pageY});
+        window.setTimeout(function () {
+            that.refs.toastLoad.hide();
+            wx.stopRecord({
+                success: function (res) {
+                    console.log(res);           //返回本地ID res.localId
+                    that.chatRecord(res);
+                },
+                fail: function (res) {
+                    console.log('fail' + res);
+                }
+            });
+        }, 15500);
 
-        wx.onVoiceRecordEnd({                     // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-            complete: function (res) {
-                that.chatRecord(res);
-            }
-        });
+
     },
     touchMove: function (e) {
         console.log(e.changedTouches);
@@ -381,13 +390,16 @@ var Chat = React.createClass({
         console.log('move');
 
         this.setState({num: this.state.num + 1});
-        if ((this.state.num-e.changedTouches[0].pageY) > 20) {
+        if ((this.state.num - e.changedTouches[0].pageY) > 20) {
             this.setState({content: "松开手指,取消发送", flag: false});
         }
 
     },
     touchCancel: function () {
         console.log('cancel');
+    },
+    onFocus: function () {
+        console.log('is focus');
     },
     touchEnd: function (e) {
         e.preventDefault();
@@ -407,10 +419,18 @@ var Chat = React.createClass({
             that.refs.toastError.show();
             window.setTimeout(function () {
                 that.refs.toastError.hide();
-            }, 500)
+            }, 500);
+            wx.stopRecord({
+                success: function (res) {
+                    console.log(res);
+                },
+                fail: function () {
+
+                }
+            });
         } else {
 
-            this.refs.toastLoad.hide();
+            that.refs.toastLoad.hide();
             console.log(this.state.flag);
             wx.stopRecord({
                 success: function (res) {
@@ -469,10 +489,10 @@ var Chat = React.createClass({
             if (eleArr[i].tagName === 'I') {
                 arr.push(eleArr[i]);
             }
-            if(eleArr[i].tagName === 'LI'){
+            if (eleArr[i].tagName === 'LI') {
                 var node = eleArr[i].children;
                 console.log(node);
-                for(var j=0 ;j<node.length; j++){
+                for (var j = 0; j < node.length; j++) {
                     arr.push(node[j]);
                 }
             }
@@ -486,32 +506,27 @@ var Chat = React.createClass({
                         arr[index + 2].style.display = 'none';
                         arr[index].style.display = 'block';
                         arr[index + 1].style.display = 'none';
-                    },(index+1)*500);
+                    }, (index + 1) * 500);
 
                 } else if (index === 1) {
                     window.setTimeout(function () {
                         arr[index - 1].style.display = 'none';
                         arr[index].style.display = 'block';
                         arr[index + 1].style.display = 'none';
-                    },(index+1)*500);
+                    }, (index + 1) * 500);
                 } else {
                     window.setTimeout(function () {
                         arr[index - 2].style.display = 'none';
                         arr[index - 1].style.display = 'none';
                         arr[index].style.display = 'block';
-                    },(index+1)*500);
+                    }, (index + 1) * 500);
                 }
             })(j);
         }
 
     },
     shouldComponentUpdate: function (nextState) {
-
-        if (this.state.message !== nextState.message) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.state.message !== nextState.message;
     },
     render: function () {
         return (
@@ -523,10 +538,10 @@ var Chat = React.createClass({
                     <div className="btn" ref="btn">
                         <ul>
                             <li className="icon">
-                                <img src='../app/src/image//record.png' onClick={this.toggleText}/>
+                                <img src='../app/src/image/record.png' onClick={this.toggleText}/>
                             </li>
                             <li ref="record" className="record" onTouchStart={this.touchStart}
-                                onTouchMove={this.touchMove}
+                                onTouchMove={this.touchMove} onSelect={this.onFocus}
                                 onTouchCancel={this.touchCancel} onTouchEnd={this.touchEnd}>
                                 按住 录音
                             </li>
