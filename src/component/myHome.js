@@ -31,7 +31,7 @@ var MyHome = React.createClass({
             ticket = Cookie("ticket"),
             IMEI = Cookie("IMEI");
         if (!(username && ticket)) {
-            var url = encodeURIComponent("http://app.smartlocate.cn/build/build.html#/login");
+            var url = encodeURIComponent("http://app.smartlocate.cn/build/test.html#/login");
             window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?" +
                 "redirectUri=" + url;
         } else {

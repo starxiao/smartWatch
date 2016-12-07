@@ -56,7 +56,6 @@ ReactDOM.render((
             <Route path="userUpdated" component={UserUpdated}/>
             <Route path="device" component={Device}/>
             <Route path="phone" component={Phone}/>
-            <Route path="myhome" component={MyHome}/>
             <Route path="chat" component={Chat}/>
 
 
