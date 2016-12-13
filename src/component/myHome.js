@@ -19,13 +19,15 @@ var MyHome = React.createClass({
             nick: '点击设置用户昵称',
             IMEI: '',
             phone: '请先登录',
-            electricity: 0,
+            electricity: 100,
             date: '2016-01-01',
+            type:'LBS',
             dialogNode: null,
             dialogTitle: null
         }
     },
     componentWillMount: function () {
+        console.log('this is home ');
         var that = this,
             username = Cookie("username"),
             ticket = Cookie("ticket"),
@@ -72,7 +74,12 @@ var MyHome = React.createClass({
                                 that.setState({IMEI: '你暂时没有绑定设备'});
                                 hashHistory.push("/deviceAdd");
                             } else {
-                                that.setState({IMEI: data.data[0].IMEI});
+                                var locationData = JSON.parse(data.data[0].location);
+                                that.setState({
+                                    IMEI: data.data[0].IMEI,
+                                    date:locationData.created_at,
+                                    type:locationData.type,
+                                });
                                 Cookie("IMEI", data.data[0].IMEI);
                             }
                             break;
@@ -282,7 +289,7 @@ var MyHome = React.createClass({
                             <strong style={{color:"#DA3F57"}}> (电量 {this.state.electricity})</strong>
                         </p>
                         <p>绑定设备的手机号: <strong style={{color:"#DAA520"}}>{this.state.phone}</strong></p>
-                        <p>{nowTime}<strong style={{color:"#16FF36"}}> 综合定位 </strong></p>
+                        <p>{this.state.date}<strong style={{color:"#E24DDB"}}>  定位类型: {this.state.type} </strong></p>
                     </div>
                 </div>
                 <div className="content">
@@ -354,13 +361,13 @@ var MyHome = React.createClass({
                 <div className="footer">
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
-                            <a href="test.html#/setting">
-                                <i className="iconfont">&#xe6f4;</i>设备
+                            <a href="#">
+                                <i className="iconfont">&#xe6f4;</i>主页
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
-                            <a href="#">
-                                <i className="iconfont">&#x3478;</i>主页
+                            <a href="test.html#/setting">
+                                <i className="iconfont">&#x3478;</i>设备
                             </a>
                         </li>
                     </ul>
