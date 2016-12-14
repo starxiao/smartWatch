@@ -79,7 +79,7 @@ var UserUpdated = React.createClass({
                         }, 2000);
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         that.setState({toastError: "修改失败"});

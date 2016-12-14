@@ -75,7 +75,7 @@ var Device = React.createClass({
                         that.setState({data: objData});
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -155,7 +155,7 @@ var Device = React.createClass({
                             that.setState({data:objData});
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -215,7 +215,7 @@ var Device = React.createClass({
                             that.setState({data:objData});*/
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -302,7 +302,7 @@ var Device = React.createClass({
                             that.setState({data:objData});
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -391,7 +391,7 @@ var Device = React.createClass({
                             that.setState({data:objData});
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -413,7 +413,7 @@ var Device = React.createClass({
                         </div>
                         <div className="weui_cell_ft">
                             <input type="radio" className="workModel weui_check" name="radio1" id="x11" value="1"/>
-                            <span className="weui_icon_checked"></span>
+                            <span className="weui_icon_checked"/>
                         </div>
                     </label>
                     <label className="weui_cell weui_check_label">
@@ -422,7 +422,7 @@ var Device = React.createClass({
                         </div>
                         <div className="weui_cell_ft">
                             <input type="radio" className="workModel weui_check" name="radio1" id="x10" value="0"/>
-                            <span className="weui_icon_checked"></span>
+                            <span className="weui_icon_checked"/>
                         </div>
                     </label>
                     <label className="weui_cell weui_check_label">
@@ -431,7 +431,7 @@ var Device = React.createClass({
                         </div>
                         <div className="weui_cell_ft">
                             <input type="radio" className="workModel weui_check" name="radio1" id="x11" value="1"/>
-                            <span className="weui_icon_checked"></span>
+                            <span className="weui_icon_checked"/>
                         </div>
                     </label>
                 </div>,
@@ -479,7 +479,7 @@ var Device = React.createClass({
                             that.setState({data:objData});
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -545,7 +545,7 @@ var Device = React.createClass({
                             that.setState({data:objData});
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -661,7 +661,7 @@ var Device = React.createClass({
                             that.setState({data:objData});
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -700,7 +700,7 @@ var Device = React.createClass({
                             }, 2000);
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -741,7 +741,7 @@ var Device = React.createClass({
                             }, 2000);
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -781,7 +781,7 @@ var Device = React.createClass({
                             }, 2000);
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -798,14 +798,14 @@ var Device = React.createClass({
         return (
             <div className="devicePage page">
                 <div className="weui_cells weui_cells_access" style={{fontSize:"1rem"}}>
-                    <a className="weui_cell" href="javascript:" onClick={this.handleNick}>
+                    <a className="weui_cell" href="javascript:void(0);" onClick={this.handleNick}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-nickname" style={{
                                 color: "#FF70FA",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe619;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>修改昵称</p>
@@ -813,71 +813,56 @@ var Device = React.createClass({
                         <div className="weui_cell_ft"><strong
                             style={{color: "#000"}}>{this.state.data.nick}</strong></div>
                     </a>
-                    <a className="weui_cell" href="javascript:" onClick={this.handleControl}>
+                    <a className="weui_cell" href="javascript:void(0);" onClick={this.handleSOS}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
-                                color: "#E21363",
-                                width: "20px",
-                                marginRight: "10px",
-                                marginTop: "3px"
-                            }}>&#xe687;</i>
-                        </div>
-                        <div className="weui_cell_bd weui_cell_primary">
-                            <p>监控号码</p>
-                        </div>
-                        <div className="weui_cell_ft"><strong
-                            style={{color: "#000"}}>{this.state.data.telephone}</strong></div>
-                    </a>
-                    <a className="weui_cell" href="javascript:" onClick={this.handleSOS}>
-                        <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-sos" style={{
                                 color: "#E21F22",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe632;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>SOS号码</p>
                         </div>
                         <div className="weui_cell_ft"></div>
                     </a>
-                    <a className="weui_cell" href="javascript:" onClick={this.handleFamily}>
+                    <a className="weui_cell" href="javascript:void(0);" onClick={this.handleFamily}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-dianhua1" style={{
                                 color: "#E21F22",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe632;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>亲情号码</p>
                         </div>
                         <div className="weui_cell_ft"></div>
                     </a>
-                    <a className="weui_cell" href="build.html#/phone">
+                    <a className="weui_cell" href="test.html#/user/phone">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-dianhuaben" style={{
                                 color: "#9A59E2",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe67a;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>电话本</p>
                         </div>
                         <div className="weui_cell_ft"></div>
                     </a>
-                    <a className="weui_cell" href="javascript:" onClick={this.handleModel}>
+                    <a className="weui_cell" href="javascript:void(0);" onClick={this.handleModel}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-shujuguanlisvg93" style={{
                                 color: "#26FFC7",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe61a;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>工作模式</p>
@@ -885,14 +870,14 @@ var Device = React.createClass({
                         <div className="weui_cell_ft"><strong
                             style={{color: "#000"}}>{this.state.data.workModel}</strong></div>
                     </a>
-                    <a className="weui_cell" href="javascript:" onClick={this.handleVolume}>
+                    <a className="weui_cell" href="javascript:void(0);" onClick={this.handleVolume}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-6" style={{
                                 color: "#D7E2AA",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe611;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>设置音量</p>
@@ -900,56 +885,56 @@ var Device = React.createClass({
                         <div className="weui_cell_ft"><strong style={{color: "#000"}}>{this.state.data.volume}</strong>
                         </div>
                     </a>
-                    <a className="weui_cell" href="javascript:" onClick={this.handleTime}>
+                    <a className="weui_cell" href="javascript:void(0);" onClick={this.handleTime}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-miandarao1" style={{
                                 color: "#28A8E2",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe9ed;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>免打扰时段</p>
                         </div>
                         <div className="weui_cell_ft"></div>
                     </a>
-                    <a className="weui_cell" href="javascript:" onClick={this.forbiddenFlag}>
+                    <a className="weui_cell" href="javascript:void(0);" onClick={this.forbiddenFlag}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-miandarao" style={{
                                 color: "#476AE2",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe657;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>关闭免打扰</p>
                         </div>
                         <div className="weui_cell_ft"></div>
                     </a>
-                    <a className="weui_cell" href="javascript:" onClick={this.shutDown}>
+                    <a className="weui_cell" href="javascript:void(0);" onClick={this.shutDown}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-guanji-copy" style={{
                                 color: "#E21363",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe6e4;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>远程关机</p>
                         </div>
                         <div className="weui_cell_ft"></div>
                     </a>
-                    <a className="weui_cell" href="javascript:" onClick={this.handleReset}>
+                    <a className="weui_cell" href="javascript:void(0);" onClick={this.handleReset}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-fanhui2-copy" style={{
                                 color: "#26E22B",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe602;</i>
+                            }}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>恢复默认模式</p>

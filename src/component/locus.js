@@ -45,7 +45,7 @@ var Locus = React.createClass({
                         case 20004:
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -203,7 +203,7 @@ var Locus = React.createClass({
                         }
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -329,13 +329,13 @@ var Locus = React.createClass({
                 <div className="bd">
                     <div id="time" className="time">
                         <div className="today">
-                            <a href="javascript:" onClick={this.handleToday}>今天<br/>{this.state.today}</a>
+                            <a href="javascript:void(0);" onClick={this.handleToday}>今天<br/>{this.state.today}</a>
                         </div>
                         <div className="yesterday">
-                            <a href="javascript:" onClick={this.handleYesterday}>昨天<br/>{this.state.yesterday}</a>
+                            <a href="javascript:void(0);" onClick={this.handleYesterday}>昨天<br/>{this.state.yesterday}</a>
                         </div>
                         <div className="bYesterday">
-                            <a href="javascript:" onClick={this.handleBYesterday}>前天<br/>{this.state.bYesterday}
+                            <a href="javascript:void(0);" onClick={this.handleBYesterday}>前天<br/>{this.state.bYesterday}
                             </a>
                         </div>
                     </div>

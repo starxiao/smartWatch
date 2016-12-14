@@ -116,8 +116,8 @@ var DialogConfirm = React.createClass({
                         {this.props.node}
                     </div>
                     <div className="weui_dialog_ft">
-                        <a href="javascript:" className="weui_btn_dialog default">取消</a>
-                        <a href="javascript:" className="weui_btn_dialog primary">确定</a>
+                        <a href="javascript:void(0);" className="weui_btn_dialog default">取消</a>
+                        <a href="javascript:void(0);" className="weui_btn_dialog primary">确定</a>
                     </div>
                 </div>
                 <ToastSuccess ref="ToastOk" toast="更改成功"/>

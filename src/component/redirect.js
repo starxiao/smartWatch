@@ -23,7 +23,7 @@ var Redirect = React.createClass({
         } else {
             var code = RegexpUrl(url, 'code');
             Cookie('code', code);
-            window.location.href = "http://app.smartlocate.cn/build/test.html#/login";
+            window.location.href = "http://app.smartlocate.cn/build/test.html#/user/login";
         }
         return null;
     }

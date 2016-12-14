@@ -69,7 +69,7 @@ var Alarm = React.createClass({
                         break;
                     case 44001:
                         console.log("is error");
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -241,7 +241,7 @@ var Alarm = React.createClass({
                                 }, 2000);
                                 break;
                             case 44001:
-                                hashHistory.push('/login');
+                                hashHistory.push('/user/login');
                                 break;
                             default:
                                 break;
@@ -261,12 +261,12 @@ var Alarm = React.createClass({
                 <div className="weui_cells">
                     <div className="weui_cell weui_cell_switch">
                         <div className="weui_cell_hd" style={{fontSize: "0.8rem"}}>
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-paidui" style={{
                                 color: "#FF70FA",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe619;</i>
+                            }}/>
                         </div>
                         <div className="alarm weui_cell_bd weui_cell_primary">
                             <p>闹铃1</p>
@@ -295,7 +295,7 @@ var Alarm = React.createClass({
                                 <div className="weui_cell_ft">
                                     <input type="radio" className="workModel weui_check" name="radio1" id="x11"
                                            value="1"/>
-                                    <span className="weui_icon_checked"></span>
+                                    <span className="weui_icon_checked"/>
                                 </div>
                             </label>
                             <label className="weui_cell weui_check_label">
@@ -305,7 +305,7 @@ var Alarm = React.createClass({
                                 <div className="weui_cell_ft">
                                     <input type="radio" className="workModel weui_check" name="radio1" id="x10"
                                            value="0"/>
-                                    <span className="weui_icon_checked"></span>
+                                    <span className="weui_icon_checked"/>
                                 </div>
                             </label>
                         </div>
@@ -321,12 +321,12 @@ var Alarm = React.createClass({
                     </form>
                     <div className="weui_cell weui_cell_switch">
                         <div className="weui_cell_hd" style={{fontSize: "0.8rem"}}>
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-paidui" style={{
                                 color: "#FF70FA",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe619;</i>
+                            }}/>
                         </div>
                         <div className="alarm weui_cell_bd weui_cell_primary">
                             <p>闹铃2</p>
@@ -355,7 +355,7 @@ var Alarm = React.createClass({
                                 <div className="weui_cell_ft">
                                     <input type="radio" className="workModel weui_check" name="radio1" id="x12"
                                            value="2"/>
-                                    <span className="weui_icon_checked"></span>
+                                    <span className="weui_icon_checked"/>
                                 </div>
                             </label>
                             <label className="checkWeek weui_cell weui_check_label">
@@ -365,7 +365,7 @@ var Alarm = React.createClass({
                                 <div className="weui_cell_ft">
                                     <input type="radio" className="workModel weui_check" name="radio1" id="x13"
                                            value="3"/>
-                                    <span className="weui_icon_checked"></span>
+                                    <span className="weui_icon_checked"/>
                                 </div>
                             </label>
                         </div>
@@ -381,12 +381,12 @@ var Alarm = React.createClass({
                     </form>
                     <div className="weui_cell weui_cell_switch">
                         <div className="weui_cell_hd" style={{fontSize: "0.8rem"}}>
-                            <i className="iconfont" style={{
+                            <i className="iconfont icon-paidui" style={{
                                 color: "#FF70FA",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}>&#xe619;</i>
+                            }}/>
                         </div>
                         <div className="alarm weui_cell_bd weui_cell_primary">
                             <p>闹铃3</p>
@@ -415,7 +415,7 @@ var Alarm = React.createClass({
                                 <div className="weui_cell_ft">
                                     <input type="radio" className="workModel weui_check" name="radio1" id="x14"
                                            value="4"/>
-                                    <span className="weui_icon_checked"></span>
+                                    <span className="weui_icon_checked"/>
                                 </div>
                             </label>
                             <label className="checkWeek weui_cell weui_check_label">
@@ -425,7 +425,7 @@ var Alarm = React.createClass({
                                 <div className="weui_cell_ft">
                                     <input type="radio" className="workModel weui_check" name="radio1" id="x15"
                                            value="5"/>
-                                    <span className="weui_icon_checked"></span>
+                                    <span className="weui_icon_checked"/>
                                 </div>
                             </label>
                         </div>

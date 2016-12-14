@@ -37,11 +37,11 @@ var DeviceAdd = React.createClass({
                             ]
                         });
                         wx.error(function () {
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                         });
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -49,7 +49,7 @@ var DeviceAdd = React.createClass({
             },
             error: function (xhr) {
                 console.log(xhr.status + xhr.statusText);
-                hashHistory.push('/login');
+                hashHistory.push('/user/login');
             }
         });
     },
@@ -101,7 +101,7 @@ var DeviceAdd = React.createClass({
                         }, 2000);
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -158,13 +158,13 @@ var DeviceAdd = React.createClass({
                 <div className="footer">
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
-                            <a href="test.html#/setting">
-                                <i className="iconfont">&#xe6f4;</i>设备
+                            <a href="#">
+                                <i className="iconfont icon-iconfont13"/>主页
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
-                            <a href="#">
-                                <i className="iconfont">&#x3478;</i>主页
+                            <a href="test.html#/device">
+                                <i className="iconfont icon-yonghu1"/>我的
                             </a>
                         </li>
                     </ul>

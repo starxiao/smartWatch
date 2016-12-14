@@ -13,7 +13,6 @@ import ToastError from './ToastError';
 
 import 'weui';
 import '../styles/chat.css';
-import '../styles/iconfont.css';
 
 
 var Chat = React.createClass({
@@ -72,11 +71,11 @@ var Chat = React.createClass({
                                                         color: "grey"
                                                     }}>{res.data[i].duration + '"'}</div>
                                                     <p onClick={that.playVoice}>
-                                                        <audio src={res.data[i].voiceUrl}></audio>
+                                                        <audio src={res.data[i].voiceUrl}/>
                                                         <li>
-                                                            <i className="iconfont icon-voice-1"></i>
-                                                            <i className="iconfont icon-voice-2"></i>
-                                                            <i className="iconfont icon-voice-3"></i>
+                                                            <i className="iconfont icon-voice-1"/>
+                                                            <i className="iconfont icon-voice-2"/>
+                                                            <i className="iconfont icon-voice-3"/>
                                                         </li>
                                                     </p>
                                                     <div className="bot"></div>
@@ -99,10 +98,10 @@ var Chat = React.createClass({
                                                     color: "grey"
                                                 }}>{res.data[i].duration + '"'}</div>
                                                 <p onClick={that.playVoice}>
-                                                    <audio src={res.data[i].voiceUrl}></audio>
-                                                    <i className="iconfont icon-voice-1"></i>
-                                                    <i className="iconfont icon-voice-2"></i>
-                                                    <i className="iconfont icon-voice-3"></i>
+                                                    <audio src={res.data[i].voiceUrl}/>
+                                                    <i className="iconfont icon-voice-1"/>
+                                                    <i className="iconfont icon-voice-2"/>
+                                                    <i className="iconfont icon-voice-3"/>
                                                 </p>
                                                 <div className="bot"></div>
                                                 <img src="../app/src/image/headImage.jpg"/>
@@ -118,7 +117,7 @@ var Chat = React.createClass({
                         });
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -126,7 +125,7 @@ var Chat = React.createClass({
             },
             error: function (xhr) {
                 console.log(xhr.status + xhr.statusText);
-                hashHistory.push('/login');
+                hashHistory.push('/user/login');
             },
         });
     },
@@ -161,11 +160,11 @@ var Chat = React.createClass({
                         });
                         wx.error(function (res) {
                             console.log(res);
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                         });
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -173,7 +172,7 @@ var Chat = React.createClass({
             },
             error: function (xhr) {
                 console.log(xhr.status + xhr.statusText);
-                hashHistory.push('/login');
+                hashHistory.push('/user/login');
             }
         });
         RongYun(this.RongYunVoice);
@@ -195,10 +194,10 @@ var Chat = React.createClass({
                                 color: "grey"
                             }}>{message.content.extra.duration + '"'}</div>
                             <p onClick={that.playVoice}>
-                                <audio src={message.content.extra.mp3Url}></audio>
-                                <i className="iconfont icon-voice-1"></i>
-                                <i className="iconfont icon-voice-2"></i>
-                                <i className="iconfont icon-voice-3"></i>
+                                <audio src={message.content.extra.mp3Url}/>
+                                <i className="iconfont icon-voice-1"/>
+                                <i className="iconfont icon-voice-2"/>
+                                <i className="iconfont icon-voice-3"/>
                             </p>
                             <div className="bot"></div>
                             <img src="../app/src/image/headImage.jpg"/>
@@ -259,11 +258,11 @@ var Chat = React.createClass({
                                                     color: "grey"
                                                 }}>{data.data.duration + '"'}</div>
                                                 <p onClick={that.playVoice}>
-                                                    <audio src={data.data.voiceUrl}></audio>
+                                                    <audio src={data.data.voiceUrl}/>
                                                     <li>
-                                                        <i className="iconfont icon-voice-1"></i>
-                                                        <i className="iconfont icon-voice-2"></i>
-                                                        <i className="iconfont icon-voice-3"></i>
+                                                        <i className="iconfont icon-voice-1"/>
+                                                        <i className="iconfont icon-voice-2"/>
+                                                        <i className="iconfont icon-voice-3"/>
                                                     </li>
                                                 </p>
                                                 <div className="bot"></div>
@@ -279,16 +278,16 @@ var Chat = React.createClass({
                                 });
                                 break;
                             case 44001:
-                                hashHistory.push('/login');
+                                hashHistory.push('/user/login');
                                 break;
                             default:
-                                hashHistory.push('/login');
+                                hashHistory.push('/user/login');
                                 break;
                         }
                     },
                     error: function (xhr) {
                         console.log(xhr.status + xhr.statusText);
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                     }
                 });
             },
@@ -340,16 +339,16 @@ var Chat = React.createClass({
                         console.log(data);
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                 }
             },
             error: function (xhr) {
                 console.log(xhr.status + xhr.statusText);
-                hashHistory.push('/login');
+                hashHistory.push('/user/login');
             }
         });
 
@@ -538,7 +537,7 @@ var Chat = React.createClass({
                     <div className="btn" ref="btn">
                         <ul>
                             <li className="icon">
-                                <img src='../app/src/image/record.png' onClick={this.toggleText}/>
+                                <img className="icon" src="../app/src/image/record.png" onClick={this.toggleText}/>
                             </li>
                             <li ref="record" className="record" onTouchStart={this.touchStart}
                                 onTouchMove={this.touchMove} onSelect={this.onFocus}
@@ -548,7 +547,7 @@ var Chat = React.createClass({
                         </ul>
                     </div>
                     <div className="text" ref="text">
-                        <img src='../app/src/image//record.png' onClick={this.toggleVoice}/>
+                        <img className="icon" src="../app/src/image/key.png" onClick={this.toggleVoice}/>
                         <input ref="content" type="text" placeholder="请输入想说的话"/>
                         <a href="javascript:void(0);" onClick={this.sendText}>发送</a>
                     </div>

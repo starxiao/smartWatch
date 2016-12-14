@@ -35,7 +35,7 @@ var DeviceDelete = React.createClass({
                         that.setState({dataList: data.data});
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -90,7 +90,7 @@ var DeviceDelete = React.createClass({
                                         that.componentWillMount();
                                         break;
                                     case 44001:
-                                        hashHistory.push('/login');
+                                        hashHistory.push('/user/login');
                                         break;
                                     default:
                                         break;
@@ -128,7 +128,7 @@ var DeviceDelete = React.createClass({
                 <div className="DeleteCell weui_cells weui_cells_access" style={{marginTop: '0px'}} key={index}>
                     <div className="weui_cell">
                         <div className="weui_cell_hd">
-                            <i className="iconfont" style={{color:"#48E28B",width: "20px", marginRight: "10px", marginTop: "3px"}}>&#xe64b;</i>
+                            <i className="iconfont icon-shoubiao" style={{color:"#48E28B",width: "20px", marginRight: "10px", marginTop: "3px"}}/>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>当前</p>
@@ -148,13 +148,13 @@ var DeviceDelete = React.createClass({
                 <div className="footer">
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
-                            <a href="test.html#/setting">
-                                <i className="iconfont">&#xe6f4;</i>设备
+                            <a href="#">
+                                <i className="iconfont icon-iconfont13"/>主页
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
-                            <a href="#">
-                                <i className="iconfont">&#x3478;</i>主页
+                            <a href="test.html#/device">
+                                <i className="iconfont icon-yonghu1"/>我的
                             </a>
                         </li>
                     </ul>

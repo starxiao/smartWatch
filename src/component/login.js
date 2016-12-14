@@ -82,7 +82,7 @@ var Login = React.createClass({
                             "redirectUri=" + url;
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -94,10 +94,10 @@ var Login = React.createClass({
         });
     },
     getPassword: function () {
-        hashHistory.push('/resetPassword');
+        hashHistory.push('/user/resetPassword');
     },
     alterPassword: function () {
-        hashHistory.push('/resetPassword');
+        hashHistory.push('/user/resetPassword');
     },
     render: function () {
         return (
@@ -105,7 +105,7 @@ var Login = React.createClass({
                 <header>
                     <div className=" weui_cells_title">
                         <div className="weui_cell">
-                            <i className="iconfont locate_img" style={{color:"#27E27C",fontSize:"120px",marginTop:"-50px"}}>&#xe609;</i>
+                            <i className="iconfont locate_img icon-dingwei1" style={{color:"#27E27C",fontSize:"120px",marginTop:"-50px"}}/>
                         </div>
                     </div>
                 </header>
@@ -114,7 +114,7 @@ var Login = React.createClass({
                         <div className="weui_cell">
                             <div className="weui_cell_hd">
                                 <label className="weui_label">
-                                    <i className="iconfont" style={{color:"#49E236"}}>&#xe640;</i>
+                                    <i className="iconfont icon-shouji" style={{color:"#49E236"}}/>
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">
@@ -125,7 +125,7 @@ var Login = React.createClass({
                         <div className="weui_cell">
                             <div className="weui_cell_hd">
                                 <label className="weui_label">
-                                    <i className="iconfont" style={{color:"#49E236"}}>&#xe628;</i>
+                                    <i className="iconfont icon-mima1" style={{color:"#49E236"}}/>
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">
@@ -135,7 +135,7 @@ var Login = React.createClass({
                         </div>
                     </div>
                     <div className="weui_btn_area">
-                        <a className="weui_btn weui_btn_primary" href="javascript:" onClick={this.HandleSubmit}>登录</a>
+                        <a className="weui_btn weui_btn_primary" href="javascript:;" onClick={this.HandleSubmit}>登录</a>
                     </div>
                     <div className="passwordUpdated weui_btn_area">
                         <span onClick={this.getPassword}>忘记密码</span>

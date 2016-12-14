@@ -16,7 +16,7 @@ var ToastSuccess = React.createClass({
             <div ref="toastSuccess" style={{display:"none"}}>
                 <div className="weui_mask_transparent"></div>
                 <div className="weui_toast">
-                    <i className="weui_icon_toast"></i>
+                    <i className="weui_icon_toast"/>
                     <p className="weui_toast_content">{this.props.toast}</p>
                 </div>
             </div>

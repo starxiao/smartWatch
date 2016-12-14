@@ -6,7 +6,7 @@ import CreateXHR from './xhr';
 import DialogCancel from './dialogCancel';
 import 'weui';
 // import '../styles/guiqing.css';
-import '../image/iconfont/iconfont.css';
+// import '../image/iconfont/iconfont.css';
 
 var Home = React.createClass({
     getInitialState: function () {

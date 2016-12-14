@@ -17,7 +17,7 @@ var ToastError = React.createClass({
             <div ref="toast" style={{display:"none"}}>
                 <div className="weui_mask_transparent"></div>
                 <div className="weui_toast">
-                    <i className="iconfont" style={{color:"#E21108",fontSize:"50px",}}>&#xe607;</i>
+                    <i className="iconfont icon-jinggao" style={{color:"#E21108",fontSize:"50px",}}/>
                     <p className="weui_toast_content">{this.props.toast}</p>
                 </div>
             </div>

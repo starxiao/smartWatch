@@ -32,7 +32,7 @@ var Phone = React.createClass({
                         }
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -77,7 +77,7 @@ var Phone = React.createClass({
                         }, 2000);
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;

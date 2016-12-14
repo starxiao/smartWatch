@@ -36,8 +36,8 @@ var DialogCancel = React.createClass({
                         {this.props.node}
                     </div>
                     <div className="weui_dialog_ft">
-                        <a href="javascript:" className="weui_btn_dialog default MyDefault">取消</a>
-                        <a href="javascript:" className="weui_btn_dialog primary MyPrimary">确定</a>
+                        <a href="javascript:void(0);" className="weui_btn_dialog default MyDefault">取消</a>
+                        <a href="javascript:void(0);" className="weui_btn_dialog primary MyPrimary">确定</a>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@ var Dialog = React.createClass({
                         </div>
                     </div>
                     <div className="weui_dialog_ft">
-                        <a href="javascript:" className="weui_btn_dialog primary">{this.props.content}</a>
+                        <a href="javascript:void(0);" className="weui_btn_dialog primary">{this.props.content}</a>
                     </div>
                 </div>
             </div>

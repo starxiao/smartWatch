@@ -57,7 +57,7 @@ var Locate = React.createClass({
                     case 20004:
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;
@@ -97,7 +97,7 @@ var Locate = React.createClass({
 
     completeEventHandler: function () {        //初始化地图后添加地图插件
         var marker, circle, map = this.state.map,
-            content = '<div class="locate_img"><i class="iconfont">&#xe609;</i></div>'; //set icon
+            content = '<div class="locate_img"><i class="iconfont icon-dingwei"></i></div>'; //set icon
         marker = new AMap.Marker({                        //set marker
             position: this.state.data.position,
             content: content,
@@ -170,7 +170,7 @@ var Locate = React.createClass({
                     case 0:
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         break;

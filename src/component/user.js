@@ -54,7 +54,7 @@ var User = React.createClass({
                 var dialog = that.refs.dialog;
                 switch (data.errcode){         //判断注册是否成功
                     case 0:
-                        hashHistory.push("/login");
+                        hashHistory.push("/user/login");
                         break;
                     case 20002:
                         that.setState({title:"注册失败"});
@@ -64,7 +64,7 @@ var User = React.createClass({
                         that.refs.password.value = null;
                         break;
                     case 44001:    //微信授权
-                        hashHistory.push("/login");
+                        hashHistory.push("/user/login");
                         break;
                     default:
                         break;
@@ -81,7 +81,7 @@ var User = React.createClass({
                 <header>
                     <div className="weui_cells_title">
                         <div className="weui_cell" style={{display:"flex",justifyContent:"center"}}>
-                            <i className="iconfont locate_img" style={{color:"#A85FE2",fontSize:"120px",marginTop:"-50px"}}>&#xe61b;</i>
+                            <i className="iconfont locate_img icon-yonghu" style={{color:"#A85FE2",fontSize:"120px",marginTop:"-50px"}}/>
                         </div>
                     </div>
                 </header>
@@ -90,7 +90,7 @@ var User = React.createClass({
                         <div className="weui_cell">
                             <div className="weui_cell_hd">
                                 <label className="weui_label">
-                                    <i className="iconfont" style={{color:"#49E236",display: "block",width:"20px",marginRight:"5px"}}>&#xe640;</i>
+                                    <i className="iconfont icon-shouji" style={{color:"#49E236",display: "block",width:"20px",marginRight:"5px"}}/>
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">
@@ -100,7 +100,7 @@ var User = React.createClass({
                         <div className="weui_cell">
                             <div className="weui_cell_hd">
                                 <label className="weui_label">
-                                    <i className="iconfont" style={{color:"#49E236",display: "block",width:"20px",marginRight:"5px"}}>&#xe628;</i>
+                                    <i className="iconfont icon-mima1" style={{color:"#49E236",display: "block",width:"20px",marginRight:"5px"}}/>
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">

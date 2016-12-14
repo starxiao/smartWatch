@@ -8,9 +8,7 @@ import CreateXHR from './xhr';
 
 import DialogCancel from './dialogCancel';
 import 'weui';
-
 import '../styles/home.css'
-import '../image/iconfont/iconfont.css';
 
 var MyHome = React.createClass({
 
@@ -33,7 +31,7 @@ var MyHome = React.createClass({
             ticket = Cookie("ticket"),
             IMEI = Cookie("IMEI");
         if (!(username && ticket)) {
-            var url = encodeURIComponent("http://app.smartlocate.cn/build/test.html#/login");
+            var url = encodeURIComponent("http://app.smartlocate.cn/build/test.html#/user/login");
             window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?" +
                 "redirectUri=" + url;
         } else {
@@ -47,12 +45,12 @@ var MyHome = React.createClass({
                             break;
                         case 40001:
                             console.log("is error");
-                            var url = encodeURIComponent("http://app.smartlocate.cn/build/build.html#/login");
+                            var url = encodeURIComponent("http://app.smartlocate.cn/build/build.html#/user/login");
                             window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?" +
                                 "redirectUri=" + url;
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -90,7 +88,7 @@ var MyHome = React.createClass({
                                 "redirectUri=" + url;
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -145,7 +143,7 @@ var MyHome = React.createClass({
                             that.setState({nick: str});
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -179,7 +177,7 @@ var MyHome = React.createClass({
                             });
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -196,12 +194,12 @@ var MyHome = React.createClass({
     handlePhone: function () {
         var that = this;
         var dialog = that.refs.dialogCancel,
-            title = "打电话",
+            title = "呼叫",
             child =
                 <div className="weui_cells weui_cells_access">
                     <div className="weui_cell">
                         <div className="weui_cell_hd">
-                            <label className="weui_label">打电话</label>
+                            <label className="weui_label">号码</label>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <input className="telephone weui_input" type="number" pattern="[0-9]*"
@@ -234,7 +232,7 @@ var MyHome = React.createClass({
             that = this,
             dialog = that.refs.dialogCancel;
 
-        that.setState({dialogTitle: "监控"});
+        that.setState({dialogTitle: "监听"});
         that.setState({dialogNode: child}, function () {
             document.getElementsByClassName("number")[0].value = '';
         });
@@ -260,7 +258,7 @@ var MyHome = React.createClass({
                         case 0:
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             break;
@@ -297,23 +295,23 @@ var MyHome = React.createClass({
                         <div className="left">
                             <ul>
                                 <li style={{backgroundColor: "#324CE6"}}>
-                                    <a href="test.html#/chat">
-                                        <i className="iconfont">&#xe672;</i>微聊
+                                    <a href="test.html#/user/chat">
+                                        <i className="iconfont icon-mic"/>微聊
                                     </a>
                                 </li>
                                 <li style={{backgroundColor: "#1E39D6"}}>
                                     <a href="javascript:void(0);" onClick={this.handlePhone}>
-                                     <i className="iconfont">&#xe626;</i>打电话
+                                     <i className="iconfont icon-dadianhua"/>呼叫
                                     </a>
                                 </li>
                                 <li style={{backgroundColor: "#0C219A"}}>
-                                    <a href="test.html#/locus">
-                                        <i className="iconfont">&#xe638;</i>足迹
+                                    <a href="test.html#/device/locus">
+                                        <i className="iconfont icon-zuji"/>足迹
                                     </a>
                                 </li>
                                 <li style={{backgroundColor: "#09155A"}}>
-                                    <a href="test.html#/rail">
-                                        <i className="iconfont">&#xe635;</i>安全区域
+                                    <a href="test.html#/device/rail">
+                                        <i className="iconfont icon-dianziweilan"/>安全区域
                                     </a>
                                 </li>
                             </ul>
@@ -321,18 +319,18 @@ var MyHome = React.createClass({
                         <div className="right">
                             <ul>
                                 <li style={{height:"6rem",padding:"15px 0",backgroundColor:"#671ED6"}}>
-                                    <a style={{lineHeight:"6rem"}} href="test.html#/locate" className="aright_1">
-                                        <i className="iconfont">&#xe609;</i>地图
+                                    <a style={{lineHeight:"6rem"}} href="test.html#/device/locate" className="aright_1">
+                                        <i className="iconfont icon-dingwei"/>地图
                                     </a>
                                 </li>
                                 <li style={{backgroundColor: "#E68D3D"}}>
-                                    <a href="test.html#/device">
-                                        <i className="iconfont">&#xe61a;</i>设置
+                                    <a href="test.html#/device/setting">
+                                        <i className="iconfont icon-shezhi"/>设置
                                     </a>
                                 </li>
                                 <li style={{backgroundColor: "#E84C6A"}}>
                                     <a href="javascript:void(0);" onClick={this.handleControl}>
-                                        <i className="iconfont">&#xe67f;</i>监控
+                                        <i className="iconfont icon-view"/>监听
                                     </a>
                                 </li>
                             </ul>
@@ -342,17 +340,17 @@ var MyHome = React.createClass({
                         <ul>
                             <li style={{backgroundColor: "#34C36D"}}>
                                 <a href="#">
-                                    <i className="iconfont">&#xe626;</i>信息中心
+                                    <i className="iconfont icon-xiaoxizhongxin"/>信息中心
                                 </a>
                             </li>
                             <li style={{backgroundColor: "#15E267"}}>
-                                <a href="test.html#/alarm">
-                                    <i className="iconfont">&#xe626;</i>手表闹钟
+                                <a href="test.html#/device/alarm">
+                                    <i className="iconfont icon-paidui"/>手表闹钟
                                 </a>
                             </li>
                             <li style={{backgroundColor: "#CAD622"}}>
-                                <a href="test.html#/find">
-                                    <i className="iconfont">&#xe626;</i>找手表
+                                <a href="test.html#/user/find">
+                                    <i className="iconfont icon-shoubiao"/>找手表
                                 </a>
                             </li>
                         </ul>
@@ -362,12 +360,12 @@ var MyHome = React.createClass({
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
                             <a href="#">
-                                <i className="iconfont">&#xe6f4;</i>主页
+                                <i className="iconfont icon-iconfont13"/>主页
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
-                            <a href="test.html#/setting">
-                                <i className="iconfont">&#x3478;</i>设备
+                            <a href="test.html#/device">
+                                <i className="iconfont icon-yonghu1"/>我的
                             </a>
                         </li>
                     </ul>

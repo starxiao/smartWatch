@@ -21,13 +21,13 @@ var RongYun = function (callback) {
                     Cookie("token", data.data.rongCloudToken);
                     break;
                 default:
-                    hashHistory.push('/login');
+                    hashHistory.push('/user/login');
                     break;
             }
         },
         error: function (xhr) {
             console.log(xhr.status + xhr.statusText);
-            hashHistory.push('/login');
+            hashHistory.push('/user/login');
         },
         complete:function () {
 
@@ -61,7 +61,7 @@ var RongYun = function (callback) {
             });
             RongIMClient.connect(token, {      //融云连接
                 onSuccess:function () {
-                    return
+                    return '';
                 },
                 onTokenIncorrect: function() {
                     console.log('token incorrect');
@@ -77,13 +77,13 @@ var RongYun = function (callback) {
                                     Cookie("token", data.data.rongCloudToken);
                                     break;
                                 default:
-                                    hashHistory.push('/login');
+                                    hashHistory.push('/user/login');
                                     break;
                             }
                         },
                         error: function (xhr) {
                             console.error(xhr.status,xhr.statusText);
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                         },
                         complete:function () {
                             RongIMClient.reconnect({
@@ -92,7 +92,7 @@ var RongYun = function (callback) {
                                 },
                                 onError:function (errorCode) {
                                     console.log(errorCode);
-                                    hashHistory.push('/login');
+                                    hashHistory.push('/user/login');
                                 }
                             });
                         }
@@ -100,7 +100,7 @@ var RongYun = function (callback) {
                 },
                 onError: function (errorCode) {
                     console.log(errorCode);
-                    hashHistory.push('/login');
+                    hashHistory.push('/user/login');
                 }
             });
         }

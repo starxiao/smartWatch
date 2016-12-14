@@ -65,7 +65,7 @@ var ResetPassword = React.createClass({
                         }, 2000);
                         break;
                     case 44001:
-                        hashHistory.push("/login");
+                        hashHistory.push("/user/login");
                         break;
                     default:
                         break;
@@ -111,7 +111,7 @@ var ResetPassword = React.createClass({
                     case 0:
                         Cookie("username",username);    //store username and ticket
                         Cookie("ticket",data.data.ticket);    //store username and ticket
-                        hashHistory.push ("/login");   //redirect url
+                        hashHistory.push ("/user/login");   //redirect url
                         break;
                     case 20003:
                         that.setState({toast: data.errmsg});
@@ -135,7 +135,7 @@ var ResetPassword = React.createClass({
                         }, 2000);
                         break;
                     case 44001:
-                        hashHistory.push("/login");
+                        hashHistory.push("/user/login");
                         break;
                     default:
                         break;

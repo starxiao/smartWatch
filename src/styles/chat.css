@@ -88,10 +88,11 @@
 .chatPage footer .btn ul .icon{
     margin-left: 5px;
     border-radius: 50%;
-    border: 1px solid rgba(150,150,150,0.5);
+
 }
 .chatPage footer .btn ul .icon img{
     height: 100%;
+    border: 1px solid rgba(150,150,150,0.5);
 }
 .chatPage footer .btn ul .record{
     width: 65%;
@@ -114,8 +115,7 @@
 .chatPage footer .text img{
     height: 100%;
     border-radius: 50%;
-    border: 1px solid rgba(150,150,150,0.5);
-    margin-left: 5px;
+    margin-left: 7px;
 }
 .chatPage footer .text input{
     width: 65%;

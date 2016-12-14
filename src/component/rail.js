@@ -281,7 +281,7 @@ var Rail = React.createClass({
                         }, 2000);
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         that.setState({toastError: "提交失败"});
@@ -329,7 +329,7 @@ var Rail = React.createClass({
                         }, 2000);
                         break;
                     case 44001:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         that.setState({toastError: "删除失败"});
@@ -373,7 +373,7 @@ var Rail = React.createClass({
                             }, 2000);
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             that.setState({toastError: "监控失败"});
@@ -424,7 +424,7 @@ var Rail = React.createClass({
                             }, 2000);
                             break;
                         case 44001:
-                            hashHistory.push('/login');
+                            hashHistory.push('/user/login');
                             break;
                         default:
                             that.setState({toastError: "取消失败"});
