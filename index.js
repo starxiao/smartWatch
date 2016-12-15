@@ -7,28 +7,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 
-import {
-    Home,
-    User,
-    Find,
-    Alarm,
-    DeviceSetting,
-    Login,
-    DeviceList,
-    DeviceAdd,
-    DeviceDelete,
-    DeviceChange,
-    ResetPassword,
-    UserUpdated,
-    Redirect,
-    Device,
-    Phone,
-    Chat,
-
-    Locate,
-    Rail,
-    Locus,
-} from './src/component';
+// import {
+//     Home,
+//     User,
+//     Find,
+//     Alarm,
+//     DeviceSetting,
+//     Login,
+//     DeviceList,
+//     DeviceAdd,
+//     DeviceDelete,
+//     DeviceChange,
+//     ResetPassword,
+//     UserUpdated,
+//     Redirect,
+//     Device,
+//     Phone,
+//     Chat,
+//
+//     Locate,
+//     Rail,
+//     Locus,
+// } from './src/component';
 
 var App = React.createClass({
     render: function () {
@@ -40,81 +40,180 @@ var App = React.createClass({
 const router = [
     {
         path: '/', component: App,
-        indexRoute: {component: Home},
-        // getIndexRoute(location, callback) {
-        //     require.ensure([], function () {
-        //         callback(null, Home);
-        //     });
-        // },
-        // getChildRoutes(location, callback) {
-        //     require.ensure([], function () {
-        //         callback(null, [User,Device]);
-        //     });
-        // },
+        indexRoute: {
+            getComponent: (nextState, cb) => {
+                require.ensure([], (require) => {
+                    cb(null, require('./src/component/myHome'))
+                },'home');
+            },
+        },
         childRoutes: [
             {
                 path: 'user',
-                indexRoute: {component: User},
+                indexRoute: {
+                    getComponent: (nextState, cb) => {
+                        require.ensure([], (require) => {
+                            cb(null, require('./src/component/user'))
+                        },'user');
+                    },
+                },
                 childRoutes: [
                     {
-                        path: 'login', component: Login,
+                        path: 'login',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/login'))
+                            },'login');
+                        },
                     },
                     {
-                        path: 'find', component: Find,
+                        path: 'find',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null,require('./src/component/find'))
+                            },'find');
+                        },
                     },
                     {
-                        path: 'resetPassword', component: ResetPassword,
+                        path: 'resetPassword',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/resetpassword'))
+                            },'resetPassword');
+                        },
                     },
                     {
-                        path: 'chat', component: Chat,
+                        path: 'chat',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/chat'))
+                            },'chat');
+                        },
                     },
                     {
-                        path: 'update', component: UserUpdated,
+                        path: 'update',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/userUpdated'))
+                            },'update');
+                        },
                     },
                     {
-                        path: 'phone', component: Phone,
+                        path: 'phone',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/phone'))
+                            },'phone');
+                        },
                     },
-                    {
-                        path: 'chat', component: Chat,
-                    }
-
                 ]
             },
             {
                 path: 'device',
-                indexRoute: {component: Device},
+                indexRoute: {
+                    getComponent: (nextState, cb) => {
+                        require.ensure([], (require) => {
+                            cb(null, require('./src/component/device'))
+                        },'device');
+                    },
+                },
                 childRoutes: [
                     {
-                        path: 'setting', component: DeviceSetting,
+                        path: 'setting',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/deviceSetting'))
+                            },'setting');
+                        },
                     },
                     {
-                        path: 'alarm', component: Alarm,
+                        path: 'alarm',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/alarm'))
+                            },'alarm');
+                        },
                     },
                     {
-                        path: 'list', component: DeviceList,
+                        path: 'list',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/deviceList'))
+                            },'list');
+                        },
                     },
                     {
-                        path: 'add', component: DeviceAdd,
+                        path: 'add',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/deviceAdd'))
+                            },'add');
+                        },
                     },
                     {
-                        path: 'delete', component: DeviceDelete,
+                        path: 'delete',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/deviceDelete'))
+                            },'delete');
+                        },
                     },
                     {
-                        path: 'change', component: DeviceChange,
+                        path: 'change',
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/deviceChange'))
+                            },'change');
+                        },
                     },
                     {
-                        path: 'locate', component: Locate,
+                        path: 'locate',
+                        getComponent: (nextState, cb) => {
+                            var script = document.createElement('script');
+                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049';
+                            document.getElementsByTagName("head")[0].appendChild(script);
+                            script.onload = function () {
+                                require.ensure([], (require) => {
+                                    cb(null, require('./src/component/locate'))
+                                },'locate');
+                            };
+                        },
                     },
                     {
-                        path: 'locus', component: Locus,
+                        path: 'locus',
+                        getComponent: (nextState, cb) => {
+                            var script = document.createElement('script');
+                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049';
+                            document.getElementsByTagName("head")[0].appendChild(script);
+                            script.onload = function () {
+                                require.ensure([], (require) => {
+                                    cb(null, require('./src/component/locus'))
+                                },'locus');
+                            };
+                        },
                     },
                     {
-                        path: 'rail', component: Rail,
+                        path: 'rail',
+                        getComponent: (nextState, cb) => {
+                            var script = document.createElement('script');
+                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049';
+                            document.getElementsByTagName("head")[0].appendChild(script);
+                            script.onload = function () {
+                                require.ensure([], (require) => {
+                                    cb(null, require('./src/component/rail'))
+                                },'rail');
+                            };
+                        },
                     }
                 ]
             },
             {
-                path: '/login&code=:ticket&isLogined=:false', component: Redirect,
+                path: '/user/login&code=:ticket&isLogined=:false',
+                getComponent: (nextState, cb) => {
+                    require.ensure([], (require) => {
+                        cb(null, require('./src/component/redirect'))
+                    },'redirect');
+                },
             }
         ]
     }

@@ -130,52 +130,65 @@ var Chat = React.createClass({
         });
     },
     componentDidMount: function () {
-        console.log(window.location.href);
-        CreateXHR({
-            type: "GET",
-            url: this.state.url + "/system?pageUrl=" + encodeURIComponent(window.location.href),
-            success: function (data) {
-                switch (data.errcode) {
-                    case 0:
-                        console.log(data);
-                        wx.config({
-                            debug: false,
-                            appId: data.data.appId,
-                            timestamp: data.data.timestamp,
-                            nonceStr: data.data.nonceStr,
-                            signature: data.data.signature,
-                            jsApiList: [
 
-                                // 所有要调用的 API 都要加到这个列表中
-                                "startRecord",
-                                "stopRecord",
-                                "onVoiceRecordEnd",
-                                "playVoice",
-                                "pauseVoice",
-                                "stopVoice",
-                                "uploadVoice",
-                                "downloadVoice",
-                                "translateVoice",
-                            ]
-                        });
-                        wx.error(function (res) {
-                            console.log(res);
+        var that = this;
+        console.log(window.location.href);
+
+        var script = document.createElement('script');
+        script.src = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+        script.onload = function () {
+            CreateXHR({
+                type: "GET",
+                url: that.state.url + "/system?pageUrl=" + encodeURIComponent(window.location.href),
+                success: function (data) {
+                    switch (data.errcode) {
+                        case 0:
+                            console.log(data);
+                            wx.config({
+                                debug: false,
+                                appId: data.data.appId,
+                                timestamp: data.data.timestamp,
+                                nonceStr: data.data.nonceStr,
+                                signature: data.data.signature,
+                                jsApiList: [
+
+                                    // 所有要调用的 API 都要加到这个列表中
+                                    "startRecord",
+                                    "stopRecord",
+                                    "onVoiceRecordEnd",
+                                    "playVoice",
+                                    "pauseVoice",
+                                    "stopVoice",
+                                    "uploadVoice",
+                                    "downloadVoice",
+                                    "translateVoice",
+                                ]
+                            });
+                            wx.error(function (res) {
+                                console.log(res);
+                                hashHistory.push('/user/login');
+                            });
+                            break;
+                        case 44001:
                             hashHistory.push('/user/login');
-                        });
-                        break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
-                    default:
-                        break;
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr.status + xhr.statusText);
+                    hashHistory.push('/user/login');
                 }
-            },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
-                hashHistory.push('/user/login');
-            }
-        });
-        RongYun(this.RongYunVoice);
+            });
+            script.src = 'http://cdn.ronghub.com/RongIMLib-2.2.1.min.js';
+            document.getElementsByTagName('head')[0].appendChild(script);
+            script.onload = function () {
+                RongYun(that.RongYunVoice);
+            };
+        };
+
 
     },
     RongYunVoice: function (message) {
@@ -561,4 +574,6 @@ var Chat = React.createClass({
 
 });
 
-export default Chat
+// export default Chat
+
+module.exports = Chat;

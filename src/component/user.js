@@ -8,7 +8,7 @@ import {hashHistory} from 'react-router';
 import CreateXHR from './xhr';
 import ToastError from './ToastError';
 import Dialog from './dialog';
-
+import 'weui';
 
 var User = React.createClass({
     getInitialState: function () {
@@ -118,4 +118,6 @@ var User = React.createClass({
         )
     }
 });
-export default User;
+// export default User;
+
+module.exports = User;

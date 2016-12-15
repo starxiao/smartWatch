@@ -376,4 +376,5 @@ var MyHome = React.createClass({
     }
 });
 
-export default MyHome;
+module.exports = MyHome;
+// export default MyHome;

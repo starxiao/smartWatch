@@ -73,7 +73,16 @@ var Locate = React.createClass({
                 },500);
             }
         });
-        RongYun(that.handleData);
+        var script = document.createElement('script');
+        script.src = 'http://cdn.ronghub.com/RongIMLib-2.2.1.min.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+            script.onload = function () {
+            console.log('onload');
+            RongYun(that.handleData);
+        };
+
+
+
     },
 
     myLocation: function () {   //渲染地图
@@ -199,4 +208,7 @@ var Locate = React.createClass({
     }
 });
 
-export default Locate;
+// export default Locate;
+
+
+module.exports = Locate;

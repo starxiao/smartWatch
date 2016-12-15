@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-
+import 'weui';
 
 var ToastError = React.createClass({
     show:function () {

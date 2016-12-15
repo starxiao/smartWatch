@@ -8,7 +8,7 @@ import {hashHistory} from 'react-router';
 import CreateXHR from './xhr';
 import Cookie from './cookie';
 import ToastSuccess from './ToastSuccess';
-
+import 'weui';
 
 var Phone = React.createClass({
 
@@ -266,4 +266,6 @@ var Phone = React.createClass({
 });
 
 
-export default Phone;
+// export default Phone;
+
+module.exports = Phone;

@@ -348,4 +348,6 @@ var Locus = React.createClass({
 
 });
 
-export default Locus;
+// export default Locus;
+
+module.exports = Locus;

@@ -2,7 +2,7 @@
  * Created by xxx on 2016/10/19.
  */
 import React from 'react';
-
+import 'weui';
 
 var ToastLoad = React.createClass({
     show:function () {

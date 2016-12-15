@@ -8,8 +8,8 @@ import {hashHistory} from 'react-router';
 import Cookie from './cookie';
 import DialogCancel from './dialogCancel';
 import ToastSuccess from './ToastSuccess';
-
-
+import 'weui';
+import '../styles/home.css'
 
 var DeviceDelete = React.createClass({
 
@@ -167,4 +167,6 @@ var DeviceDelete = React.createClass({
 
 });
 
-export default DeviceDelete;
+// export default DeviceDelete;
+
+module.exports = DeviceDelete;

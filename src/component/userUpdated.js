@@ -7,7 +7,7 @@ import Cookie from './cookie';
 import CreateXHR from './xhr';
 import ToastError from './ToastError';
 import ToastSuccess from './ToastSuccess';
-
+import 'weui';
 
 var UserUpdated = React.createClass({
     getInitialState: function () {
@@ -149,4 +149,6 @@ var UserUpdated = React.createClass({
 });
 
 
-export default UserUpdated;
+// export default UserUpdated;
+
+module.exports = UserUpdated;

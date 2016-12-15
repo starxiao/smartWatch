@@ -2,7 +2,7 @@
  * Created by user on 2016/8/10.
  */
 import React from 'react';
-
+import 'weui';
 
 var ToastSuccess = React.createClass({
     show:function () {

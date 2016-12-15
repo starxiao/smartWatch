@@ -9,6 +9,7 @@ import CreateXHR from './xhr';
 import DialogCancel from './dialogCancel';
 import ToastError from './ToastError';
 import ToastSuccess from './ToastSuccess';
+import 'weui';
 
 var Alarm = React.createClass({
     getInitialState: function () {
@@ -452,4 +453,6 @@ var Alarm = React.createClass({
 
 });
 
-export default Alarm;
+// export default Alarm;
+
+module.exports = Alarm;

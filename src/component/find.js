@@ -6,6 +6,8 @@ import Cookie from './cookie';
 import CreateXHR from './xhr';
 import DialogCancel from './dialogCancel';
 import ToastSuccess from './ToastSuccess';
+import 'weui';
+
 var Find = React.createClass({
     getInitialState:function () {
         return {
@@ -73,4 +75,6 @@ var Find = React.createClass({
     }
 });
 
-export default Find;
+// export default Find;
+
+module.exports = Find;

@@ -9,6 +9,8 @@ import {hashHistory} from 'react-router';
 import CreateXHR from './xhr';
 import ToastSuccess from './ToastSuccess';
 import ToastError from './ToastError';
+import 'weui';
+import '../styles/home.css'
 
 var DeviceAdd = React.createClass({
     getInitialState: function () {
@@ -19,39 +21,46 @@ var DeviceAdd = React.createClass({
         }
     },
     componentDidMount:function () {
-        CreateXHR({
-            type: "GET",
-            url: this.state.url + "/system?pageUrl=" + encodeURIComponent(window.location.href),
-            success: function (data) {
-                switch (data.errcode) {
-                    case 0:
-                        console.log(data);
-                        wx.config({
-                            debug: false,
-                            appId: data.data.appId,
-                            timestamp: data.data.timestamp,
-                            nonceStr: data.data.nonceStr,
-                            signature: data.data.signature,
-                            jsApiList: [
-                                'scanQRCode'
-                            ]
-                        });
-                        wx.error(function () {
+        var that =this;
+        var script = document.createElement('script');
+        script.src = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+        script.onload = function () {
+            CreateXHR({
+                type: "GET",
+                url: that.state.url + "/system?pageUrl=" + encodeURIComponent(window.location.href),
+                success: function (data) {
+                    switch (data.errcode) {
+                        case 0:
+                            console.log(data);
+                            wx.config({
+                                debug: false,
+                                appId: data.data.appId,
+                                timestamp: data.data.timestamp,
+                                nonceStr: data.data.nonceStr,
+                                signature: data.data.signature,
+                                jsApiList: [
+                                    'scanQRCode'
+                                ]
+                            });
+                            wx.error(function () {
+                                hashHistory.push('/user/login');
+                            });
+                            break;
+                        case 44001:
                             hashHistory.push('/user/login');
-                        });
-                        break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
-                    default:
-                        break;
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr.status + xhr.statusText);
+                    hashHistory.push('/user/login');
                 }
-            },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
-                hashHistory.push('/user/login');
-            }
-        });
+            });
+        };
+
     },
     handleClick: function () {
         var IMEI = this.refs.IMEI.value.trim(),
@@ -178,4 +187,6 @@ var DeviceAdd = React.createClass({
 });
 
 
-export default DeviceAdd;
+// export default DeviceAdd;
+
+module.exports = DeviceAdd;

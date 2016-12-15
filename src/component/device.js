@@ -5,7 +5,8 @@ import React from 'react';
 import {hashHistory} from 'react-router';
 import CreateXHR from './xhr';
 import Cookie from './cookie';
-
+import 'weui';
+import '../styles/home.css'
 
 var Setting = React.createClass({
 
@@ -161,4 +162,6 @@ var Setting = React.createClass({
     }
 });
 
-export default Setting;
+// export default Setting;
+
+module.exports = Setting;

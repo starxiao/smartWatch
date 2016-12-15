@@ -31,4 +31,7 @@ var Redirect = React.createClass({
 });
 
 
-export default Redirect;
+// export default Redirect;
+
+
+module.exports = Redirect;

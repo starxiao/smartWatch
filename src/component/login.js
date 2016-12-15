@@ -10,7 +10,7 @@ import Cookie from './cookie';
 import CreateXHR from './xhr';
 import ToastError from './ToastError';
 import Dialog from './dialog';
-
+import 'weui';
 import '../styles/login.css';
 
 var Login = React.createClass({
@@ -157,4 +157,7 @@ var Login = React.createClass({
     }
 });
 
-export default Login;
+// export default Login;
+
+
+module.exports = Login;

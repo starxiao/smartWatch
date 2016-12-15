@@ -7,7 +7,7 @@ import Cookie from './cookie';
 import CreateXHR from './xhr';
 import Dialog from './dialog';
 import ToastError from './ToastError';
-
+import 'weui';
 
 var ResetPassword = React.createClass({
     getInitialState: function () {
@@ -195,4 +195,5 @@ var ResetPassword = React.createClass({
     }
 });
 
-export default ResetPassword;
+// export default ResetPassword;
+module.exports = ResetPassword;

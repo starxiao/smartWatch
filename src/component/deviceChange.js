@@ -8,6 +8,8 @@ import Cookie from './cookie';
 import {hashHistory} from 'react-router';
 import DialogCancel from './dialogCancel';
 import ToastSuccess from './ToastSuccess';
+import 'weui';
+import '../styles/home.css'
 
 
 
@@ -183,4 +185,6 @@ var DeviceChange = React.createClass({
 
 });
 
-export default DeviceChange;
+// export default DeviceChange;
+
+module.exports = DeviceChange;

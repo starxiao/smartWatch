@@ -5,6 +5,7 @@ import React from 'react';
 import CreateXHR from './xhr';
 import Cookie from './cookie';
 import ToastSuccess from './ToastSuccess';
+import 'weui';
 
 var DialogConfirm = React.createClass({
     putData: function (e) {

@@ -8,7 +8,7 @@ import Cookie from './cookie';
 import CreateXHR from './xhr';
 import DialogCancel from './dialogCancel';
 import ToastSuccess from './ToastSuccess';
-
+import 'weui';
 
 var Device = React.createClass({
     getInitialState: function () {
@@ -949,4 +949,6 @@ var Device = React.createClass({
     },
 });
 
-export default Device;
+// export default Device;
+
+module.exports  = Device;

@@ -7,7 +7,7 @@ import Cookie from './cookie';
 import CreateXHR from './xhr';
 import ToastError from './ToastError';
 import ToastSuccess from './ToastSuccess';
-
+import 'weui';
 import '../styles/rail.css';
 
 var Rail = React.createClass({
@@ -472,4 +472,7 @@ var Rail = React.createClass({
     }
 });
 
-export default Rail;
+// export default Rail;
+
+
+module.exports =Rail;

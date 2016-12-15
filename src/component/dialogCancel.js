@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import 'weui';
 
 var DialogCancel = React.createClass({
     show: function (callback) {
