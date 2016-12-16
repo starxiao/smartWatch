@@ -26,6 +26,7 @@ var Chat = React.createClass({
             num: 0,
             node: null,
             message: [],
+            timeout:null,
         }
     },
     componentWillMount: function () {
@@ -182,14 +183,24 @@ var Chat = React.createClass({
                     hashHistory.push('/user/login');
                 }
             });
+
             script.src = 'http://cdn.ronghub.com/RongIMLib-2.2.1.min.js';
             document.getElementsByTagName('head')[0].appendChild(script);
             script.onload = function () {
                 RongYun(that.RongYunVoice);
             };
+            if(!localStorage.rainAllowRecord || localStorage.rainAllowRecord !== 'true'){
+                wx.startRecord({
+                    success: function(){
+                        localStorage.rainAllowRecord = 'true';
+                        wx.stopRecord();
+                    },
+                    cancel: function () {
+                        console.log('用户拒绝授权录音');
+                    }
+                });
+            }
         };
-
-
     },
     RongYunVoice: function (message) {
         var that = this;
@@ -380,8 +391,7 @@ var Chat = React.createClass({
         wx.startRecord();
         this.refs.toastLoad.show();
         var time = new Date().getTime();
-        this.setState({startTime: time, num: e.touches[0].pageY});
-        window.setTimeout(function () {
+        var timeout = window.setTimeout(function () {
             that.refs.toastLoad.hide();
             wx.stopRecord({
                 success: function (res) {
@@ -393,6 +403,8 @@ var Chat = React.createClass({
                 }
             });
         }, 15500);
+        this.setState({startTime: time, num: e.touches[0].pageY,timeout:timeout});
+
 
 
     },
@@ -403,6 +415,7 @@ var Chat = React.createClass({
 
         this.setState({num: this.state.num + 1});
         if ((this.state.num - e.changedTouches[0].pageY) > 20) {
+            window.clearTimeout(this.state.timeout);
             this.setState({content: "松开手指,取消发送", flag: false});
         }
 
@@ -427,19 +440,21 @@ var Chat = React.createClass({
         that.refs.record.style.backgroundColor = '#ffffff';
         that.refs.record.innerHTML = '按住 说话';
         if ((time - that.state.startTime) < 300) {
+            window.clearTimeout(that.state.timeout);
             that.refs.toastLoad.hide();
             that.refs.toastError.show();
-            window.setTimeout(function () {
-                that.refs.toastError.hide();
-            }, 500);
+            that.setState({startTime:0});
             wx.stopRecord({
                 success: function (res) {
                     console.log(res);
                 },
                 fail: function () {
-
+                    console.log('error');
                 }
             });
+            window.setTimeout(function () {
+                that.refs.toastError.hide();
+            }, 500);
         } else {
 
             that.refs.toastLoad.hide();
@@ -451,7 +466,8 @@ var Chat = React.createClass({
                     if (that.state.flag) {
                         that.chatRecord(res);
                     } else {
-                        that.setState({content: "手指上滑,取消发送", flag: true, num: 0});
+                        window.clearTimeout(that.state.timeout);
+                        that.setState({content: "手指上滑,取消发送", flag: true, startTime:0,num: 0});
                     }
                 },
                 fail: function (res) {
