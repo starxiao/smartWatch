@@ -262,12 +262,14 @@ var Alarm = React.createClass({
                 <div className="weui_cells">
                     <div className="weui_cell weui_cell_switch">
                         <div className="weui_cell_hd" style={{fontSize: "0.8rem"}}>
-                            <i className="iconfont icon-paidui" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#FF70FA",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}/>
+                            }}>
+                                <use xlinkHref="#icon-paidui"/>
+                            </svg>
                         </div>
                         <div className="alarm weui_cell_bd weui_cell_primary">
                             <p>闹铃1</p>
@@ -322,12 +324,14 @@ var Alarm = React.createClass({
                     </form>
                     <div className="weui_cell weui_cell_switch">
                         <div className="weui_cell_hd" style={{fontSize: "0.8rem"}}>
-                            <i className="iconfont icon-paidui" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#FF70FA",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}/>
+                            }}>
+                                <use xlinkHref="#icon-paidui"/>
+                            </svg>
                         </div>
                         <div className="alarm weui_cell_bd weui_cell_primary">
                             <p>闹铃2</p>
@@ -382,12 +386,14 @@ var Alarm = React.createClass({
                     </form>
                     <div className="weui_cell weui_cell_switch">
                         <div className="weui_cell_hd" style={{fontSize: "0.8rem"}}>
-                            <i className="iconfont icon-paidui" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#FF70FA",
                                 width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
-                            }}/>
+                            }}>
+                                <use xlinkHref="#icon-paidui"/>
+                            </svg>
                         </div>
                         <div className="alarm weui_cell_bd weui_cell_primary">
                             <p>闹铃3</p>

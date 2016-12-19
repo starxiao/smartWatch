@@ -9,7 +9,8 @@ import {hashHistory} from 'react-router';
 import DialogCancel from './dialogCancel';
 import ToastSuccess from './ToastSuccess';
 import 'weui';
-import '../styles/home.css'
+import '../styles/home.css';
+
 
 
 
@@ -146,7 +147,9 @@ var DeviceChange = React.createClass({
                 <div className="DeleteCell weui_cells weui_cells_access" style={{marginTop: '0px'}} key={index}>
                     <div className="weui_cell">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-shoubiao" style={{color:"#48E28B",width: "20px", marginRight: "10px", marginTop: "3px"}}/>
+                            <svg className="iconfont" aria-hidden="true" style={{color:"#48E28B",width: "20px", marginRight: "10px", marginTop: "3px"}}>
+                                <use xlinkHref="#icon-shoubiao"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>当前</p>
@@ -167,12 +170,16 @@ var DeviceChange = React.createClass({
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
                             <a href="#">
-                                <i className="iconfont icon-iconfont13"/>主页
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-iconfont13"/>
+                                </svg>主页
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
                             <a href="test.html#/device">
-                                <i className="iconfont icon-yonghu1"/>我的
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-yonghu1"/>
+                                </svg>我的
                             </a>
                         </li>
                     </ul>

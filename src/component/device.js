@@ -6,7 +6,7 @@ import {hashHistory} from 'react-router';
 import CreateXHR from './xhr';
 import Cookie from './cookie';
 import 'weui';
-import '../styles/home.css'
+import '../styles/home.css';
 
 var Setting = React.createClass({
 
@@ -48,12 +48,13 @@ var Setting = React.createClass({
                 <div className="weui_cells weui_cells_access">
                     <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-msnui-user-info" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E24736",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-msnui-user-info"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>个人资料</p>
@@ -61,12 +62,13 @@ var Setting = React.createClass({
                     </a>
                     <a className="weui_cell" href="test.html#/device/list">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-shoubiao" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#2A84E2",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-shoubiao"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>设备列表</p>
@@ -74,12 +76,13 @@ var Setting = React.createClass({
                     </a>
                     <a className="weui_cell" href="test.html#/user/update">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-mima" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E2BE2E",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-mima"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>密码修改</p>
@@ -87,12 +90,13 @@ var Setting = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-jianyi" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#36E2B9",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-jianyi"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>意见建议</p>
@@ -100,12 +104,13 @@ var Setting = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-changjianwenti" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E258E1",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-changjianwenti"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>常见问题</p>
@@ -113,12 +118,13 @@ var Setting = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-guanyu" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#8333E2",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-guanyu"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>关于</p>
@@ -126,12 +132,13 @@ var Setting = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-bangzhu" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#39E269",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-bangzhu"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>帮助</p>
@@ -147,12 +154,16 @@ var Setting = React.createClass({
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
                             <a href="#">
-                                <i className="iconfont icon-iconfont13"/>主页
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-iconfont13"/>
+                                </svg>主页
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
                             <a href="test.html#/device">
-                                <i className="iconfont icon-yonghu1"/>我的
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-yonghu1"/>
+                                </svg>我的
                             </a>
                         </li>
                     </ul>

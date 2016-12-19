@@ -10,7 +10,7 @@ import CreateXHR from './xhr';
 import ToastSuccess from './ToastSuccess';
 import ToastError from './ToastError';
 import 'weui';
-import '../styles/home.css'
+import '../styles/home.css';
 
 var DeviceAdd = React.createClass({
     getInitialState: function () {

@@ -4,6 +4,8 @@
 
 import React from 'react';
 import 'weui';
+// import '../image/iconfont/iconfont.css';
+
 
 var ToastError = React.createClass({
     show:function () {

@@ -74,9 +74,15 @@ var Chat = React.createClass({
                                                     <p onClick={that.playVoice}>
                                                         <audio src={res.data[i].voiceUrl}/>
                                                         <li>
-                                                            <i className="iconfont icon-voice-1"/>
-                                                            <i className="iconfont icon-voice-2"/>
-                                                            <i className="iconfont icon-voice-3"/>
+                                                            <svg className="iconfont" aria-hidden="true">
+                                                                <use xlinkHref="#icon-voice-1"/>
+                                                            </svg>
+                                                            <svg className="iconfont" aria-hidden="true">
+                                                                <use xlinkHref="#icon-voice-2"/>
+                                                            </svg>
+                                                            <svg className="iconfont" aria-hidden="true">
+                                                                <use xlinkHref="#icon-voice-3"/>
+                                                            </svg>
                                                         </li>
                                                     </p>
                                                     <div className="bot"></div>
@@ -100,9 +106,15 @@ var Chat = React.createClass({
                                                 }}>{res.data[i].duration + '"'}</div>
                                                 <p onClick={that.playVoice}>
                                                     <audio src={res.data[i].voiceUrl}/>
-                                                    <i className="iconfont icon-voice-1"/>
-                                                    <i className="iconfont icon-voice-2"/>
-                                                    <i className="iconfont icon-voice-3"/>
+                                                    <svg className="iconfont" aria-hidden="true">
+                                                        <use xlinkHref="#icon-voice-1"/>
+                                                    </svg>
+                                                    <svg className="iconfont" aria-hidden="true">
+                                                        <use xlinkHref="#icon-voice-2"/>
+                                                    </svg>
+                                                    <svg className="iconfont" aria-hidden="true">
+                                                        <use xlinkHref="#icon-voice-3"/>
+                                                    </svg>
                                                 </p>
                                                 <div className="bot"></div>
                                                 <img src="../app/src/image/headImage.jpg"/>
@@ -219,9 +231,15 @@ var Chat = React.createClass({
                             }}>{message.content.extra.duration + '"'}</div>
                             <p onClick={that.playVoice}>
                                 <audio src={message.content.extra.mp3Url}/>
-                                <i className="iconfont icon-voice-1"/>
-                                <i className="iconfont icon-voice-2"/>
-                                <i className="iconfont icon-voice-3"/>
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-voice-1"/>
+                                </svg>
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-voice-2"/>
+                                </svg>
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-voice-3"/>
+                                </svg>
                             </p>
                             <div className="bot"></div>
                             <img src="../app/src/image/headImage.jpg"/>
@@ -284,9 +302,15 @@ var Chat = React.createClass({
                                                 <p onClick={that.playVoice}>
                                                     <audio src={data.data.voiceUrl}/>
                                                     <li>
-                                                        <i className="iconfont icon-voice-1"/>
-                                                        <i className="iconfont icon-voice-2"/>
-                                                        <i className="iconfont icon-voice-3"/>
+                                                        <svg className="iconfont" aria-hidden="true">
+                                                            <use xlinkHref="#icon-voice-1"/>
+                                                        </svg>
+                                                        <svg className="iconfont" aria-hidden="true">
+                                                            <use xlinkHref="#icon-voice-2"/>
+                                                        </svg>
+                                                        <svg className="iconfont" aria-hidden="true">
+                                                            <use xlinkHref="#icon-voice-3"/>
+                                                        </svg>
                                                     </li>
                                                 </p>
                                                 <div className="bot"></div>
@@ -379,7 +403,7 @@ var Chat = React.createClass({
     },
 
     touchStart: function (e) {
-
+        wx.startRecord();
         console.log(e);
         e.preventDefault();
         console.log(e.touches);
@@ -388,9 +412,8 @@ var Chat = React.createClass({
         console.log('start');
         that.refs.record.style.backgroundColor = '#C8C8C8';
         that.refs.record.innerHTML = '松开 结束';
-        wx.startRecord();
+
         this.refs.toastLoad.show();
-        var time = new Date().getTime();
         var timeout = window.setTimeout(function () {
             that.refs.toastLoad.hide();
             wx.stopRecord({
@@ -403,6 +426,7 @@ var Chat = React.createClass({
                 }
             });
         }, 15500);
+        var time = new Date().getTime();
         this.setState({startTime: time, num: e.touches[0].pageY,timeout:timeout});
 
 
@@ -430,20 +454,11 @@ var Chat = React.createClass({
         e.preventDefault();
         console.log(e);
         console.log(e.changedTouches);
-
-        var that = this,
-            IMEI = Cookie("IMEI"),
-            username = Cookie("username"),
-            ticket = Cookie("ticket"),
-            time = new Date().getTime();
-        console.log('end');
+        var that = this;
         that.refs.record.style.backgroundColor = '#ffffff';
         that.refs.record.innerHTML = '按住 说话';
+        var time = new Date().getTime();
         if ((time - that.state.startTime) < 300) {
-            window.clearTimeout(that.state.timeout);
-            that.refs.toastLoad.hide();
-            that.refs.toastError.show();
-            that.setState({startTime:0});
             wx.stopRecord({
                 success: function (res) {
                     console.log(res);
@@ -452,9 +467,13 @@ var Chat = React.createClass({
                     console.log('error');
                 }
             });
+            that.refs.toastLoad.hide();
+            that.refs.toastError.show();
             window.setTimeout(function () {
                 that.refs.toastError.hide();
             }, 500);
+            that.setState({startTime:0});
+            window.clearTimeout(that.state.timeout);
         } else {
 
             that.refs.toastLoad.hide();

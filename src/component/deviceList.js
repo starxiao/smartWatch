@@ -7,7 +7,8 @@ import {hashHistory} from 'react-router';
 import CreateXHR from './xhr';
 import Cookie from './cookie';
 import 'weui';
-import '../styles/home.css'
+import '../styles/home.css';
+// import '../image/iconfont/iconfont.css';
 
 var DeviceList = React.createClass({
     getInitialState: function () {
@@ -59,7 +60,9 @@ var DeviceList = React.createClass({
                 <div className="ListCell weui_cells weui_cells_access" style={{marginTop: '0px'}} key={index}>
                     <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-shoubiao" style={{color:"#48E28B",width: "20px", marginRight: "10px", marginTop: "3px"}}/>
+                            <svg className="iconfont" aria-hidden="true" style={{color:"#48E28B",width: "20px", marginRight: "10px", marginTop: "3px"}}>
+                                <use xlinkHref="#icon-shoubiao"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>当前</p>
@@ -91,12 +94,16 @@ var DeviceList = React.createClass({
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
                             <a href="#">
-                                <i className="iconfont icon-iconfont13"/>主页
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-iconfont13"/>
+                                </svg>主页
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
                             <a href="test.html#/device">
-                                <i className="iconfont icon-yonghu1"/>我的
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-yonghu1"/>
+                                </svg>我的
                             </a>
                         </li>
                     </ul>

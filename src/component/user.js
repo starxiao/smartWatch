@@ -9,6 +9,7 @@ import CreateXHR from './xhr';
 import ToastError from './ToastError';
 import Dialog from './dialog';
 import 'weui';
+// import '../image/iconfont/iconfont.css';
 
 var User = React.createClass({
     getInitialState: function () {

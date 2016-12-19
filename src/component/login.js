@@ -12,6 +12,8 @@ import ToastError from './ToastError';
 import Dialog from './dialog';
 import 'weui';
 import '../styles/login.css';
+// import '../image/iconfont/iconfont.css';
+
 
 var Login = React.createClass({
     getInitialState: function () {

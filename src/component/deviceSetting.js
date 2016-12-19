@@ -9,6 +9,8 @@ import CreateXHR from './xhr';
 import DialogCancel from './dialogCancel';
 import ToastSuccess from './ToastSuccess';
 import 'weui';
+// import '../image/iconfont/iconfont.css';
+
 
 var Device = React.createClass({
     getInitialState: function () {
@@ -800,12 +802,13 @@ var Device = React.createClass({
                 <div className="weui_cells weui_cells_access" style={{fontSize:"1rem"}}>
                     <a className="weui_cell" href="javascript:void(0);" onClick={this.handleNick}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-nickname" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#FF70FA",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-nickname"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>修改昵称</p>
@@ -815,12 +818,13 @@ var Device = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);" onClick={this.handleSOS}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-sos" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E21F22",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-sos"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>SOS号码</p>
@@ -829,12 +833,13 @@ var Device = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);" onClick={this.handleFamily}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-dianhua1" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E21F22",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-dianhua1"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>亲情号码</p>
@@ -843,12 +848,13 @@ var Device = React.createClass({
                     </a>
                     <a className="weui_cell" href="test.html#/user/phone">
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-dianhuaben" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#9A59E2",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-dianhuaben"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>电话本</p>
@@ -857,12 +863,13 @@ var Device = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);" onClick={this.handleModel}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-shujuguanlisvg93" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#26FFC7",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-shujuguanlisvg93"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>工作模式</p>
@@ -872,12 +879,13 @@ var Device = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);" onClick={this.handleVolume}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-6" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#D7E2AA",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-6"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>设置音量</p>
@@ -887,12 +895,13 @@ var Device = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);" onClick={this.handleTime}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-miandarao1" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#28A8E2",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-miandarao1"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>免打扰时段</p>
@@ -901,12 +910,13 @@ var Device = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);" onClick={this.forbiddenFlag}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-miandarao" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#476AE2",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-miandarao"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>关闭免打扰</p>
@@ -915,12 +925,13 @@ var Device = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);" onClick={this.shutDown}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-guanji-copy" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E21363",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-guanji-copy"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>远程关机</p>
@@ -929,12 +940,13 @@ var Device = React.createClass({
                     </a>
                     <a className="weui_cell" href="javascript:void(0);" onClick={this.handleReset}>
                         <div className="weui_cell_hd">
-                            <i className="iconfont icon-fanhui2-copy" style={{
+                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#26E22B",
                                 width: "20px",
                                 marginRight: "10px",
-                                marginTop: "3px"
-                            }}/>
+                                marginTop: "3px"}}>
+                                <use xlinkHref="#icon-fanhui2-copy"/>
+                            </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>恢复默认模式</p>
