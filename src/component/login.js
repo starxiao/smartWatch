@@ -107,7 +107,9 @@ var Login = React.createClass({
                 <header>
                     <div className=" weui_cells_title">
                         <div className="weui_cell">
-                            <i className="iconfont locate_img icon-dingwei1" style={{color:"#27E27C",fontSize:"120px",marginTop:"-50px"}}/>
+                            <svg className="iconfont locate_img" aria-hidden="true" style={{color:"#27E27C",width:"10rem",height:"10rem"}}>
+                                <use xlinkHref="#icon-dingwei1"/>
+                            </svg>
                         </div>
                     </div>
                 </header>
@@ -116,7 +118,9 @@ var Login = React.createClass({
                         <div className="weui_cell">
                             <div className="weui_cell_hd">
                                 <label className="weui_label">
-                                    <i className="iconfont icon-shouji" style={{color:"#49E236"}}/>
+                                    <svg className="iconfont" aria-hidden="true" style={{color:"#49E236"}}>
+                                        <use xlinkHref="#icon-shouji"/>
+                                    </svg>
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">
@@ -127,7 +131,9 @@ var Login = React.createClass({
                         <div className="weui_cell">
                             <div className="weui_cell_hd">
                                 <label className="weui_label">
-                                    <i className="iconfont icon-mima1" style={{color:"#49E236"}}/>
+                                    <svg className="iconfont" aria-hidden="true" style={{color:"#49E236"}}>
+                                        <use xlinkHref="#icon-mima1"/>
+                                    </svg>
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">

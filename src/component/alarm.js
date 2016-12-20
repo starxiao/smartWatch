@@ -264,11 +264,10 @@ var Alarm = React.createClass({
                         <div className="weui_cell_hd" style={{fontSize: "0.8rem"}}>
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#FF70FA",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
                             }}>
-                                <use xlinkHref="#icon-paidui"/>
+                                <use xlinkHref="#icon-icon"/>
                             </svg>
                         </div>
                         <div className="alarm weui_cell_bd weui_cell_primary">
@@ -326,11 +325,10 @@ var Alarm = React.createClass({
                         <div className="weui_cell_hd" style={{fontSize: "0.8rem"}}>
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#FF70FA",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
                             }}>
-                                <use xlinkHref="#icon-paidui"/>
+                                <use xlinkHref="#icon-icon"/>
                             </svg>
                         </div>
                         <div className="alarm weui_cell_bd weui_cell_primary">
@@ -388,11 +386,10 @@ var Alarm = React.createClass({
                         <div className="weui_cell_hd" style={{fontSize: "0.8rem"}}>
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#FF70FA",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"
                             }}>
-                                <use xlinkHref="#icon-paidui"/>
+                                <use xlinkHref="#icon-icon"/>
                             </svg>
                         </div>
                         <div className="alarm weui_cell_bd weui_cell_primary">

@@ -82,7 +82,9 @@ var User = React.createClass({
                 <header>
                     <div className="weui_cells_title">
                         <div className="weui_cell" style={{display:"flex",justifyContent:"center"}}>
-                            <i className="iconfont locate_img icon-yonghu" style={{color:"#A85FE2",fontSize:"120px",marginTop:"-50px"}}/>
+                            <svg className="iconfont locate_img" aria-hidden="true" style={{color:"#A85FE2",width:"10rem",height:"10rem"}}>
+                                <use xlinkHref="#icon-jinggao"/>
+                            </svg>
                         </div>
                     </div>
                 </header>
@@ -91,7 +93,9 @@ var User = React.createClass({
                         <div className="weui_cell">
                             <div className="weui_cell_hd">
                                 <label className="weui_label">
-                                    <i className="iconfont icon-shouji" style={{color:"#49E236",display: "block",width:"20px",marginRight:"5px"}}/>
+                                    <svg className="iconfont" aria-hidden="true" style={{color:"#49E236",display: "block",width:"20px",marginRight:"5px"}}>
+                                        <use xlinkHref="#icon-shouji"/>
+                                    </svg>
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">
@@ -101,7 +105,9 @@ var User = React.createClass({
                         <div className="weui_cell">
                             <div className="weui_cell_hd">
                                 <label className="weui_label">
-                                    <i className="iconfont icon-mima1" style={{color:"#49E236",display: "block",width:"20px",marginRight:"5px"}}/>
+                                    <svg className="iconfont" aria-hidden="true" style={{color:"#49E236",display: "block",width:"20px",marginRight:"5px"}}>
+                                        <use xlinkHref="#icon-mima1"/>
+                                    </svg>
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">

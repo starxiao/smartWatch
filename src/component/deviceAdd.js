@@ -168,12 +168,16 @@ var DeviceAdd = React.createClass({
                     <ul>
                         <li style={{backgroundColor: "#34AAB7"}}>
                             <a href="#">
-                                <i className="iconfont icon-iconfont13"/>主页
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-iconfont13"/>
+                                </svg>主页
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
                             <a href="test.html#/device">
-                                <i className="iconfont icon-yonghu1"/>我的
+                                <svg className="iconfont" aria-hidden="true">
+                                    <use xlinkHref="#icon-yonghu1"/>
+                                </svg>我的
                             </a>
                         </li>
                     </ul>

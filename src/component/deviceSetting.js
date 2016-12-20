@@ -804,7 +804,6 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#FF70FA",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-nickname"/>
@@ -820,7 +819,6 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E21F22",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-sos"/>
@@ -835,10 +833,9 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E21F22",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
-                                <use xlinkHref="#icon-dianhua1"/>
+                                <use xlinkHref="#icon-dianhua"/>
                             </svg>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
@@ -850,7 +847,6 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#9A59E2",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-dianhuaben"/>
@@ -865,7 +861,6 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#26FFC7",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-shujuguanlisvg93"/>
@@ -881,7 +876,6 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#D7E2AA",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-6"/>
@@ -897,7 +891,6 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#28A8E2",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-miandarao1"/>
@@ -912,7 +905,6 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#476AE2",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-miandarao"/>
@@ -927,7 +919,6 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E21363",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-guanji-copy"/>
@@ -942,7 +933,6 @@ var Device = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#26E22B",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-fanhui2-copy"/>

@@ -27,10 +27,12 @@
 }
 .chatPage .content .message .bottom li{
     list-style: none;
+    padding-top: 3px;
+}
+.chatPage .content .message .bottom li svg{
     transform: rotate(180deg);
 }
 .chatPage .content .message .bottom .iconfont{
-    font-size: 1rem;
     padding: 0 1.5rem;
     color: grey;
 }

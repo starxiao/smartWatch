@@ -19,7 +19,9 @@ var ToastError = React.createClass({
             <div ref="toast" style={{display:"none"}}>
                 <div className="weui_mask_transparent"></div>
                 <div className="weui_toast">
-                    <i className="iconfont icon-jinggao" style={{color:"#E21108",fontSize:"50px",}}/>
+                    <svg className="iconfont" aria-hidden="true" style={{color:"#E21108",width:"5rem",height:"5rem"}}>
+                        <use xlinkHref="#icon-jinggao"/>
+                    </svg>
                     <p className="weui_toast_content">{this.props.toast}</p>
                 </div>
             </div>

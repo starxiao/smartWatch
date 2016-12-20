@@ -74,10 +74,10 @@ var Chat = React.createClass({
                                                     <p onClick={that.playVoice}>
                                                         <audio src={res.data[i].voiceUrl}/>
                                                         <li>
-                                                            <svg className="iconfont" aria-hidden="true">
+                                                            <svg className="iconfont icon-voice-1" aria-hidden="true">
                                                                 <use xlinkHref="#icon-voice-1"/>
                                                             </svg>
-                                                            <svg className="iconfont" aria-hidden="true">
+                                                            <svg className="iconfont icon-voice-2" aria-hidden="true">
                                                                 <use xlinkHref="#icon-voice-2"/>
                                                             </svg>
                                                             <svg className="iconfont" aria-hidden="true">
@@ -106,10 +106,10 @@ var Chat = React.createClass({
                                                 }}>{res.data[i].duration + '"'}</div>
                                                 <p onClick={that.playVoice}>
                                                     <audio src={res.data[i].voiceUrl}/>
-                                                    <svg className="iconfont" aria-hidden="true">
+                                                    <svg className="iconfont icon-voice-1" aria-hidden="true">
                                                         <use xlinkHref="#icon-voice-1"/>
                                                     </svg>
-                                                    <svg className="iconfont" aria-hidden="true">
+                                                    <svg className="iconfont icon-voice-2" aria-hidden="true">
                                                         <use xlinkHref="#icon-voice-2"/>
                                                     </svg>
                                                     <svg className="iconfont" aria-hidden="true">
@@ -231,13 +231,13 @@ var Chat = React.createClass({
                             }}>{message.content.extra.duration + '"'}</div>
                             <p onClick={that.playVoice}>
                                 <audio src={message.content.extra.mp3Url}/>
-                                <svg className="iconfont" aria-hidden="true">
+                                <svg className="iconfont icon-voice-1" aria-hidden="true">
                                     <use xlinkHref="#icon-voice-1"/>
                                 </svg>
-                                <svg className="iconfont" aria-hidden="true">
+                                <svg className="iconfont icon-voice-2" aria-hidden="true">
                                     <use xlinkHref="#icon-voice-2"/>
                                 </svg>
-                                <svg className="iconfont" aria-hidden="true">
+                                <svg className="iconfont icon-voice-3" aria-hidden="true">
                                     <use xlinkHref="#icon-voice-3"/>
                                 </svg>
                             </p>
@@ -302,10 +302,10 @@ var Chat = React.createClass({
                                                 <p onClick={that.playVoice}>
                                                     <audio src={data.data.voiceUrl}/>
                                                     <li>
-                                                        <svg className="iconfont" aria-hidden="true">
+                                                        <svg className="iconfont icon-voice-1" aria-hidden="true">
                                                             <use xlinkHref="#icon-voice-1"/>
                                                         </svg>
-                                                        <svg className="iconfont" aria-hidden="true">
+                                                        <svg className="iconfont icon-voice-2" aria-hidden="true">
                                                             <use xlinkHref="#icon-voice-2"/>
                                                         </svg>
                                                         <svg className="iconfont" aria-hidden="true">
@@ -427,10 +427,8 @@ var Chat = React.createClass({
             });
         }, 15500);
         var time = new Date().getTime();
+        console.log(time);
         this.setState({startTime: time, num: e.touches[0].pageY,timeout:timeout});
-
-
-
     },
     touchMove: function (e) {
         console.log(e.changedTouches);
@@ -452,48 +450,56 @@ var Chat = React.createClass({
     },
     touchEnd: function (e) {
         e.preventDefault();
-        console.log(e);
-        console.log(e.changedTouches);
         var that = this;
+        var time = new Date().getTime();
+        that.refs.toastLoad.hide();
+        wx.stopRecord({
+            success:function (res) {
+                if((time - that.state.startTime) < 500){
+                    that.refs.toastError.show();
+                    window.setTimeout(function () {
+                        that.refs.toastError.hide();
+                    },500);
+                }else{
+                    if(that.state.flag){
+                        that.chatRecord(res);
+                    }
+                }
+                that.setState({content: "手指上滑,取消发送", flag: true,startTime:0,num: 0});
+                window.clearTimeout(that.state.timeout);
+            }
+        });
         that.refs.record.style.backgroundColor = '#ffffff';
         that.refs.record.innerHTML = '按住 说话';
-        var time = new Date().getTime();
-        if ((time - that.state.startTime) < 300) {
-            wx.stopRecord({
-                success: function (res) {
-                    console.log(res);
-                },
-                fail: function () {
-                    console.log('error');
-                }
-            });
-            that.refs.toastLoad.hide();
-            that.refs.toastError.show();
-            window.setTimeout(function () {
-                that.refs.toastError.hide();
-            }, 500);
-            that.setState({startTime:0});
-            window.clearTimeout(that.state.timeout);
-        } else {
-
-            that.refs.toastLoad.hide();
-            console.log(this.state.flag);
-            wx.stopRecord({
-                success: function (res) {
-                    console.log(res);           //返回本地ID res.localId
-
-                    if (that.state.flag) {
-                        that.chatRecord(res);
-                    } else {
-                        window.clearTimeout(that.state.timeout);
-                        that.setState({content: "手指上滑,取消发送", flag: true, startTime:0,num: 0});
-                    }
-                },
-                fail: function (res) {
-                    console.log('fail' + res);
-                }
-            });
-        }
+        // if ((time - that.state.startTime) < 300) {
+        //     wx.stopRecord();
+        //     that.refs.toastLoad.hide();
+        //     that.refs.toastError.show();
+        //     window.setTimeout(function () {
+        //         that.refs.toastError.hide();
+        //     }, 500);
+        //     that.setState({startTime:0});
+        //     window.clearTimeout(that.state.timeout);
+        // } else {
+        //
+        //     that.refs.toastLoad.hide();
+        //     console.log(this.state.flag);
+        //     wx.stopRecord({
+        //         success: function (res) {
+        //             console.log(res);           //返回本地ID res.localId
+        //
+        //             if (that.state.flag) {
+        //                 that.chatRecord(res);
+        //             } else {
+        //                 window.clearTimeout(that.state.timeout);
+        //                 that.setState({content: "手指上滑,取消发送", flag: true, startTime:0,num: 0});
+        //             }
+        //         },
+        //         fail: function (res) {
+        //             console.log('fail' + res);
+        //         }
+        //     });
+        // }
     },
     playVoice: function (e) {
         var that = this;
@@ -533,7 +539,7 @@ var Chat = React.createClass({
         var arr = [];
         for (var i = 0; i < eleArr.length; i++) {
             console.log(eleArr[i].tagName);
-            if (eleArr[i].tagName === 'I') {
+            if (eleArr[i].tagName === 'SVG') {
                 arr.push(eleArr[i]);
             }
             if (eleArr[i].tagName === 'LI') {

@@ -9,7 +9,6 @@ import CreateXHR from './xhr';
 import DialogCancel from './dialogCancel';
 import 'weui';
 import '../styles/home.css';
-// import '../image/iconfont/iconfont.css';
 
 var MyHome = React.createClass({
 

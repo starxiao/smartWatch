@@ -23,7 +23,7 @@ var Setting = React.createClass({
             success:function(data){
                 switch (data.errcode) {
                     case 0:
-                        hashHistory.push('/login');
+                        hashHistory.push('/user/login');
                         Cookie("username",'');
                         Cookie("ticket",'');
                         break;
@@ -50,7 +50,6 @@ var Setting = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E24736",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-msnui-user-info"/>
@@ -64,7 +63,6 @@ var Setting = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#2A84E2",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-shoubiao"/>
@@ -78,7 +76,6 @@ var Setting = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E2BE2E",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-mima"/>
@@ -92,7 +89,6 @@ var Setting = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#36E2B9",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-jianyi"/>
@@ -106,7 +102,6 @@ var Setting = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E258E1",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-changjianwenti"/>
@@ -120,7 +115,6 @@ var Setting = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#8333E2",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-guanyu"/>
@@ -134,7 +128,6 @@ var Setting = React.createClass({
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#39E269",
-                                width: "20px",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
                                 <use xlinkHref="#icon-bangzhu"/>
