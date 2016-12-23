@@ -9,7 +9,6 @@ import CreateXHR from './xhr';
 import ToastError from './ToastError';
 import Dialog from './dialog';
 import 'weui';
-// import '../image/iconfont/iconfont.css';
 
 var User = React.createClass({
     getInitialState: function () {
@@ -83,7 +82,7 @@ var User = React.createClass({
                     <div className="weui_cells_title">
                         <div className="weui_cell" style={{display:"flex",justifyContent:"center"}}>
                             <svg className="iconfont locate_img" aria-hidden="true" style={{color:"#A85FE2",width:"10rem",height:"10rem"}}>
-                                <use xlinkHref="#icon-jinggao"/>
+                                <use xlinkHref="#icon-yonghu"/>
                             </svg>
                         </div>
                     </div>

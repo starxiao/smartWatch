@@ -169,8 +169,8 @@ const router = [
                     {
                         path: 'locate',
                         getComponent: (nextState, cb) => {
-                            var script = document.createElement('script');
-                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049';
+                            var script = document.createElement('script');                               //防止异步加载js 出现document.write
+                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
                             document.getElementsByTagName("head")[0].appendChild(script);
                             script.onload = function () {
                                 require.ensure([], (require) => {
@@ -183,7 +183,7 @@ const router = [
                         path: 'locus',
                         getComponent: (nextState, cb) => {
                             var script = document.createElement('script');
-                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049';
+                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
                             document.getElementsByTagName("head")[0].appendChild(script);
                             script.onload = function () {
                                 require.ensure([], (require) => {
@@ -196,7 +196,7 @@ const router = [
                         path: 'rail',
                         getComponent: (nextState, cb) => {
                             var script = document.createElement('script');
-                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049';
+                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
                             document.getElementsByTagName("head")[0].appendChild(script);
                             script.onload = function () {
                                 require.ensure([], (require) => {

@@ -11,6 +11,7 @@ import ToastError from './ToastError';
 import ToastSuccess from './ToastSuccess';
 import 'weui';
 
+var url = 'http://api.smartlocate.cn/v1/';
 var Alarm = React.createClass({
     getInitialState: function () {
         return {
@@ -25,7 +26,7 @@ var Alarm = React.createClass({
             ticket = Cookie("ticket"),
             IMEI = Cookie("IMEI");
         CreateXHR({
-            url: "http://api.smartlocate.cn/v1/device/"+ IMEI + "?username=" +username + "&ticket=" +ticket,
+            url: url + "device/"+ IMEI + "?username=" +username + "&ticket=" +ticket,
             type: "get",
             success:function (data) {
                 switch (data.errcode) {
@@ -69,10 +70,10 @@ var Alarm = React.createClass({
                         }
                         break;
                     case 44001:
-                        console.log("is error");
                         hashHistory.push('/user/login');
                         break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
 
