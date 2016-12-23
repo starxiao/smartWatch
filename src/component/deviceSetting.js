@@ -9,7 +9,6 @@ import CreateXHR from './xhr';
 import DialogCancel from './dialogCancel';
 import ToastSuccess from './ToastSuccess';
 import 'weui';
-// import '../image/iconfont/iconfont.css';
 
 
 var Device = React.createClass({
