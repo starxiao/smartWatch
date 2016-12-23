@@ -52,14 +52,8 @@ var Locate = React.createClass({
                             };
                         that.setState({data: location});
                         break;
-                    case 20003:
-                        break;
-                    case 20004:
-                        break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
             },
@@ -80,8 +74,6 @@ var Locate = React.createClass({
             console.log('onload');
             RongYun(that.handleData);
         };
-
-
 
     },
 
@@ -173,17 +165,6 @@ var Locate = React.createClass({
             data:{
                 username:username,
                 ticket:ticket
-            },
-            success: function (data) {
-                switch (data.errcode) {
-                    case 0:
-                        break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
-                    default:
-                        break;
-                }
             },
             error: function () {
                 that.refs.toastError.show();

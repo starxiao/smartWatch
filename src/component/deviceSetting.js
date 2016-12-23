@@ -9,9 +9,9 @@ import CreateXHR from './xhr';
 import DialogCancel from './dialogCancel';
 import ToastSuccess from './ToastSuccess';
 import 'weui';
-// import '../image/iconfont/iconfont.css';
 
 
+var url = 'http://api.smartlocate.cn/v1/';
 var Device = React.createClass({
     getInitialState: function () {
 
@@ -45,20 +45,17 @@ var Device = React.createClass({
         var that = this;
 
         CreateXHR({
-            url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI + "?username=" + that.state.ajax.username + "&ticket=" + that.state.ajax.ticket,
+            url: url + "device/" + that.state.ajax.IMEI + "?username=" + that.state.ajax.username + "&ticket=" + that.state.ajax.ticket,
             type: "get",
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
-                        console.log(data.data);
-
                         var workModel = '', familyPhone = data.data.familyPhone.split(","),
                             emergencyPhone = data.data.emergencyPhone.split(","),
                             arr = data.data.forbiddenTime.split(","), forbiddenTime = [];
                         for (var i = 0; i < arr.length; i++) {
                             forbiddenTime.push(arr[i].split("-"));
                         }
-                        console.log(forbiddenTime);
                         if (data.data.work_model === 0) {
                             workModel = "紧急模式:1分钟/次";
                         }else if(data.data.work_model === 1){
@@ -76,17 +73,12 @@ var Device = React.createClass({
                         };
                         that.setState({data: objData});
                         break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
 
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
-            }
         });
 
     },
@@ -138,7 +130,7 @@ var Device = React.createClass({
             var ele = document.getElementsByClassName("nick"),
                 str = ele[0].value.trim();
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI,
+                url: url + "device/" + that.state.ajax.IMEI,
                 type: "put",
                 data: {
                     username: that.state.ajax.username,
@@ -156,16 +148,11 @@ var Device = React.createClass({
                             objData.nick = str;
                             that.setState({data:objData});
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
 
@@ -197,7 +184,7 @@ var Device = React.createClass({
             var ele = document.getElementsByClassName("number"),
                 str = ele[0].value.trim();
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI + "/action/monitor",
+                url: url + "device/" + that.state.ajax.IMEI + "/action/monitor",
                 type: "post",
                 data: {
                     username: that.state.ajax.username,
@@ -211,21 +198,12 @@ var Device = React.createClass({
                             setTimeout(function () {
                                 that.refs.successToast.hide();
                             }, 2000);
-                            /*
-                            var objData = that.state.data;
-                            objData.telephone = str;
-                            that.setState({data:objData});*/
-                            break;
-                        case 44001:
-                            hashHistory.push('/user/login');
                             break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
 
@@ -270,7 +248,6 @@ var Device = React.createClass({
             var element = document.getElementsByClassName("phone");
 
             for (var key = 0; key < element.length; key++) {
-                console.log("is");
                 element[key].value = that.state.data.emergencyPhone[key];
             }
 
@@ -280,10 +257,8 @@ var Device = React.createClass({
 
             var element = document.getElementsByClassName("phone"),
                 str = that.concat(element);
-
-                console.log(str);
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI,
+                url: url + "device/" + that.state.ajax.IMEI,
                 type: "put",
                 data: {
                     username: that.state.ajax.username,
@@ -297,22 +272,16 @@ var Device = React.createClass({
                             setTimeout(function () {
                                 that.refs.successToast.hide();
                             }, 2000);
-
                             var emergencyPhone = str.split(",");
                             var objData = that.state.data;
                             objData.emergencyPhone = emergencyPhone;
                             that.setState({data:objData});
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
     },
@@ -361,7 +330,6 @@ var Device = React.createClass({
             var element = document.getElementsByClassName("phone");
 
             for (var key = 0; key < element.length; key++) {
-                console.log("is");
                 element[key].value = that.state.data.familyPhone[key];
             }
 
@@ -372,7 +340,7 @@ var Device = React.createClass({
             var element = document.getElementsByClassName("phone"),
                 str = that.concat(element);
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI,
+                url: url + "device/" + that.state.ajax.IMEI,
                 type: "put",
                 data: {
                     username: that.state.ajax.username,
@@ -392,16 +360,11 @@ var Device = React.createClass({
                             objData.familyPhone = familyPhone;
                             that.setState({data:objData});
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
     },
@@ -455,7 +418,7 @@ var Device = React.createClass({
                 str = 2;
             }
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI,
+                url: url + "device/" + that.state.ajax.IMEI,
                 type: "put",
                 data: {
                     username: that.state.ajax.username,
@@ -480,16 +443,11 @@ var Device = React.createClass({
                             }
                             that.setState({data:objData});
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
 
@@ -525,9 +483,8 @@ var Device = React.createClass({
 
         dialog.show(function () {
             var ele = document.getElementById("select").value.trim();
-            console.log(ele);
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI,
+                url: url + "device/" + that.state.ajax.IMEI,
                 type: "put",
                 data: {
                     username: that.state.ajax.username,
@@ -546,16 +503,11 @@ var Device = React.createClass({
                             objData.volume = ele;
                             that.setState({data:objData});
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
     },
@@ -623,10 +575,7 @@ var Device = React.createClass({
                 ele_switch = document.getElementsByClassName("weui_switch"),
                 str = '';
             for (var i = 0; i < ele_switch.length; i++) {
-                console.log(ele[i].value);
-                console.log(ele_switch[i].value);
                 if (ele_switch[i].checked ) {
-                    console.log(ele_switch[i].value);
                     var j = 2 * i;
                     str += ele[j].value + '-' +ele[j+1].value+ ',';
                 }else{
@@ -635,9 +584,8 @@ var Device = React.createClass({
             }
 
             str = str.substring(0,str.length-1);
-            console.log(str);
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI,
+                url: url + "device/" + that.state.ajax.IMEI,
                 type: "put",
                 data: {
                     username: that.state.ajax.username,
@@ -662,16 +610,11 @@ var Device = React.createClass({
 
                             that.setState({data:objData});
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
     },
@@ -686,7 +629,7 @@ var Device = React.createClass({
 
         dialog.show(function () {
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI,
+                url: url + "device/" + that.state.ajax.IMEI,
                 type: "put",
                 data: {
                     username: that.state.ajax.username,
@@ -701,16 +644,11 @@ var Device = React.createClass({
                                 that.refs.successToast.hide();
                             }, 2000);
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
 
@@ -726,7 +664,7 @@ var Device = React.createClass({
 
         dialog.show(function () {
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI + "/action/shutdown",
+                url: url + "device/" + that.state.ajax.IMEI + "/action/shutdown",
                 type: "post",
                 data: {
                     username: that.state.ajax.username,
@@ -742,16 +680,11 @@ var Device = React.createClass({
                                 that.refs.successToast.hide();
                             }, 2000);
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
 
@@ -767,7 +700,7 @@ var Device = React.createClass({
 
         dialog.show(function () {
             CreateXHR({
-                url: "http://api.smartlocate.cn/v1/device/" + that.state.ajax.IMEI + "/action/shutdown",
+                url: url + "device/" + that.state.ajax.IMEI + "/action/shutdown",
                 type: "post",
                 data: {
                     username: that.state.ajax.username,
@@ -782,16 +715,11 @@ var Device = React.createClass({
                                 that.refs.successToast.hide();
                             }, 2000);
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.error(xhr.status + xhr.statusText);
-                }
             });
         });
     },

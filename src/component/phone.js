@@ -21,7 +21,6 @@ var Phone = React.createClass({
             success:function (data) {
                 switch (data.errcode) {
                     case 0:
-                        console.log(data.data);
                         var telephoneBook = data.data.telephoneBook.split(","),
                             ele = document.getElementsByClassName("phone");
                         for(var i=0; i<ele.length; i++){
@@ -31,16 +30,11 @@ var Phone = React.createClass({
                             ele[i].value = telephoneBook[i];
                         }
                         break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
             },
-            error:function (xhr) {
-                console.log(xhr.status + xhr.statusText);
-            }
         });
 
     },
@@ -76,16 +70,11 @@ var Phone = React.createClass({
                             toast.hide();
                         }, 2000);
                         break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
             },
-            error: function (xhr) {
-                console.error(xhr.status + xhr.statusText);
-            }
         });
 
     },

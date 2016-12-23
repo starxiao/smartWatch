@@ -7,20 +7,23 @@ import {hashHistory} from 'react-router';
 import Cookie from './cookie';
 import CreateXHR from './xhr';
 import RongYun from './RongYun';
-import Send from './send.js';
 import ToastLoad from './ToastLoad';
 import ToastError from './ToastError';
 
 import 'weui';
 import '../styles/chat.css';
 
+var url = 'http://api.smartlocate.cn/v1/',
+    username = Cookie('username'),
+    ticket = Cookie('ticket'),
+    IMEI = Cookie('IMEI');
 
 var Chat = React.createClass({
     getInitialState: function () {
         return {
             content: '手指上滑,取消发送',
+            toast:'说话时间太短',
             flag: true,
-            url: 'http://api.smartlocate.cn/v1/',
             key: 0,
             startTime: 0,
             num: 0,
@@ -30,19 +33,14 @@ var Chat = React.createClass({
         }
     },
     componentWillMount: function () {
-        console.log('this is willMount');
-        var that = this,
-            username = Cookie('username'),
-            ticket = Cookie('ticket'),
-            IMEI = Cookie('IMEI');
+        var that = this;
         CreateXHR({
             type: 'GET',
-            url: that.state.url + 'device/' + IMEI + '/chatRecord?username=' +
+            url: url + 'device/' + IMEI + '/chatRecord?username=' +
             username + '&ticket=' + ticket + '&orderType=timeDesc&startId=0&length=10',
             success: function (res) {
                 switch (res.errcode) {
                     case 0:
-                        console.log(res.data);
                         var msg = [];
                         for (var i = res.data.length - 1; i >= 0; i--) {
                             if (res.data[i].direction === 2) {
@@ -129,23 +127,24 @@ var Chat = React.createClass({
                             window.scrollTo(0, 10000);
                         });
                         break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
-                hashHistory.push('/user/login');
+            error: function () {
+                that.setState({toast:'网络错误'});
+                that.refs.toastError.show();
+                window.setTimeout(function () {
+                    that.refs.toastError.hide();
+                },2000);
+
             },
         });
     },
     componentDidMount: function () {
 
         var that = this;
-        console.log(window.location.href);
 
         var script = document.createElement('script');
         script.src = 'https://res.wx.qq.com/open/js/jweixin-1.0.0.js';
@@ -153,11 +152,10 @@ var Chat = React.createClass({
         script.onload = function () {
             CreateXHR({
                 type: "GET",
-                url: that.state.url + "/system?pageUrl=" + encodeURIComponent(window.location.href),
+                url: url + "/system?pageUrl=" + encodeURIComponent(window.location.href),
                 success: function (data) {
                     switch (data.errcode) {
                         case 0:
-                            console.log(data);
                             wx.config({
                                 debug: false,
                                 appId: data.data.appId,
@@ -178,21 +176,26 @@ var Chat = React.createClass({
                                     "translateVoice",
                                 ]
                             });
-                            wx.error(function (res) {
-                                console.log(res);
+                            wx.error(function () {
+                                that.setState({toast:'网络错误'});
+                                that.refs.toastError.show();
+                                window.setTimeout(function () {
+                                    that.refs.toastError.hide();
+                                },2000);
                                 hashHistory.push('/user/login');
                             });
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.log(xhr.status + xhr.statusText);
-                    hashHistory.push('/user/login');
+                error: function () {
+                    that.setState({toast:'网络错误'});
+                    that.refs.toastError.show();
+                    window.setTimeout(function () {
+                        that.refs.toastError.hide();
+                    },2000);
                 }
             });
 
@@ -201,24 +204,11 @@ var Chat = React.createClass({
             script.onload = function () {
                 RongYun(that.RongYunVoice);
             };
-            if(!localStorage.rainAllowRecord || localStorage.rainAllowRecord !== 'true'){
-                wx.startRecord({
-                    success: function(){
-                        localStorage.rainAllowRecord = 'true';
-                        wx.stopRecord();
-                    },
-                    cancel: function () {
-                        console.log('用户拒绝授权录音');
-                    }
-                });
-            }
         };
     },
     RongYunVoice: function (message) {
         var that = this;
         if (message.content.content === "MessageReceived") {
-            console.log(message);
-            console.log(message.content.extra);
             var ele = function () {
                 return (
                     <div className="message" key={'user' + that.state.key}>
@@ -263,19 +253,14 @@ var Chat = React.createClass({
         this.refs.text.style.display = "none";
     },
     chatRecord: function (res) {              //sendRecord
-        var that = this,
-            IMEI = Cookie('IMEI'),
-            username = Cookie('username'),
-            ticket = Cookie('ticket');
-
+        var that = this;
         wx.uploadVoice({
             localId: res.localId,            // 需要上传的音频的本地ID，由stopRecord接口获得
             success: function (res) {
-                console.log('success');
-                console.log(res);              // 返回音频的服务器端ID serverId
+                // 返回音频的服务器端ID serverId
                 CreateXHR({
                     type: "POST",
-                    url: that.state.url + "device/" + IMEI + "/voice",
+                    url: url + "device/" + IMEI + "/voice",
                     data: {
                         username: username,
                         ticket: ticket,
@@ -284,7 +269,6 @@ var Chat = React.createClass({
                     success: function (data) {
                         switch (data.errcode) {
                             case 0:
-                                console.log(data);
                                 var Obj = new Date(),
                                     hour = Obj.getHours() < 10 ? '0' + Obj.getHours() : Obj.getHours(),
                                     minute = Obj.getMinutes() < 10 ? '0' + Obj.getMinutes() : Obj.getMinutes(),
@@ -325,33 +309,33 @@ var Chat = React.createClass({
                                     window.scrollTo(0, 10000);
                                 });
                                 break;
-                            case 44001:
-                                hashHistory.push('/user/login');
-                                break;
                             default:
                                 hashHistory.push('/user/login');
                                 break;
                         }
                     },
-                    error: function (xhr) {
-                        console.log(xhr.status + xhr.statusText);
-                        hashHistory.push('/user/login');
+                    error: function () {
+                        that.setState({toast:'网络错误'});
+                        that.refs.toastError.show();
+                        window.setTimeout(function () {
+                            that.refs.toastError.hide();
+                        },2000);
                     }
                 });
             },
-            fail: function (res) {
-                console.log('fail');
-                console.log(res);
+            fail: function () {
+                that.setState({toast:'网络错误'});
+                that.refs.toastError.show();
+                window.setTimeout(function () {
+                    that.refs.toastError.hide();
+                },2000);
             }
         });
 
     },
     sendText: function () {
         var that = this,
-            IMEI = Cookie("IMEI"),
-            username = Cookie("username"),
-            ticket = Cookie("ticket");
-        var val = that.refs.content.value;
+            val = that.refs.content.value;
         that.refs.content.value = '';
         var Obj = new Date(), hour = Obj.getHours() < 10 ? '0' + Obj.getHours() : Obj.getHours(),
             minute = Obj.getMinutes() < 10 ? '0' + Obj.getMinutes() : Obj.getMinutes(),
@@ -375,7 +359,7 @@ var Chat = React.createClass({
         });
         CreateXHR({
             type: "post",
-            url: this.state.url + "device/" + IMEI + "/text",
+            url: url + "device/" + IMEI + "/text",
             data: {
                 username: username,
                 ticket: ticket,
@@ -384,19 +368,18 @@ var Chat = React.createClass({
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
-                        console.log(data);
-                        break;
-                    case 44001:
-                        hashHistory.push('/user/login');
                         break;
                     default:
                         hashHistory.push('/user/login');
                         break;
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
-                hashHistory.push('/user/login');
+            error: function () {
+                that.setState({toast:'网络错误'});
+                that.refs.toastError.show();
+                window.setTimeout(function () {
+                    that.refs.toastError.hide();
+                },2000);
             }
         });
 
@@ -404,49 +387,38 @@ var Chat = React.createClass({
 
     touchStart: function (e) {
         wx.startRecord();
-        console.log(e);
         e.preventDefault();
-        console.log(e.touches);
-        console.log(e.touches[0].pageY);
         var that = this;
-        console.log('start');
         that.refs.record.style.backgroundColor = '#C8C8C8';
         that.refs.record.innerHTML = '松开 结束';
 
-        this.refs.toastLoad.show();
+        that.refs.toastLoad.show();
         var timeout = window.setTimeout(function () {
             that.refs.toastLoad.hide();
             wx.stopRecord({
                 success: function (res) {
-                    console.log(res);           //返回本地ID res.localId
-                    that.chatRecord(res);
+                    that.chatRecord(res);  //返回本地ID res.localId
                 },
-                fail: function (res) {
-                    console.log('fail' + res);
+                fail: function () {
+                    that.setState({toast:'网络错误'});
+                    that.refs.toastError.show();
+                    window.setTimeout(function () {
+                        that.refs.toastError.hide();
+                    },2000);
                 }
             });
         }, 15500);
         var time = new Date().getTime();
-        console.log(time);
-        this.setState({startTime: time, num: e.touches[0].pageY,timeout:timeout});
+        that.setState({startTime: time, num: e.touches[0].pageY,timeout:timeout});
     },
     touchMove: function (e) {
-        console.log(e.changedTouches);
         e.preventDefault();
-        console.log('move');
-
         this.setState({num: this.state.num + 1});
         if ((this.state.num - e.changedTouches[0].pageY) > 20) {
             window.clearTimeout(this.state.timeout);
             this.setState({content: "松开手指,取消发送", flag: false});
         }
 
-    },
-    touchCancel: function () {
-        console.log('cancel');
-    },
-    onFocus: function () {
-        console.log('is focus');
     },
     touchEnd: function (e) {
         e.preventDefault();
@@ -471,86 +443,38 @@ var Chat = React.createClass({
         });
         that.refs.record.style.backgroundColor = '#ffffff';
         that.refs.record.innerHTML = '按住 说话';
-        // if ((time - that.state.startTime) < 300) {
-        //     wx.stopRecord();
-        //     that.refs.toastLoad.hide();
-        //     that.refs.toastError.show();
-        //     window.setTimeout(function () {
-        //         that.refs.toastError.hide();
-        //     }, 500);
-        //     that.setState({startTime:0});
-        //     window.clearTimeout(that.state.timeout);
-        // } else {
-        //
-        //     that.refs.toastLoad.hide();
-        //     console.log(this.state.flag);
-        //     wx.stopRecord({
-        //         success: function (res) {
-        //             console.log(res);           //返回本地ID res.localId
-        //
-        //             if (that.state.flag) {
-        //                 that.chatRecord(res);
-        //             } else {
-        //                 window.clearTimeout(that.state.timeout);
-        //                 that.setState({content: "手指上滑,取消发送", flag: true, startTime:0,num: 0});
-        //             }
-        //         },
-        //         fail: function (res) {
-        //             console.log('fail' + res);
-        //         }
-        //     });
-        // }
     },
     playVoice: function (e) {
-        var that = this;
-        console.log('playVoice');
 
-        console.log(e.target);         // 只关注点击的元素。
-        console.log(e.currentTarget);  //返回绑定事件的元素
+        // 只关注点击的元素。
+        //返回绑定事件的元素
         var node = e.currentTarget;
-
-
         if (this.state.node !== null) {
-            console.log('pause');
             this.state.node.firstElementChild.pause();
         }
         this.animate(node);
         node.firstElementChild.play();
-        console.log('play');
         this.setState({node: node});
 
     },
-    endVoice: function (e) {
-
-
-        console.log(this.state.node);
+    endVoice: function () {
         this.animate(this.state.node);
         this.state.node.firstElementChild.play();
-        console.log('play');
-
-
     },
     animate: function (e) {
-
-
-        console.log(e.children);
-
         var eleArr = e.children;
         var arr = [];
         for (var i = 0; i < eleArr.length; i++) {
-            console.log(eleArr[i].tagName);
             if (eleArr[i].tagName === 'SVG') {
                 arr.push(eleArr[i]);
             }
             if (eleArr[i].tagName === 'LI') {
                 var node = eleArr[i].children;
-                console.log(node);
-                for (var j = 0; j < node.length; j++) {
-                    arr.push(node[j]);
+                for (var k = 0; k < node.length; k++) {
+                    arr.push(node[k]);
                 }
             }
         }
-        console.log(arr);
 
         for (var j = 0; j < arr.length; j++) {
             (function (index) {
@@ -576,10 +500,9 @@ var Chat = React.createClass({
                 }
             })(j);
         }
-
     },
     shouldComponentUpdate: function (nextState) {
-        return this.state.message !== nextState.message;
+        return this.state.message !== nextState.message || this.state.toast !== nextState.message;
     },
     render: function () {
         return (
@@ -607,7 +530,7 @@ var Chat = React.createClass({
                     </div>
                 </footer>
                 <ToastLoad ref="toastLoad" content={this.state.content}/>
-                <ToastError ref="toastError" toast="说话时间太短"/>
+                <ToastError ref="toastError" toast={this.state.toast}/>
             </div>
         )
     }

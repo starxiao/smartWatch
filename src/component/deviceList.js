@@ -8,28 +8,28 @@ import CreateXHR from './xhr';
 import Cookie from './cookie';
 import 'weui';
 import '../styles/home.css';
-// import '../image/iconfont/iconfont.css';
+
+
+var url = 'http://api.smartlocate.cn/v1/',
+    username = Cookie('username'),
+    ticket = Cookie('ticket');
 
 var DeviceList = React.createClass({
     getInitialState: function () {
         return {dataList: []}
     },
     getMsg: function () {
-        var that = this,
-            username = Cookie("username"),
-            ticket = Cookie("ticket");
+        var that = this;
         CreateXHR({
             type: "GET",
-            url: "http://api.smartlocate.cn/v1/device?username=" + username + "&ticket=" + ticket,
+            url: url + "device?username=" + username + "&ticket=" + ticket,
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
                         that.setState({dataList:data.data});
                         break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
 
@@ -37,21 +37,16 @@ var DeviceList = React.createClass({
             complete:function () {
                 var IMEI = Cookie("IMEI");
                 var node = document.getElementsByClassName("IMEI");
-                //console.log(node[0].parentNode);
                 for (var i=0; i< node.length; i++){
                     if (node[i].innerText.indexOf(IMEI) > 0){
                         node[i].parentElement.style.backgroundColor = "green";
                     }
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
-            }
         });
     },
     componentDidMount: function () {
         this.getMsg();
-
     },
     handleMsg: function () {
 
@@ -81,13 +76,13 @@ var DeviceList = React.createClass({
                 {
                     this.handleMsg()
                 }
-                <a href="test.html#/device/add" className="add_btn btn" style={{color: "black"}}>
+                <a href="build.html#/device/add" className="add_btn btn" style={{color: "black"}}>
                     添加设备
                 </a>
-                <a href="test.html#/device/change" className="change_btn btn" style={{color: "black"}}>
+                <a href="build.html#/device/change" className="change_btn btn" style={{color: "black"}}>
                     切换设备
                 </a>
-                <a href="test.html#/device/delete" className="delete_btn btn" style={{color: "black"}}>
+                <a href="build.html#/device/delete" className="delete_btn btn" style={{color: "black"}}>
                     删除设备
                 </a>
                 <div className="footer">
@@ -100,7 +95,7 @@ var DeviceList = React.createClass({
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
-                            <a href="test.html#/device">
+                            <a href="build.html#/device">
                                 <svg className="iconfont" aria-hidden="true">
                                     <use xlinkHref="#icon-yonghu1"/>
                                 </svg>我的

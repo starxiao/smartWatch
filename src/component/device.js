@@ -27,19 +27,11 @@ var Setting = React.createClass({
                         Cookie("username",'');
                         Cookie("ticket",'');
                         break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
                         hashHistory.push('/user/login');
                         break;
                 }
             },
-            error:function(xhr){
-                console.log(xhr.status + xhr.statusText);
-                hashHistory.push('/user/login');
-            }
-
         })
     },
     render:function(){
@@ -59,7 +51,7 @@ var Setting = React.createClass({
                             <p>个人资料</p>
                         </div>
                     </a>
-                    <a className="weui_cell" href="test.html#/device/list">
+                    <a className="weui_cell" href="build.html#/device/list">
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#2A84E2",
@@ -72,7 +64,7 @@ var Setting = React.createClass({
                             <p>设备列表</p>
                         </div>
                     </a>
-                    <a className="weui_cell" href="test.html#/user/update">
+                    <a className="weui_cell" href="build.html#/user/update">
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E2BE2E",
@@ -153,7 +145,7 @@ var Setting = React.createClass({
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
-                            <a href="test.html#/device">
+                            <a href="build.html#/device">
                                 <svg className="iconfont" aria-hidden="true">
                                     <use xlinkHref="#icon-yonghu1"/>
                                 </svg>我的

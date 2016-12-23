@@ -35,7 +35,6 @@ var ResetPassword = React.createClass({
         CreateXHR({                                        //get data
             type: "get",
             url: "http://api.smartlocate.cn/v1/user/"+username+"/SMSCode",
-            dataType: "json",
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
@@ -64,16 +63,11 @@ var ResetPassword = React.createClass({
                             errorToast.hide();
                         }, 2000);
                         break;
-                    case 44001:
-                        hashHistory.push("/user/login");
-                        break;
                     default:
+                        hashHistory.push("/user/login");
                         break;
                 }
             },
-            error: function (xhr) {
-                console.error(xhr.status+xhr.statusText);
-            }
         })
     },
     handleClick: function () {
@@ -101,7 +95,6 @@ var ResetPassword = React.createClass({
         CreateXHR({
             type: "post",
             url: "http://api.smartlocate.cn/v1/user/"+username+"/resetPassword",
-            dataType: "json",
             data:{
                 password:password,
                 SMScode:code
@@ -134,16 +127,11 @@ var ResetPassword = React.createClass({
                             errorToast.hide();
                         }, 2000);
                         break;
-                    case 44001:
-                        hashHistory.push("/user/login");
-                        break;
                     default:
+                        hashHistory.push("/user/login");
                         break;
                 }
             },
-            error: function (xhr) {
-                console.error(xhr.status + xhr.statusText);
-            }
         });
         that.refs.username.value = null;     //init input
         that.refs.code.value = null;

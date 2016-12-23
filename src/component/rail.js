@@ -44,10 +44,8 @@ var Rail = React.createClass({
                             geoFencingData: data.data.geoFencingData
                         });
                         break;
-                    case 44001:
-                        hashHistory.push('./login');
-                        break;
                     default:
+                        hashHistory.push('./login');
                         break;
                 }
             },

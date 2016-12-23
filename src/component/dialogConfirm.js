@@ -27,9 +27,6 @@ var DialogConfirm = React.createClass({
                     }, 2000);
                 }
             },
-            error: function (xhr) {
-                console.error(xhr.status + xhr.statusText);
-            }
         });
     },
     show: function () {

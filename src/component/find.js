@@ -2,6 +2,7 @@
  * Created by user on 2016/9/29.
  */
 import React from 'react';
+import {hashHistory} from 'react-router';
 import Cookie from './cookie';
 import CreateXHR from './xhr';
 import DialogCancel from './dialogCancel';
@@ -40,16 +41,11 @@ var Find = React.createClass({
                                 toast.hide();
                             },2000);
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error:function (xhr) {
-                    console.log(xhr.status +xhr.statusText);
-                }
             });
 
         });

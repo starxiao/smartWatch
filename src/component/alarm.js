@@ -11,27 +11,28 @@ import ToastError from './ToastError';
 import ToastSuccess from './ToastSuccess';
 import 'weui';
 
-var url = 'http://api.smartlocate.cn/v1/';
+var url = 'http://api.smartlocate.cn/v1/',
+    username = Cookie("username"),
+    ticket = Cookie("ticket"),
+    IMEI = Cookie("IMEI");
+
 var Alarm = React.createClass({
     getInitialState: function () {
         return {
-            title:"",
-            toast:""
+            title:'',
+            toast:''
         }
 
     },
     componentWillMount:function () {
-        var that = this,
-            username = Cookie("username"),
-            ticket = Cookie("ticket"),
-            IMEI = Cookie("IMEI");
+
+        var that = this;
         CreateXHR({
             url: url + "device/"+ IMEI + "?username=" +username + "&ticket=" +ticket,
             type: "get",
             success:function (data) {
                 switch (data.errcode) {
                     case 0:
-                        console.log(data);
                         var ele = document.getElementsByClassName("checkbox"),
                             eleTime = document.getElementsByClassName("setTime"),
                             eleWeek = document.getElementsByClassName("setWeek"),
@@ -69,27 +70,23 @@ var Alarm = React.createClass({
                             eleWeek[i].innerText = myStr;
                         }
                         break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
                         hashHistory.push('/user/login');
                         break;
                 }
 
             },
-            error:function (xhr) {
-                console.log(xhr.status + xhr.statusText);
+            error:function () {
+                that.setState({toast:"网络错误"});
+                that.refs.toastError.show();
+                window.setTimeout(function () {
+                    that.refs.toastError.hide();
+                },2000);
             }
 
         })
     },
     componentDidMount: function () {
-
-        var that = this,
-            username = Cookie("username"),
-            ticket = Cookie("ticket"),
-            IMEI = Cookie("IMEI");
 
         var ele = document.getElementsByClassName("alarm"),
             timeNode = document.getElementsByClassName("time"),
@@ -102,30 +99,25 @@ var Alarm = React.createClass({
 
             ele[i].addEventListener('click', (function (i) {               //监听设置闹铃时间下拉事件
                 return function (e) {
-                    console.log(e);
-                    e.stopPropagation();  // 阻止冒泡或捕获
+                    e.stopPropagation();                    // 阻止冒泡或捕获
                     if(timeNode[i].style.display === "none"){
                         timeNode[i].style.display = "block";
                     }else{
                         timeNode[i].style.display = "none";
                     }
-                    console.log(i);
                 }
             })(i));
         }
         for (var k = 0; k < checkWeekNode.length; k++) {          //监听自定义选择事件
 
-           // console.log(checkWeekNode);
-
             checkWeekNode[k].addEventListener('change', (function (k) {       //监听整个 radio change 事件
                 return function (e) {
-                    e.stopPropagation();           // 阻止冒泡或捕获
+                    e.stopPropagation();                    // 阻止冒泡或捕获
                     if (workModel[2*k].checked){                 //判断哪个radio被选择
                         showWeekNode[k].style.visibility = "hidden";
                     }else{
                         showWeekNode[k].style.visibility = "visible";
                     }
-                    console.log(k);
                 }
             })(k));
         }
@@ -133,13 +125,12 @@ var Alarm = React.createClass({
 
             weekNode[j].addEventListener('click', (function (j) {
                 return function (e) {
-                    e.stopPropagation();                // 阻止冒泡或捕获
+                    e.stopPropagation();                          // 阻止冒泡或捕获
                     if(!(weekNode[j].style.backgroundColor)){             //设置点击后背景颜色
                         weekNode[j].style.backgroundColor = "#53E9FF";
                     }else{
                         weekNode[j].style.backgroundColor = "";
                     }
-                    console.log(j);
                 }
             })(j));
         }
@@ -147,11 +138,9 @@ var Alarm = React.createClass({
     },
     HandleSubmit: function () {
 
-        var username = Cookie("username"),
-            ticket =Cookie("ticket"),
-            IMEI = Cookie("IMEI"),
-            that = this,
+        var that = this,
             dialog = that.refs.dialogCancel;
+
         that.setState({title:"确定设置闹铃?"});
         dialog.show(function () {
             var ele = document.getElementsByClassName("checkbox"),
@@ -167,7 +156,6 @@ var Alarm = React.createClass({
 
                     if (workModel[2*i].checked){
                         str += '1,'+myTime[i].value.trim()+',0123456@';
-                        console.log(str);
                     }else if (workModel[2*i+1].checked){
                         flag = '';                                //要每次循环的时候至空
                         for (var j=0; j<7; j++){
@@ -176,7 +164,6 @@ var Alarm = React.createClass({
                             }
                         }
                         str += '1,'+myTime[i].value.trim()+','+flag+'@';
-                        console.log(str);
                     }else{
 
                         var myArr = eleWeek[i].innerText,myStr='',time='';
@@ -215,8 +202,6 @@ var Alarm = React.createClass({
             }
             str = str.substring(0,str.length-1);
 
-            console.log(str);
-
             if (!str){                                            //判断是否有闹铃被设置
                 that.setState({toast:"未打开按钮"});
                 that.refs.toastError.show();
@@ -226,7 +211,7 @@ var Alarm = React.createClass({
 
             }else {
                 CreateXHR({
-                    url: "http://api.smartlocate.cn/v1/device/" + IMEI,
+                    url: url + "device/" + IMEI,
                     type: "put",
                     data: {
                         username: username,
@@ -236,21 +221,23 @@ var Alarm = React.createClass({
                     success: function (data) {
                         switch (data.errcode) {
                             case 0:
-                                that.setState({toast: "设置成功"});
+                                that.setState({toast:"设置成功"});
                                 that.refs.toastSuccess.show();
                                 window.setTimeout(function () {
                                     that.refs.toastSuccess.hide();
                                 }, 2000);
                                 break;
-                            case 44001:
-                                hashHistory.push('/user/login');
-                                break;
                             default:
+                                hashHistory.push('/user/login');
                                 break;
                         }
                     },
-                    error: function (xhr) {
-                        console.error(xhr.status + xhr.statusText);
+                    error: function () {
+                        that.setState({toast:"网络错误"});
+                        that.refs.toastError.show();
+                        window.setTimeout(function () {
+                            that.refs.toastError.hide();
+                        }, 2000);
                     }
                 });
             }

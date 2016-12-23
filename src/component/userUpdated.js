@@ -12,7 +12,7 @@ import 'weui';
 var UserUpdated = React.createClass({
     getInitialState: function () {
         return {
-            toastError: null,  //init toast
+            toastError: null,     //init toast
             toastSuccess: null,
         }
     },
@@ -90,9 +90,6 @@ var UserUpdated = React.createClass({
                         break;
                 }
             },
-            error: function (xhr) {
-                console.error(xhr.status + xhr.statusText);
-            }
         });
 
         that.refs.username.value = null;     //init input

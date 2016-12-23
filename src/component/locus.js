@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import {hashHistory} from 'react-router';
 import CreateXHR from './xhr';
 import Cookie from './cookie';
 import ToastError from './ToastError';
@@ -40,14 +41,8 @@ var Locus = React.createClass({
                                 position = locationData.location.split(",");
                             that.setState({position: position});
                             break;
-                        case 20003:
-                            break;
-                        case 20004:
-                            break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
@@ -135,20 +130,6 @@ var Locus = React.createClass({
 
     displayRail: function (data) {                    //轨迹回放
         var marker, polyLine, map = this.state.map,lineArray = [];
-            // lineArray = [                 //建立路线数组
-            //     [113.931429, 22.529885],
-            //     [113.931333, 22.529922],
-            //     [113.931106, 22.529955],
-            //     [113.930935, 22.530014],
-            //     [113.930764, 22.530032],
-            //     [113.930472, 22.530222],
-            //     [113.930477, 22.530156],
-            //     [113.930445, 22.530339],
-            //     [113.930553, 22.530573],
-            //     [113.930558, 22.530652],
-            //     [113.930585, 22.530811],
-            //     [113.930582, 22.530911],
-            // ];
         for (let i = 0; i < data.length; i++) {
             var locateData = data[i].LocationStruct.location.split(',');
             lineArray[i] = [Number(locateData[0]), Number(locateData[1])];
@@ -164,7 +145,6 @@ var Locus = React.createClass({
             position: [113.931429, 22.529885],
             icon: icon,
             autoRotation: true,
-            //offset:new AMap.Pixel(-17,-42),
             map: map
         });
 
@@ -251,7 +231,6 @@ var Locus = React.createClass({
             startAt = myYear+'-'+myMonth+'-'+myDate+' '+myHour10+':'+myMinute+":0",
             endAt = myYear+'-'+myMonth+'-'+myDate+' '+myHour+':'+myMinute+":0";
         var func = this.displayMap;
-        console.log(startAt,  endAt);
         this.handleAjax(startAt,func,endAt);
     },
     handleToday(){                  //今天的回放
@@ -260,7 +239,6 @@ var Locus = React.createClass({
             myMonth = time.getMonth() + 1,
             myDate = time.getDate(),
             startAt = myYear+'-'+myMonth+'-'+myDate;
-        console.log(startAt);
 
         var func = this.testFunc;
         this.handleAjax(startAt,func);
@@ -270,7 +248,6 @@ var Locus = React.createClass({
             myYear = time.getFullYear(),
             myMonth = time.getMonth() + 1,
             myDate = time.getDate();
-            console.log(this.state.yesterday);
         var yesterday = this.state.yesterday.split('');
         if(myMonth === 1){
             if(myDate === 1){
@@ -282,7 +259,6 @@ var Locus = React.createClass({
         }
 
         var startAt = myYear+'-'+yesterday[0]+'-'+yesterday[3];
-        console.log(startAt);
         var func = this.displayRail;
         this.handleAjax(startAt,func);
     },
@@ -301,12 +277,10 @@ var Locus = React.createClass({
             }
         }
         var startAt = myYear+'-'+yesterday[0]+'-'+yesterday[3];
-        console.log(startAt);
         var func = this.displayRail;
         this.handleAjax(startAt,func);
     },
     handleClick: function () {          //点击弹出
-        console.log("onclick");
         var id = document.getElementById("time"),
             display = window.getComputedStyle(id, null)["display"];
         if (display == "none") {

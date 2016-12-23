@@ -10,11 +10,13 @@ import DialogCancel from './dialogCancel';
 import ToastSuccess from './ToastSuccess';
 import 'weui';
 import '../styles/home.css';
-// import '../image/iconfont/iconfont.css';
 
+
+var url = 'http://api.smartlocate.cn/v1/',
+    username = Cookie('username'),
+    ticket = Cookie('ticket');
 
 var DeviceDelete = React.createClass({
-
     getInitialState: function () {
         return {
             title: null,
@@ -23,40 +25,31 @@ var DeviceDelete = React.createClass({
         }
     },
 
-
     componentWillMount: function () {
         var that = this,
             username = Cookie("username"),
             ticket = Cookie("ticket");
         CreateXHR({
             type: "GET",
-            url: "http://api.smartlocate.cn/v1/device?username=" + username + "&ticket=" + ticket,
+            url: url + "device?username=" + username + "&ticket=" + ticket,
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
                         that.setState({dataList: data.data});
                         break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
             },
             complete:function () {
                 that.deviceList();
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
-            }
-
         })
     },
 
     handleClick: function () {
         var that = this,
-            username = Cookie("username"),
-            ticket = Cookie("ticket"),
             locaIMEI = Cookie("IMEI"),
             node = document.getElementsByClassName("DeleteCell"),
             dialog = that.refs.dialogCancel,
@@ -79,7 +72,7 @@ var DeviceDelete = React.createClass({
                     dialog.show(function () {
                         CreateXHR({
                             type: "DELETE",
-                            url: "http://api.smartlocate.cn/v1/device/" + IMEI + "?username=" + username + "&ticket=" +
+                            url: url + "device/" + IMEI + "?username=" + username + "&ticket=" +
                             ticket,
                             success: function (data) {
                                 switch (data.errcode) {
@@ -91,16 +84,11 @@ var DeviceDelete = React.createClass({
                                         }, 2000);
                                         that.componentWillMount();
                                         break;
-                                    case 44001:
-                                        hashHistory.push('/user/login');
-                                        break;
                                     default:
+                                        hashHistory.push('/user/login');
                                         break;
                                 }
                             },
-                            error: function (xhr) {
-                                console.log(xhr.status + xhr.statusText);
-                            }
                         });
                     });
                 }
@@ -113,7 +101,6 @@ var DeviceDelete = React.createClass({
     deviceList: function () {
         var IMEI = Cookie("IMEI");
         var node = document.getElementsByClassName("IMEI");
-        //console.log(node[0].parentNode);
         for (var i=0; i< node.length; i++){
             if (node[i].innerText.indexOf(IMEI) > 0){
                 node[i].parentElement.style.backgroundColor = "red";
@@ -121,7 +108,6 @@ var DeviceDelete = React.createClass({
         }
         this.handleClick();
     },
-
 
     handleMsg: function () {
         var that = this;
@@ -159,7 +145,7 @@ var DeviceDelete = React.createClass({
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
-                            <a href="test.html#/device">
+                            <a href="build.html#/device">
                                 <svg className="iconfont" aria-hidden="true">
                                     <use xlinkHref="#icon-yonghu1"/>
                                 </svg>我的

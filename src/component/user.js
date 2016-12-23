@@ -63,16 +63,11 @@ var User = React.createClass({
                         that.refs.username.value = null;
                         that.refs.password.value = null;
                         break;
-                    case 44001:    //微信授权
-                        hashHistory.push("/user/login");
-                        break;
                     default:
+                        hashHistory.push("/user/login");
                         break;
                 }
             },
-            error: function (xhr) {
-                console.error(xhr.status+xhr.statusText);
-            }
         })
     },
     render: function () {

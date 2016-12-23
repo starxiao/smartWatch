@@ -12,7 +12,6 @@ import ToastError from './ToastError';
 import Dialog from './dialog';
 import 'weui';
 import '../styles/login.css';
-// import '../image/iconfont/iconfont.css';
 
 
 var Login = React.createClass({
@@ -78,20 +77,24 @@ var Login = React.createClass({
                         that.refs.password.value = '';
                         break;
                     case 40001:
-                        console.log("is error");
-                        var url = encodeURIComponent("http://app.smartlocate.cn/build/test.html#/login");
+                        var myUrl = encodeURIComponent("http://app.smartlocate.cn/build/test.html#/login");
                         window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?" +
-                            "redirectUri=" + url;
+                            "redirectUri=" + myUrl;
                         break;
                     case 44001:
                         hashHistory.push('/user/login');
                         break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
+            error: function () {
+                that.setState({toast: "网络错误"});
+                ToastError.show();
+                setTimeout(function () {
+                    ToastError.hide();
+                }, 2000);
             }
         });
     },

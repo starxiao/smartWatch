@@ -12,10 +12,13 @@ import ToastError from './ToastError';
 import 'weui';
 import '../styles/home.css';
 
+
+var url = 'http://api.smartlocate.cn/v1/',
+    username = Cookie("username"),
+    ticket = Cookie("ticket");
 var DeviceAdd = React.createClass({
     getInitialState: function () {
         return {
-            url:'http://api.smartlocate.cn/v1/',
             content: '',
             toast: ''
         }
@@ -28,11 +31,10 @@ var DeviceAdd = React.createClass({
         script.onload = function () {
             CreateXHR({
                 type: "GET",
-                url: that.state.url + "/system?pageUrl=" + encodeURIComponent(window.location.href),
+                url: url + "/system?pageUrl=" + encodeURIComponent(window.location.href),
                 success: function (data) {
                     switch (data.errcode) {
                         case 0:
-                            console.log(data);
                             wx.config({
                                 debug: false,
                                 appId: data.data.appId,
@@ -44,19 +46,24 @@ var DeviceAdd = React.createClass({
                                 ]
                             });
                             wx.error(function () {
-                                hashHistory.push('/user/login');
+                                that.setState({toast: "网络错误"});
+                                that.refs.toastError.show();
+                                window.setTimeout(function () {
+                                    that.refs.toastError.hide();
+                                }, 2000);
                             });
                             break;
-                        case 44001:
-                            hashHistory.push('/user/login');
-                            break;
                         default:
+                            hashHistory.push('/user/login');
                             break;
                     }
                 },
-                error: function (xhr) {
-                    console.log(xhr.status + xhr.statusText);
-                    hashHistory.push('/user/login');
+                error: function () {
+                    that.setState({toast: "网络错误"});
+                    that.refs.toastError.show();
+                    window.setTimeout(function () {
+                        that.refs.toastError.hide();
+                    }, 2000);
                 }
             });
         };
@@ -65,21 +72,17 @@ var DeviceAdd = React.createClass({
     handleClick: function () {
         var IMEI = this.refs.IMEI.value.trim(),
             nick = this.refs.nick.value.trim(),
-            username = Cookie("username"),
-            ticket = Cookie("ticket"),
             that = this,
             flag = /[0-9]/;        //到时这里需要输入判断格式问题
 
         if (!(IMEI || nick || flag.test(IMEI))) {
-
             that.setState({content: "你输入的IMEI号错误"});
         } else {
-
             that.setState({content: ""});
         }
         CreateXHR({
             type: "POST",
-            url: "http://api.smartlocate.cn/v1/device",
+            url: url + "device",
             data: {
                 username: username,
                 ticket: ticket,
@@ -109,21 +112,22 @@ var DeviceAdd = React.createClass({
                             that.refs.toastError.hide();
                         }, 2000);
                         break;
-                    case 44001:
-                        hashHistory.push('/user/login');
-                        break;
                     default:
+                        hashHistory.push('/user/login');
                         break;
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.status + xhr.statusText);
+            error: function () {
+                that.setState({toast: "网络错误"});
+                that.refs.toastError.show();
+                window.setTimeout(function () {
+                    that.refs.toastError.hide();
+                }, 2000);
             }
         });
     },
     handleCode:function () {
         var that  = this;
-        console.log('code');
         wx.scanQRCode({
             needResult: 1,
             scanType: ["qrCode","barCode"],
@@ -174,7 +178,7 @@ var DeviceAdd = React.createClass({
                             </a>
                         </li>
                         <li style={{backgroundColor: "#54CC76"}}>
-                            <a href="test.html#/device">
+                            <a href="build.html#/device">
                                 <svg className="iconfont" aria-hidden="true">
                                     <use xlinkHref="#icon-yonghu1"/>
                                 </svg>我的
