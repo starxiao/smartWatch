@@ -17,11 +17,48 @@ var Profile = React.createClass({
     },
     handleSubmit:function () {
         var that = this;
-        that.setState({toast:'保存成功'});
-        that.refs.ToastSuccess.show();
-        window.setTimeout(function () {
-            that.refs.ToastSuccess.hide();
-        },2000);
+        var profileVal = that.refs.profileVal.value,
+            nameVal = that.refs.nameVal.value,
+            phoneVal = that.refs.phoneVal.value;
+        var sexVal = '';
+        if(that.refs.boy.checked){
+            sexVal = '男';
+        }
+        if(that.refs.girl.checked){
+            sexVal = '女';
+        }
+        if(!profileVal){
+            that.setState({toast:'帐号未填写'});
+            that.refs.ToastError.show();
+            window.setTimeout(function () {
+                that.refs.ToastError.hide();
+            },1000);
+        }else if(!sexVal){
+            that.setState({toast:'性别未填写'});
+            that.refs.ToastError.show();
+            window.setTimeout(function () {
+                that.refs.ToastError.hide();
+            },1000);
+        }else if (!nameVal){
+            that.setState({toast:'姓名未填写'});
+            that.refs.ToastError.show();
+            window.setTimeout(function () {
+                that.refs.ToastError.hide();
+            },1000);
+        }else if (!phoneVal){
+            that.setState({toast:'电话未填写'});
+            that.refs.ToastError.show();
+            window.setTimeout(function () {
+                that.refs.ToastError.hide();
+            },1000);
+        }else{
+            that.setState({toast:'保存成功'});
+            that.refs.ToastSuccess.show();
+            window.setTimeout(function () {
+                that.refs.ToastSuccess.hide();
+            },1000);
+        }
+
     },
     render: function () {
         return (
@@ -39,7 +76,7 @@ var Profile = React.createClass({
                         </div>
                         <div className="weui_cell_bd">帐号</div>
                         <div>
-                            <input className="weui_input" type="text" style={{marginLeft:"10px"}}/>
+                            <input ref="profileVal" className="weui_input" type="text" style={{marginLeft:"10px"}}/>
                         </div>
                     </div>
                     <div className="weui_cell">
@@ -53,11 +90,13 @@ var Profile = React.createClass({
                             </svg>
                         </div>
                         <div className="weui_cell_bd">性别</div>
-                        <div style={{marginLeft:"50px"}}>
-                            <label className="weui_check_label" style={{marginRight:"10px"}}>男</label>
-                            <input type="radio"  name="radio1" style={{marginRight:"10px"}}/>
-                            <label className="weui_check_label" style={{marginRight:"10px"}}>女</label>
-                            <input type="radio"  name="radio2"/>
+                        <div style={{marginLeft:"5rem"}}>
+                            <label className="weui_check_label" for="radio1">男
+                                <input ref="boy" type="radio" name="radio" value="男" id="radio1" style={{margin:"0 10px"}}/>
+                            </label>
+                            <label className="weui_check_label" for="radio2">女
+                                <input ref="girl" type="radio" name="radio" value="女" id="radio2" style={{margin:"0 10px"}}/>
+                            </label>
                         </div>
                     </div>
                     <div className="weui_cell">
@@ -72,7 +111,7 @@ var Profile = React.createClass({
                         </div>
                         <div className="weui_cell_bd">姓名</div>
                         <div>
-                            <input className="weui_input" type="text" style={{marginLeft:"10px"}}/>
+                            <input ref="nameVal" className="weui_input" type="text" style={{marginLeft:"10px"}}/>
                         </div>
                     </div>
                     <div className="weui_cell">
@@ -87,7 +126,7 @@ var Profile = React.createClass({
                         </div>
                         <div className="weui_cell_bd">电话</div>
                         <div>
-                            <input className="weui_input" type="text" style={{marginLeft:"10px"}}/>
+                            <input ref="phoneVal" className="weui_input" type="number" style={{marginLeft:"10px"}}/>
                         </div>
                     </div>
                 </div>
