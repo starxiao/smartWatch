@@ -276,7 +276,7 @@ var Chat = React.createClass({
                                 var ele = function () {
                                     return (
                                         <div className="message" key={'user' + that.state.key}>
-                                            <p className="date" style={{width: "2.9rem"}}>{date}</p>
+                                            <p className="date" style={{width: "3.4rem"}}>{date}</p>
                                             <div className="bottom">
                                                 <div style={{
                                                     fontSize: "1rem",
@@ -343,7 +343,7 @@ var Chat = React.createClass({
         var ele = function () {
             return (
                 <div className="message" key={'user' + that.state.key}>
-                    <p className="date" style={{width: "2.9rem"}}>{date}</p>
+                    <p className="date" style={{width: "3.4rem"}}>{date}</p>
                     <div className="bottom">
                         <p style={{marginLeft: "5rem"}}>{val}</p>
                         <div className="bot"></div>

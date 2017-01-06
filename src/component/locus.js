@@ -171,15 +171,18 @@ var Locus = React.createClass({
         }
 
         var startAt = myYear+'-'+yesterday[0]+'-'+yesterday[2];
+        var endAt = myYear + '-'+ myMonth+'-'+myDate;
         var func = this.displayMaker;
-        this.handleAjax(startAt,func);
+
+        this.handleAjax(startAt,func,endAt);
     },
     handleBYesterday(){             //前天的回放
         var time = new Date(),
             myYear = time.getFullYear(),
             myMonth = time.getMonth() + 1,
             myDate = time.getDate();
-            var yesterday = this.state.bYesterday.split('');
+            var yesterday = this.state.yesterday.split('');
+            var BYesterday = this.state.bYesterday.split('');
         if(myMonth === 1){
             if(myDate === 1){
                 myYear = myYear -1;
@@ -188,9 +191,11 @@ var Locus = React.createClass({
                 myYear = myYear -1;
             }
         }
-        var startAt = myYear+'-'+yesterday[0]+'-'+yesterday[2];
+        var startAt = myYear+'-'+BYesterday[0]+'-'+BYesterday[2];
+        var endAt = myYear + '-' + yesterday[0] + '-' + yesterday[2];
         var func = this.displayMaker;
-        this.handleAjax(startAt,func);
+
+        this.handleAjax(startAt,func,endAt);
     },
 
     render() {
