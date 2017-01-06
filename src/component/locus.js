@@ -89,77 +89,24 @@ var Locus = React.createClass({
         })
 
     },
-    displayMap: function (data) {           // display data
-        var circle, polyLine, map = this.state.map,
-            lineArray = [];
-
+    displayMaker:function (data) {
+        var map = this.state.map,lineArray = [];
         for (let i = 0; i < data.length; i++) {
             var locateData = data[i].LocationStruct.location.split(',');
             lineArray[i] = [Number(locateData[0]), Number(locateData[1])];
-         }
-
+        }
         map.clearMap();    //清除地图的覆盖物，比如之前的回放
         map.setCenter(new AMap.LngLat(lineArray[0][0], lineArray[0][1]));    //重新设置地图中心
-        map.setZoom(16);
-        for (let i = 0; i < 4; i++) {
-            setTimeout(function () {
-                circle = new AMap.Circle({
-                    center: new AMap.LngLat(lineArray[i][0], lineArray[i][1]),
-                    radius: 20,
-                    strokeColor: "#F33",
-                    strokeOpacity: 1,
-                    strokeWeight: 3,
-                    fillColor: "#ee2200",
-                    fillOpacity: 0.35,
-                    map: map
-                });
-            }, i * 1000);
-        }
-        setTimeout(function () {
-            polyLine = new AMap.Polyline({
-                path: lineArray,
-                strokeColor: "#FF293A",
-                strokeStyle: "solid",
-                strokeWeight: 3,
-                strokeOpacity: 0.9,
+        map.setZoom(15);
+        for(var j=0; j<lineArray.length; j++){
+            new AMap.Marker({
+                position: lineArray[j],
+                autoRotation: true,
                 map: map
             });
-        }, 4 * 1000);
+        }
+
     },
-
-
-    displayRail: function (data) {                    //轨迹回放
-        var marker, polyLine, map = this.state.map,lineArray = [];
-        for (let i = 0; i < data.length; i++) {
-            var locateData = data[i].LocationStruct.location.split(',');
-            lineArray[i] = [Number(locateData[0]), Number(locateData[1])];
-         }
-
-        map.clearMap();    //清除地图的覆盖物，比如之前的回放
-        map.setCenter(new AMap.LngLat(lineArray[0][0], lineArray[0][1]));    //重新设置地图中心
-        map.setZoom(16);
-        var icon = new AMap.Icon({
-            image: '../app/src/image/map.png',
-        });
-        marker = new AMap.Marker({   //  起点
-            position: [113.931429, 22.529885],
-            icon: icon,
-            autoRotation: true,
-            map: map
-        });
-
-
-        polyLine = new AMap.Polyline({            //建立路线
-            path: lineArray,
-            strokeColor: "#FF293A",
-            strokeStyle: "solid",
-            strokeWeight: 3,
-            strokeOpacity: 0.9,
-            map: map
-        });
-        marker.moveAlong(lineArray, 180);   //回放函数  数字设置时间 千米每小时
-    },
-
     handleAjax(startAt,func,endAt){     //请求数据
         var that =this,
             username = Cookie("username"),
@@ -198,41 +145,6 @@ var Locus = React.createClass({
             }
         });
     },
-
-    handleMinute: function () {              //10分钟轨迹
-
-        //this.displayMap();
-        var time = new Date(),
-            myYear = time.getFullYear(),
-            myMonth = time.getMonth() + 1,
-            myDate = time.getDate(),
-            myHour = time.getHours(),
-            myMinute = time.getMinutes(),
-            endAt = myYear+'-'+myMonth+'-'+myDate+' '+myHour+':'+myMinute+":0";
-
-        if(myMinute < 10){
-            myHour = myHour -1;
-            myMinute = 50 + myMinute;
-        }else{
-            myMinute = myMinute-10;
-        }
-        var startAt = myYear+'-'+myMonth+'-'+myDate+' '+myHour+':'+myMinute+":0",
-            func = this.displayMap;
-        this.handleAjax(startAt,func,endAt);
-    },
-    handleHour: function () {            //一小时轨迹
-        var time = new Date(),
-            myYear = time.getFullYear(),
-            myMonth = time.getMonth() + 1,
-            myDate = time.getDate(),
-            myHour = time.getHours(),
-            myHour10 = myHour-1,
-            myMinute = time.getMinutes(),
-            startAt = myYear+'-'+myMonth+'-'+myDate+' '+myHour10+':'+myMinute+":0",
-            endAt = myYear+'-'+myMonth+'-'+myDate+' '+myHour+':'+myMinute+":0";
-        var func = this.displayMap;
-        this.handleAjax(startAt,func,endAt);
-    },
     handleToday(){                  //今天的回放
         var time = new Date(),
             myYear = time.getFullYear(),
@@ -240,10 +152,10 @@ var Locus = React.createClass({
             myDate = time.getDate(),
             startAt = myYear+'-'+myMonth+'-'+myDate;
 
-        var func = this.testFunc;
+        var func = this.displayMaker;
         this.handleAjax(startAt,func);
     },
-    handleYesterday(){           //昨天的回放
+    handleYesterday(){                  //昨天的回放
         var time = new Date(),
             myYear = time.getFullYear(),
             myMonth = time.getMonth() + 1,
@@ -258,8 +170,8 @@ var Locus = React.createClass({
             }
         }
 
-        var startAt = myYear+'-'+yesterday[0]+'-'+yesterday[3];
-        var func = this.displayRail;
+        var startAt = myYear+'-'+yesterday[0]+'-'+yesterday[2];
+        var func = this.displayMaker;
         this.handleAjax(startAt,func);
     },
     handleBYesterday(){             //前天的回放
@@ -276,18 +188,9 @@ var Locus = React.createClass({
                 myYear = myYear -1;
             }
         }
-        var startAt = myYear+'-'+yesterday[0]+'-'+yesterday[3];
-        var func = this.displayRail;
+        var startAt = myYear+'-'+yesterday[0]+'-'+yesterday[2];
+        var func = this.displayMaker;
         this.handleAjax(startAt,func);
-    },
-    handleClick: function () {          //点击弹出
-        var id = document.getElementById("time"),
-            display = window.getComputedStyle(id, null)["display"];
-        if (display == "none") {
-            id.style.display = "block";
-        } else {
-            id.style.display = "none";
-        }
     },
 
     render() {
@@ -295,24 +198,12 @@ var Locus = React.createClass({
             <div className="locusPage page">
                 <div className="hd">
                     <ul className="nav">
-                        <li onClick={this.handleMinute}><a href="javascript:">10分钟</a></li>
-                        <li onClick={this.handleHour}><a href="javascript:">1小时</a></li>
-                        <li onClick={this.handleClick}><a href="javascript:">轨迹</a></li>
+                        <li onClick={this.handleBYesterday}><a href="javascript:">前天</a></li>
+                        <li onClick={this.handleYesterday}><a href="javascript:">昨天</a></li>
+                        <li onClick={this.handleToday}><a href="javascript:">今天</a></li>
                     </ul>
                 </div>
                 <div className="bd">
-                    <div id="time" className="time">
-                        <div className="today">
-                            <a href="javascript:void(0);" onClick={this.handleToday}>今天<br/>{this.state.today}</a>
-                        </div>
-                        <div className="yesterday">
-                            <a href="javascript:void(0);" onClick={this.handleYesterday}>昨天<br/>{this.state.yesterday}</a>
-                        </div>
-                        <div className="bYesterday">
-                            <a href="javascript:void(0);" onClick={this.handleBYesterday}>前天<br/>{this.state.bYesterday}
-                            </a>
-                        </div>
-                    </div>
                     <div id={this.state.id}></div>
                 </div>
                 <ToastError ref="toastError" toast={this.state.toast}/>

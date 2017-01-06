@@ -38,7 +38,7 @@ var Setting = React.createClass({
         return(
             <div className="page settingPage">
                 <div className="weui_cells weui_cells_access">
-                    <a className="weui_cell" href="javascript:void(0);">
+                    <a className="weui_cell" href="build.html#/user/profile">
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E24736",
@@ -80,19 +80,6 @@ var Setting = React.createClass({
                     <a className="weui_cell" href="javascript:void(0);">
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
-                                color: "#36E2B9",
-                                marginRight: "10px",
-                                marginTop: "3px"}}>
-                                <use xlinkHref="#icon-jianyi"/>
-                            </svg>
-                        </div>
-                        <div className="weui_cell_bd weui_cell_primary">
-                            <p>意见建议</p>
-                        </div>
-                    </a>
-                    <a className="weui_cell" href="javascript:void(0);">
-                        <div className="weui_cell_hd">
-                            <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#E258E1",
                                 marginRight: "10px",
                                 marginTop: "3px"}}>
@@ -101,19 +88,6 @@ var Setting = React.createClass({
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
                             <p>常见问题</p>
-                        </div>
-                    </a>
-                    <a className="weui_cell" href="javascript:void(0);">
-                        <div className="weui_cell_hd">
-                            <svg className="iconfont" aria-hidden="true" style={{
-                                color: "#8333E2",
-                                marginRight: "10px",
-                                marginTop: "3px"}}>
-                                <use xlinkHref="#icon-guanyu"/>
-                            </svg>
-                        </div>
-                        <div className="weui_cell_bd weui_cell_primary">
-                            <p>关于</p>
                         </div>
                     </a>
                     <a className="weui_cell" href="javascript:void(0);">
