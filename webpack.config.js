@@ -20,7 +20,7 @@ module.exports = {
         path: BUILD_PATH,
         publicPath: '../build/',
         filename: 'build.js',
-        chunkFilename: '[name].[chunkhash:5].chunk.js',   // 添加 chunkFilename
+        chunkFilename: '[name].chunk.js',   // 添加 chunkFilename
     },
 
     module: {

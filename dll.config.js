@@ -30,11 +30,16 @@ module.exports = {
     },
     plugins: [
         new webpack.DllPlugin({
-            path: 'manifest.json',
+            path: 'manifest.json',                  // 生成独立的库文件
             name: 'lib',
             context: __dirname
         }),
-        new webpack.optimize.UglifyJsPlugin({
+        new webpack.DefinePlugin({                  //把react形成product文件，如同react.min.js
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({          //单纯的压缩文件
             compress: {
                 warnings: false
             }
