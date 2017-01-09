@@ -77,7 +77,7 @@ var Login = React.createClass({
                         that.refs.password.value = '';
                         break;
                     case 40001:
-                        var myUrl = encodeURIComponent("http://app.smartlocate.cn/build/test.html#/login");
+                        var myUrl = encodeURIComponent("http://app.smartlocate.cn/build/build.html#/user/login");
                         window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?" +
                             "redirectUri=" + myUrl;
                         break;
