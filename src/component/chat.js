@@ -176,6 +176,22 @@ var Chat = React.createClass({
                                     "translateVoice",
                                 ]
                             });
+                            if(!localStorage.getItem('allowRecord') || localStorage.getItem('allowRecord') !== 'true'){
+                                wx.startReocrd({
+                                    success:function () {
+                                        localStorage.setItem('allowRecord','true');
+                                        wx.stopRecord();
+                                    },
+                                    fail:function () {
+                                        that.setState({toast:'请允许录音'});
+                                        that.refs.toastError.show();
+                                        window.setTimeout(function () {
+                                            that.refs.toastError.hide();
+                                        },2000);
+                                    }
+
+                                });
+                            }
                             wx.error(function () {
                                 that.setState({toast:'网络错误'});
                                 that.refs.toastError.show();
