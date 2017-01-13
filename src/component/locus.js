@@ -6,6 +6,7 @@ import React from 'react';
 import {hashHistory} from 'react-router';
 import CreateXHR from './xhr';
 import Cookie from './cookie';
+import ToastLoad from './ToastLoad';
 import ToastError from './ToastError';
 import {today, yesterday, bYesterday} from './time';
 import '../styles/locus.css';
@@ -18,9 +19,6 @@ var Locus = React.createClass({
             toast:"没有定位数据",
             id: 'container',        //地图的id
             map: null,
-            today: today,             //获取时间
-            yesterday: yesterday,
-            bYesterday: bYesterday,
             position:null,
         })
     },
@@ -119,6 +117,7 @@ var Locus = React.createClass({
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
+                        that.refs.toastLoad.hide();
                         if (!data.data){
                             that.setState({toast:'没有定位数据'});
                             that.refs.toastError.show();
@@ -146,56 +145,24 @@ var Locus = React.createClass({
         });
     },
     handleToday(){                  //今天的回放
-        var time = new Date(),
-            myYear = time.getFullYear(),
-            myMonth = time.getMonth() + 1,
-            myDate = time.getDate(),
-            startAt = myYear+'-'+myMonth+'-'+myDate;
-
+        this.refs.toastLoad.show();
         var func = this.displayMaker;
-        this.handleAjax(startAt,func);
+        console.log(today +'-' + yesterday + '-'+bYesterday);
+        var start = today;
+        console.log(start);
+        this.handleAjax(start,func);
     },
     handleYesterday(){                  //昨天的回放
-        var time = new Date(),
-            myYear = time.getFullYear(),
-            myMonth = time.getMonth() + 1,
-            myDate = time.getDate();
-        var yesterday = this.state.yesterday.split('');
-        if(myMonth === 1){
-            if(myDate === 1){
-                myYear = myYear -1;
-            }
-            if(myDate === 2){
-                myYear = myYear -1;
-            }
-        }
-
-        var startAt = myYear+'-'+yesterday[0]+'-'+yesterday[2];
-        var endAt = myYear + '-'+ myMonth+'-'+myDate;
+        this.refs.toastLoad.show();
+        console.log(today +'-' + yesterday + '-'+bYesterday);
         var func = this.displayMaker;
-
-        this.handleAjax(startAt,func,endAt);
+        this.handleAjax(yesterday,func,today);
     },
     handleBYesterday(){             //前天的回放
-        var time = new Date(),
-            myYear = time.getFullYear(),
-            myMonth = time.getMonth() + 1,
-            myDate = time.getDate();
-            var yesterday = this.state.yesterday.split('');
-            var BYesterday = this.state.bYesterday.split('');
-        if(myMonth === 1){
-            if(myDate === 1){
-                myYear = myYear -1;
-            }
-            if(myDate === 2){
-                myYear = myYear -1;
-            }
-        }
-        var startAt = myYear+'-'+BYesterday[0]+'-'+BYesterday[2];
-        var endAt = myYear + '-' + yesterday[0] + '-' + yesterday[2];
+        this.refs.toastLoad.show();
+        console.log(today +'-' + yesterday + '-'+bYesterday);
         var func = this.displayMaker;
-
-        this.handleAjax(startAt,func,endAt);
+        this.handleAjax(bYesterday,func,yesterday);
     },
 
     render() {
@@ -211,6 +178,7 @@ var Locus = React.createClass({
                 <div className="bd">
                     <div id={this.state.id}></div>
                 </div>
+                <ToastLoad ref="toastLoad" content="数据加载中"/>
                 <ToastError ref="toastError" toast={this.state.toast}/>
             </div>
         )

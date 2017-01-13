@@ -16,9 +16,11 @@
     background-color: #373b3e;
 }
 .locusPage .hd .nav li a {
+    width:100%;
     font-family: "Microsoft JhengHei";
     font-size: 1.5rem;
     color: #fff;
+    text-align: center;
 }
 
 .locusPage .time{

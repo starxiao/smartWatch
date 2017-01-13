@@ -9,8 +9,9 @@ var time = new Date();
 var today, yesterday, bYesterday;
 var day = time.getDate();
 var month = time.getMonth() + 1;
-var year = time.getYear();
-
+var year = time.getFullYear();
+var yYear = year;
+var bYear = year;
 var yMonth = month;
 var bMonth = month;
 var yDay = day - 1;
@@ -18,13 +19,17 @@ var bDay = day - 2;
 
 switch (month) {
     case 1:
+
         if (day == 1) {
             yMonth = 12;
             yDay = 31;
+            yYear--;
+            bYear--;
         }
         if (day == 2) {
             bMonth = 12;
             bDay = 31;
+            bYear--;
         }
         break;
     case 3:
@@ -74,16 +79,16 @@ switch (month) {
         }
         break;
 }
-yesterday = yMonth + "月" + yDay + "日";
-bYesterday = bMonth + "月" + bDay + "日";
+yesterday = yYear + '-' + yMonth + "-" + yDay;
+bYesterday = bYear + '-' + bMonth + "-" + bDay;
 if (day == 1) {
-    yesterday = yMonth + "月" + yDay + "日";
-    bYesterday = yMonth + "月" + (yDay - 1) + "日";
+    yesterday = yYear + '-' + yMonth + "-" + yDay;
+    bYesterday = bYear + '-' + yMonth + "-" + (yDay - 1);
 }
 if (day == 2) {
-    bYesterday = bMonth + "月" + bDay + "日";
+    bYesterday = bYear + '-' + bMonth + "-" + bDay;
 }
-today = (time.getMonth() + 1) + "月" + time.getDate() + "日";
+today = year + '-' + (time.getMonth() + 1) + "-" + time.getDate();
 
 
 export {today,yesterday,bYesterday};

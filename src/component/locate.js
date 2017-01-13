@@ -98,11 +98,10 @@ var Locate = React.createClass({
 
     completeEventHandler: function () {        //初始化地图后添加地图插件
         var marker, circle, map = this.state.map,
-            content = '<div class="locate_img"><i class="iconfont icon-dingwei"></i></div>'; //set icon
+            content = '<div class="locate_img"><img src="../app/src/image/map.png" alt="image"><div>'; //set icon
         marker = new AMap.Marker({                        //set marker
             position: this.state.data.position,
             content: content,
-            offset: new AMap.Pixel(-25, -80),
             map: map
         });
         circle = new AMap.Circle({                       // create circle
@@ -126,7 +125,7 @@ var Locate = React.createClass({
             isCustom: true,
             closeWhenClickMap:false,
             content: title,
-            offset: new AMap.Pixel(25, -90)
+            offset: new AMap.Pixel(35, -60)
         });
         infoWindow.open(map, this.state.data.position);
     },
