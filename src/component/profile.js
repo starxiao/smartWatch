@@ -2,30 +2,69 @@
  * Created by user on 2016/12/23.
  */
 import React from 'react';
+import {hashHistory} from 'react-router';
 import CreateXHR from './xhr';
+import Cookie from './cookie';
 import ToastError from './ToastError';
 import ToastSuccess from './ToastSuccess';
 import 'weui';
 var Profile = React.createClass({
     getInitialState: function () {
         return {
-            toast:''
+            toast:'',
+            nick:'',
+            sex:'',
+            realName:'',
+            telephone:''
         }
     },
     componentWillMount:function () {
 
+        var that = this,
+            username = Cookie('username'),
+            ticket = Cookie('ticket');
+
+        CreateXHR({
+            url: 'http://api.smartlocate.cn/v1/user/' + username + "?ticket=" + ticket,
+            type: "GET",
+            success: function (data) {
+                switch (data.errcode) {
+                    case 0:
+                        console.log(data);
+                        that.refs.profileVal.value = data.data.nick;
+                        that.refs.nameVal.value = data.data.realname;
+                        that.refs.phoneVal.value = data.data.telephone;
+                        if(data.data.sex === 2){
+                            that.refs.girl.checked = 'checked';
+                        }else{
+                            that.refs.boy.checked = 'checked';
+                        }
+                        break;
+                    default:
+                        hashHistory.push('/user/login');
+                        break;
+                }
+            },
+            error: function () {
+                that.refs.ToastError.show();
+                setTimeout(function () {
+                    that.refs.ToastError.hide();
+                }, 2000);
+            }
+        });
+
     },
     handleSubmit:function () {
-        var that = this;
+        var that = this,username = Cookie('username'),ticket = Cookie('ticket');
         var profileVal = that.refs.profileVal.value,
             nameVal = that.refs.nameVal.value,
             phoneVal = that.refs.phoneVal.value;
-        var sexVal = '';
+        var sexVal = 0;
         if(that.refs.boy.checked){
-            sexVal = '男';
+            sexVal = 1;
         }
         if(that.refs.girl.checked){
-            sexVal = '女';
+            sexVal = 2;
         }
         if(!profileVal){
             that.setState({toast:'帐号未填写'});
@@ -52,13 +91,33 @@ var Profile = React.createClass({
                 that.refs.ToastError.hide();
             },1000);
         }else{
-            that.setState({toast:'保存成功'});
-            that.refs.ToastSuccess.show();
-            window.setTimeout(function () {
-                that.refs.ToastSuccess.hide();
-            },1000);
-        }
 
+            CreateXHR({
+                url: 'http://api.smartlocate.cn/v1/user/' + username,
+                type: "PUT",
+                data:{
+                    ticket: ticket,
+                    nick: profileVal,
+                    sex: sexVal,
+                    realname: nameVal,
+                    telephone: phoneVal
+                },
+                success: function (data) {
+                    that.setState({toast:'保存成功'});
+                    that.refs.ToastSuccess.show();
+                    window.setTimeout(function () {
+                        that.refs.ToastSuccess.hide();
+                    },1000);
+                },
+                error: function () {
+                    that.refs.ToastError.show();
+                    setTimeout(function () {
+                        that.refs.ToastError.hide();
+                    }, 2000);
+                }
+            });
+
+        }
     },
     render: function () {
         return (
@@ -74,7 +133,7 @@ var Profile = React.createClass({
                                 <use xlinkHref="#icon-zhanghao"/>
                             </svg>
                         </div>
-                        <div className="weui_cell_bd">账号</div>
+                        <div className="weui_cell_bd">昵称</div>
                         <div>
                             <input ref="profileVal" className="weui_input" type="text" style={{marginLeft:"10px"}}/>
                         </div>

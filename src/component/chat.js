@@ -22,14 +22,14 @@ var Chat = React.createClass({
     getInitialState: function () {
         return {
             content: '手指上滑,取消发送',
-            toast:'说话时间太短',
+            toast: '说话时间太短',
             flag: true,
             key: 0,
             startTime: 0,
             num: 0,
             node: null,
             message: [],
-            timeout:null,
+            timeout: null,
         }
     },
     componentWillMount: function () {
@@ -37,10 +37,11 @@ var Chat = React.createClass({
         CreateXHR({
             type: 'GET',
             url: url + 'device/' + IMEI + '/chatRecord?username=' +
-            username + '&ticket=' + ticket + '&orderType=timeDesc&startId=0&length=10',
+            username + '&ticket=' + ticket + '&orderType=timeDesc&startId=0&length=20',
             success: function (res) {
                 switch (res.errcode) {
                     case 0:
+                        console.log(res);
                         var msg = [];
                         for (var i = res.data.length - 1; i >= 0; i--) {
                             if (res.data[i].direction === 2) {
@@ -64,7 +65,7 @@ var Chat = React.createClass({
                                             <div className="message" key={i}>
                                                 <p className="date">{res.data[i].created_at}</p>
                                                 <div className="bottom">
-                                                    <div style={{
+                                                    <div className="duration" style={{
                                                         fontSize: "1rem",
                                                         margin: "15px 10px 0 0",
                                                         color: "grey"
@@ -92,6 +93,7 @@ var Chat = React.createClass({
                                     msg.push(ele);
                                 }
                             } else {
+                                var color = res.data[i].flag_read ? 'FFF': 'FF0000';
                                 let ele = function () {
                                     return (
                                         <div className="message" key={i}>
@@ -101,7 +103,10 @@ var Chat = React.createClass({
                                                     fontSize: "1rem",
                                                     margin: "15px 0 0 10px",
                                                     color: "grey"
-                                                }}>{res.data[i].duration + '"'}</div>
+                                                }}>
+                                                    <div className="radius" style={{backgroundColor:{color}}}></div>
+                                                    <div className="duration">{res.data[i].duration + '"'}</div>
+                                                </div>
                                                 <p onClick={that.playVoice}>
                                                     <audio src={res.data[i].voiceUrl}/>
                                                     <svg className="iconfont icon-voice-1" aria-hidden="true">
@@ -133,11 +138,11 @@ var Chat = React.createClass({
                 }
             },
             error: function () {
-                that.setState({toast:'网络错误'});
+                that.setState({toast: '网络错误'});
                 that.refs.toastError.show();
                 window.setTimeout(function () {
                     that.refs.toastError.hide();
-                },2000);
+                }, 2000);
 
             },
         });
@@ -176,28 +181,30 @@ var Chat = React.createClass({
                                     "translateVoice",
                                 ]
                             });
-                            if(!localStorage.getItem('allowRecord') || localStorage.getItem('allowRecord') !== 'true'){
-                                wx.startReocrd({
-                                    success:function () {
-                                        localStorage.setItem('allowRecord','true');
-                                        wx.stopRecord();
-                                    },
-                                    fail:function () {
-                                        that.setState({toast:'请允许录音'});
-                                        that.refs.toastError.show();
-                                        window.setTimeout(function () {
-                                            that.refs.toastError.hide();
-                                        },2000);
-                                    }
+                            wx.ready(function(){
+                                if (!localStorage.getItem('allowRecord') || localStorage.getItem('allowRecord') !== 'true') {
+                                    wx.startReocrd({
+                                        success: function () {
+                                            localStorage.setItem('allowRecord', 'true');
+                                            wx.stopRecord();
+                                        },
+                                        fail: function () {
+                                            that.setState({toast: '请允许录音'});
+                                            that.refs.toastError.show();
+                                            window.setTimeout(function () {
+                                                that.refs.toastError.hide();
+                                            }, 2000);
+                                        }
 
-                                });
-                            }
+                                    });
+                                }
+                            });
                             wx.error(function () {
-                                that.setState({toast:'网络错误'});
+                                that.setState({toast: '网络错误'});
                                 that.refs.toastError.show();
                                 window.setTimeout(function () {
                                     that.refs.toastError.hide();
-                                },2000);
+                                }, 2000);
                                 hashHistory.push('/user/login');
                             });
                             break;
@@ -207,11 +214,11 @@ var Chat = React.createClass({
                     }
                 },
                 error: function () {
-                    that.setState({toast:'网络错误'});
+                    that.setState({toast: '网络错误'});
                     that.refs.toastError.show();
                     window.setTimeout(function () {
                         that.refs.toastError.hide();
-                    },2000);
+                    }, 2000);
                 }
             });
 
@@ -331,20 +338,20 @@ var Chat = React.createClass({
                         }
                     },
                     error: function () {
-                        that.setState({toast:'网络错误'});
+                        that.setState({toast: '网络错误'});
                         that.refs.toastError.show();
                         window.setTimeout(function () {
                             that.refs.toastError.hide();
-                        },2000);
+                        }, 2000);
                     }
                 });
             },
             fail: function () {
-                that.setState({toast:'网络错误'});
+                that.setState({toast: '网络错误'});
                 that.refs.toastError.show();
                 window.setTimeout(function () {
                     that.refs.toastError.hide();
-                },2000);
+                }, 2000);
             }
         });
 
@@ -391,11 +398,11 @@ var Chat = React.createClass({
                 }
             },
             error: function () {
-                that.setState({toast:'网络错误'});
+                that.setState({toast: '网络错误'});
                 that.refs.toastError.show();
                 window.setTimeout(function () {
                     that.refs.toastError.hide();
-                },2000);
+                }, 2000);
             }
         });
 
@@ -416,16 +423,16 @@ var Chat = React.createClass({
                     that.chatRecord(res);  //返回本地ID res.localId
                 },
                 fail: function () {
-                    that.setState({toast:'网络错误'});
+                    that.setState({toast: '网络错误'});
                     that.refs.toastError.show();
                     window.setTimeout(function () {
                         that.refs.toastError.hide();
-                    },2000);
+                    }, 2000);
                 }
             });
         }, 15500);
         var time = new Date().getTime();
-        that.setState({startTime: time, num: e.touches[0].pageY,timeout:timeout});
+        that.setState({startTime: time, num: e.touches[0].pageY, timeout: timeout});
     },
     touchMove: function (e) {
         e.preventDefault();
@@ -442,18 +449,18 @@ var Chat = React.createClass({
         var time = new Date().getTime();
         that.refs.toastLoad.hide();
         wx.stopRecord({
-            success:function (res) {
-                if((time - that.state.startTime) < 500){
+            success: function (res) {
+                if ((time - that.state.startTime) < 500) {
                     that.refs.toastError.show();
                     window.setTimeout(function () {
                         that.refs.toastError.hide();
-                    },500);
-                }else{
-                    if(that.state.flag){
+                    }, 500);
+                } else {
+                    if (that.state.flag) {
                         that.chatRecord(res);
                     }
                 }
-                that.setState({content: "手指上滑,取消发送", flag: true,startTime:0,num: 0});
+                that.setState({content: "手指上滑,取消发送", flag: true, startTime: 0, num: 0});
                 window.clearTimeout(that.state.timeout);
             }
         });
@@ -465,6 +472,15 @@ var Chat = React.createClass({
         // 只关注点击的元素。
         //返回绑定事件的元素
         var node = e.currentTarget;
+
+        console.log(node);
+        for(var i=0; i<node.previousSibling.childNodes.length; i++){
+            console.log(node.previousSibling.childNodes[i]);
+            if(node.previousSibling.childNodes[i].getAttribute('class') === 'radius'){
+                console.log('is ok');
+                node.previousSibling.childNodes[i].style.backgroundColor = '#FFF';
+            }
+        }
         if (this.state.node !== null) {
             this.state.node.firstElementChild.pause();
         }

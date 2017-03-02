@@ -159,9 +159,12 @@ const router = [
                             script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
                             document.getElementsByTagName("head")[0].appendChild(script);
                             script.onload = function () {
-                                require.ensure([], (require) => {
-                                    cb(null, require('./src/component/locate'))
-                                },'locate');
+                                window['init'] = function () {
+                                    require.ensure([], (require) => {
+                                        console.log('loaded alarm');
+                                        cb(null, require('./src/component/locate'))
+                                    },'locate');
+                                };
                             };
                         },
                     },
@@ -172,9 +175,11 @@ const router = [
                             script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
                             document.getElementsByTagName("head")[0].appendChild(script);
                             script.onload = function () {
-                                require.ensure([], (require) => {
-                                    cb(null, require('./src/component/locus'))
-                                },'locus');
+                                window['init'] = function () {
+                                    require.ensure([], (require) => {
+                                        cb(null, require('./src/component/locus'))
+                                    },'locus');
+                                };
                             };
                         },
                     },
@@ -185,9 +190,11 @@ const router = [
                             script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
                             document.getElementsByTagName("head")[0].appendChild(script);
                             script.onload = function () {
-                                require.ensure([], (require) => {
-                                    cb(null, require('./src/component/rail'))
-                                },'rail');
+                                window['init'] = function () {
+                                    require.ensure([], (require) => {
+                                        cb(null, require('./src/component/rail'))
+                                    },'rail');
+                                };
                             };
                         },
                     }
@@ -199,6 +206,14 @@ const router = [
                     require.ensure([], (require) => {
                         cb(null, require('./src/component/redirect'))
                     },'redirect');
+                },
+            },
+            {
+                path: '/user/chat&IMEI=*',
+                getComponent: (nextState, cb) => {
+                    require.ensure([], (require) => {
+                        cb(null, require('./src/component/chatRedirect'))
+                    },'chatRedirect');
                 },
             }
         ]

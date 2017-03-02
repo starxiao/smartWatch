@@ -771,7 +771,7 @@ var Device = React.createClass({
                         </div>
                         <div className="weui_cell_ft"></div>
                     </a>
-                    <a className="weui_cell" href="test.html#/user/phone">
+                    <a className="weui_cell" href="build.html#/user/phone">
                         <div className="weui_cell_hd">
                             <svg className="iconfont" aria-hidden="true" style={{
                                 color: "#9A59E2",

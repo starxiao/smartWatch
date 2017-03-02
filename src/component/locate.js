@@ -9,16 +9,16 @@ import RongYun from './RongYun';
 import 'weui';
 import '../styles/locate.css';
 
-
 var Locate = React.createClass({
 
-    getInitialState: function () {             //初始化参数
+    getInitialState: function () {                 //初始化参数
         return {
             id: 'container',
             url:'http://api.smartlocate.cn/v1/',
             map: null,
             data: {
                 nick: '',
+                status: '',
                 electricity: 100,
                 style: '',
                 time: '',
@@ -40,10 +40,12 @@ var Locate = React.createClass({
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
+                        console.log('is ok?');
                         console.log(data);
                         var locationData = JSON.parse(data.data.location),
                             location = {
                                 nick: data.data.nick,
+                                status: data.data.status ? '在线':'离线',
                                 electricity: data.data.electricity,
                                 time: locationData.created_at,
                                 style: locationData.type,
@@ -119,7 +121,7 @@ var Locate = React.createClass({
         info.push("定位类型 :  "+this.state.data.style+"   定位时间 :  "+this.state.data.time);
         info.push("定位时间 :  "+this.state.data.time);
         info.push("地址 : "+this.state.data.MyLocation);
-        var title = '<div class="info"> <div class="row">昵称 : '+this.state.data.nick+'    电量  :  '+this.state.data.electricity+'</div> <div class="row">定位类型 : '+this.state.data.style+'</div> <div class="row">定位时间 :'+this.state.data.time+'</div> <div class="row">地址 : '+this.state.data.MyLocation+'</div> </div>' +
+        var title = '<div class="info"> <div class="row">昵称 : '+this.state.data.nick+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电量  :  '+this.state.data.electricity+'</div> <div class="row">设备 : '+this.state.data.status+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;定位类型 : '+this.state.data.style+'</div> <div class="row">定位时间 :'+this.state.data.time+'</div> <div class="row">地址 : '+this.state.data.MyLocation+'</div> </div>' +
             '<div class="canvas"></div>';
         var infoWindow = new AMap.InfoWindow({
             isCustom: true,
@@ -133,8 +135,10 @@ var Locate = React.createClass({
     handleData: function (message) {             //融云得到数据后处理
         this.refs.toastLoad.hide();
         if (message.content.content === "LocationUpdated") {
+            console.log(message);
             var objData = {
                 nick: message.content.extra.nick,
+                status: this.state.data.status,
                 style: message.content.extra.locationType,
                 electricity: this.state.data.electricity,
                 time: message.content.extra.created_at,
@@ -164,6 +168,9 @@ var Locate = React.createClass({
             data:{
                 username:username,
                 ticket:ticket
+            },
+            success:function(){
+                return;
             },
             error: function () {
                 that.refs.toastError.show();

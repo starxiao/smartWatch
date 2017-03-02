@@ -14,7 +14,7 @@ var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 module.exports = {
 
     entry: {
-        main:'./app/index.js',
+        main:'./index.js',
     },
     output: {
         path: BUILD_PATH,
@@ -49,10 +49,10 @@ module.exports = {
             context: __dirname,
             manifest: require('./manifest.json')
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     }
+        // })
     ]
 };

@@ -1,4 +1,3 @@
-
 .chatPage .content .message{
     margin-top: 10px;
 }
@@ -8,7 +7,7 @@
 .chatPage .content .message .date{
     width: 10rem;
     margin: 0 auto;
-    padding-left: 15px;
+    padding-left: 10px;
     margin-bottom: 5px;
     border-radius: 5px;
     background-color: #ccc7b6;
@@ -20,10 +19,18 @@
     justify-content: flex-end;
     margin-top: 10px;
 }
+.chatPage .content .message .bottom .radius{
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: red;
+}
 .chatPage .content .message .bottom p{
     padding: 10px;
     border-radius: 5px;
     background-color: #16ff36;
+    display: flex;
+    align-items: center;
 }
 .chatPage .content .message .bottom li{
     list-style: none;
@@ -62,7 +69,6 @@
     border-right: 10px solid #16ff36;
     margin: 15px 0 0 0 ;
 }
-
 
 .chatPage footer{
     width:100%;
