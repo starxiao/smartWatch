@@ -100,7 +100,7 @@ var Locate = React.createClass({
 
     completeEventHandler: function () {        //初始化地图后添加地图插件
         var marker, circle, map = this.state.map,
-            content = '<div class="locate_img"><img src="../app/src/image/map.png" alt="image"><div>'; //set icon
+            content = '<div class="locate_img"><img style="width: 2rem" src="../app/src/image/map.png" alt="image"><div>'; //set icon
         marker = new AMap.Marker({                        //set marker
             position: this.state.data.position,
             content: content,

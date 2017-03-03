@@ -93,7 +93,13 @@ var Chat = React.createClass({
                                     msg.push(ele);
                                 }
                             } else {
-                                var color = res.data[i].flag_read ? 'FFF': 'FF0000';
+                                var radiusStyle;
+                                if(res.data[i].flag_read === 1){
+                                    radiusStyle = {backgroundColor:'#FFF'};
+                                }else{
+                                    radiusStyle = {backgroundColor:'#FF0000'};
+                                }
+                                console.log(radiusStyle);
                                 let ele = function () {
                                     return (
                                         <div className="message" key={i}>
@@ -104,11 +110,11 @@ var Chat = React.createClass({
                                                     margin: "15px 0 0 10px",
                                                     color: "grey"
                                                 }}>
-                                                    <div className="radius" style={{backgroundColor:{color}}}></div>
+                                                    <div className="radius" style={radiusStyle}></div>
                                                     <div className="duration">{res.data[i].duration + '"'}</div>
                                                 </div>
                                                 <p onClick={that.playVoice}>
-                                                    <audio src={res.data[i].voiceUrl}/>
+                                                    <audio src={res.data[i].voiceUrl} value={res.data[i].id}/>
                                                     <svg className="iconfont icon-voice-1" aria-hidden="true">
                                                         <use xlinkHref="#icon-voice-1"/>
                                                     </svg>
@@ -221,7 +227,7 @@ var Chat = React.createClass({
                     }, 2000);
                 }
             });
-
+            var script = document.createElement('script');
             script.src = 'http://cdn.ronghub.com/RongIMLib-2.2.1.min.js';
             document.getElementsByTagName('head')[0].appendChild(script);
             script.onload = function () {
@@ -486,6 +492,35 @@ var Chat = React.createClass({
         }
         this.animate(node);
         node.firstElementChild.play();
+        if(node.firstElementChild.hasAttribute('value')){
+            var recordId = node.firstElementChild.getAttribute('value');
+            console.log('ok');
+            CreateXHR({
+                type: "put",
+                url: url + "device/" + IMEI + "/chatRecord/" + recordId,
+                data: {
+                    username: username,
+                    ticket: ticket,
+                    flag_read: 1
+                },
+                success: function (data) {
+                    switch (data.errcode) {
+                        case 0:
+                            break;
+                        default:
+                            hashHistory.push('/user/login');
+                            break;
+                    }
+                },
+                error: function () {
+                    that.setState({toast: '网络错误'});
+                    that.refs.toastError.show();
+                    window.setTimeout(function () {
+                        that.refs.toastError.hide();
+                    }, 2000);
+                }
+            });
+        }
         this.setState({node: node});
 
     },

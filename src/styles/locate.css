@@ -24,8 +24,7 @@
 }
 
 .locatePage .locate_img{
-    font-size: 1.5rem;
-    color: #16ff36;
+    width: 2rem;
 }
 .locatePage .locate_img .iconfont{
     font-size: 2.5rem;

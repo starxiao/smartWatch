@@ -23,7 +23,7 @@
     width: 8px;
     height: 8px;
     border-radius: 4px;
-    background-color: red;
+    /*background-color: red;*/
 }
 .chatPage .content .message .bottom p{
     padding: 10px;
