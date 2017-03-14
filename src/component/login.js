@@ -23,6 +23,12 @@ var Login = React.createClass({
             url: null,
         }
     },
+    componentWillMount:function(){
+        if(!(Cookie('code'))){
+            var url = encodeURIComponent(window.location.href);
+            window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?redirectUri=" + url;
+        }
+    },
     HandleSubmit: function (e) {
         e.preventDefault();
         var that = this,

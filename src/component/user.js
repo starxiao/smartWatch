@@ -5,6 +5,7 @@
 
 import React from 'react';
 import {hashHistory} from 'react-router';
+import Cookie from './cookie';
 import CreateXHR from './xhr';
 import ToastError from './ToastError';
 import Dialog from './dialog';
@@ -20,9 +21,16 @@ var User = React.createClass({
         }
 
     },
+    componentWillMount:function(){
+        if(!(Cookie('code'))){
+            var url = encodeURIComponent(window.location.href);
+            window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?redirectUri=" + url;
+        }
+    },
     handleSubmit: function (e) {      //handle submit
         e.preventDefault();              //防止无效提交
         var that = this,
+            code = Cookie('code'),
             username = this.refs.username.value.trim(),  //获取输入的用户名
             password = this.refs.password.value.trim(),   //获取输入的密码
             flag = /^1[3,5,8]\d{9}$/,                     //验证手机号码
@@ -48,7 +56,8 @@ var User = React.createClass({
             url: 'http://api.smartlocate.cn/v1/user/',
             data: {
                 username: username,
-                password: password
+                password: password,
+                code: code
             },
             success: function (data) {
                 var dialog = that.refs.dialog;

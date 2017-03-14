@@ -209,6 +209,14 @@ const router = [
                 },
             },
             {
+                path: '/user&code=:ticket&isLogined=:false',
+                getComponent: (nextState, cb) => {
+                    require.ensure([], (require) => {
+                        cb(null, require('./src/component/redirect'))
+                    },'redirect');
+                },
+            },
+            {
                 path: '/user/chat&IMEI=*',
                 getComponent: (nextState, cb) => {
                     require.ensure([], (require) => {

@@ -23,9 +23,10 @@ var Setting = React.createClass({
             success:function(data){
                 switch (data.errcode) {
                     case 0:
-                        hashHistory.push('/user/login');
+                        Cookie("code",'');
                         Cookie("username",'');
                         Cookie("ticket",'');
+                        hashHistory.push('/user/login');
                         break;
                     default:
                         hashHistory.push('/user/login');

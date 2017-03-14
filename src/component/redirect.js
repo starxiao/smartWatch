@@ -10,8 +10,12 @@ import RegexpUrl from './regexpUrl';
 
 var Redirect = React.createClass({
 
+    componentWillMount:function () {
+        console.log('is ok');
+    },
     render:function () {
         var url = window.location.href;
+        console.log(url);
         var temp = RegexpUrl(url, 'isLogined');
 
         if (temp === 'true') {
