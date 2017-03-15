@@ -9,6 +9,13 @@ import Cookie from './cookie';
 var ChatRedirect = React.createClass({
 
     render:function () {
+        var username = Cookie("username"),
+            ticket = Cookie("ticket");
+        if (!(username && ticket)) {
+            var myUrl = encodeURIComponent("http://app.smartlocate.cn/build/build.html#/user/login");
+            window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?" +
+                "redirectUri=" + myUrl;
+        }
         var url = window.location.href;
         console.log(url);
         var reg = new RegExp("&IMEI=");

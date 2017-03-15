@@ -22,7 +22,7 @@ const router = [
             getComponent: (nextState, cb) => {
                 require.ensure([], (require) => {
                     cb(null, require('./src/component/home'))
-                },'home');
+                }, 'home');
             },
         },
         childRoutes: [
@@ -32,7 +32,7 @@ const router = [
                     getComponent: (nextState, cb) => {
                         require.ensure([], (require) => {
                             cb(null, require('./src/component/user'))
-                        },'user');
+                        }, 'user');
                     },
                 },
                 childRoutes: [
@@ -41,15 +41,15 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/login'))
-                            },'login');
+                            }, 'login');
                         },
                     },
                     {
                         path: 'find',
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
-                                cb(null,require('./src/component/find'))
-                            },'find');
+                                cb(null, require('./src/component/find'))
+                            }, 'find');
                         },
                     },
                     {
@@ -57,7 +57,7 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/resetpassword'))
-                            },'resetPassword');
+                            }, 'resetPassword');
                         },
                     },
                     {
@@ -65,7 +65,7 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/chat'))
-                            },'chat');
+                            }, 'chat');
                         },
                     },
                     {
@@ -73,7 +73,7 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/userUpdated'))
-                            },'update');
+                            }, 'update');
                         },
                     },
                     {
@@ -81,15 +81,15 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/phone'))
-                            },'phone');
+                            }, 'phone');
                         },
                     },
                     {
                         path: 'profile',
-                        getComponent: (nextState, cb) =>{
-                            require.ensure([],(require) => {
-                                cb(null,require('./src/component/profile'))
-                            },'profile');
+                        getComponent: (nextState, cb) => {
+                            require.ensure([], (require) => {
+                                cb(null, require('./src/component/profile'))
+                            }, 'profile');
                         },
                     }
                 ]
@@ -100,7 +100,7 @@ const router = [
                     getComponent: (nextState, cb) => {
                         require.ensure([], (require) => {
                             cb(null, require('./src/component/device'))
-                        },'device');
+                        }, 'device');
                     },
                 },
                 childRoutes: [
@@ -109,7 +109,7 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/deviceSetting'))
-                            },'setting');
+                            }, 'setting');
                         },
                     },
                     {
@@ -117,7 +117,7 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/alarm'))
-                            },'alarm');
+                            }, 'alarm');
                         },
                     },
                     {
@@ -125,7 +125,7 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/deviceList'))
-                            },'list');
+                            }, 'list');
                         },
                     },
                     {
@@ -133,7 +133,7 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/deviceAdd'))
-                            },'add');
+                            }, 'add');
                         },
                     },
                     {
@@ -141,7 +141,7 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/deviceDelete'))
-                            },'delete');
+                            }, 'delete');
                         },
                     },
                     {
@@ -149,55 +149,83 @@ const router = [
                         getComponent: (nextState, cb) => {
                             require.ensure([], (require) => {
                                 cb(null, require('./src/component/deviceChange'))
-                            },'change');
+                            }, 'change');
                         },
                     },
                     {
                         path: 'locate',
                         getComponent: (nextState, cb) => {
-                            var script = document.createElement('script');                               //防止异步加载js 出现document.write
-                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
-                            document.getElementsByTagName("head")[0].appendChild(script);
-                            script.onload = function () {
-                                window['init'] = function () {
-                                    require.ensure([], (require) => {
-                                        console.log('loaded alarm');
-                                        cb(null, require('./src/component/locate'))
-                                    },'locate');
+                            if (!window.hasOwnProperty('AMap')) {
+                                var script = document.createElement('script');                               //防止异步加载js 出现document.write
+                                script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
+                                document.getElementsByTagName("head")[0].appendChild(script);
+                                script.onload = function () {
+                                    window['init'] = function () {
+                                        require.ensure([], (require) => {
+                                            if (window.AMap) {
+                                                console.log('amap load');
+                                            }
+                                            cb(null, require('./src/component/locate'))
+                                        }, 'locate');
+                                    };
                                 };
-                            };
+                            }else{
+                                require.ensure([], (require) => {
+                                    cb(null, require('./src/component/locate'))
+                                }, 'locate');
+                            }
                         },
                     },
                     {
                         path: 'locus',
                         getComponent: (nextState, cb) => {
-                            var script = document.createElement('script');
-                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
-                            document.getElementsByTagName("head")[0].appendChild(script);
-                            script.onload = function () {
-                                window['init'] = function () {
-                                    require.ensure([], (require) => {
-                                        cb(null, require('./src/component/locus'))
-                                    },'locus');
+                            if (!window.hasOwnProperty('AMap')) {
+                                var script = document.createElement('script');                               //防止异步加载js 出现document.write
+                                script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
+                                document.getElementsByTagName("head")[0].appendChild(script);
+                                script.onload = function () {
+                                    window['init'] = function () {
+                                        require.ensure([], (require) => {
+                                            if (window.AMap) {
+                                                console.log('amap load');
+                                            }
+                                            console.log('loaded alarm');
+                                            cb(null, require('./src/component/locus'))
+                                        }, 'locus');
+                                    };
                                 };
-                            };
+                            }else{
+                                require.ensure([], (require) => {
+                                    cb(null, require('./src/component/locus'))
+                                }, 'locus');
+                            }
                         },
                     },
                     {
                         path: 'rail',
                         getComponent: (nextState, cb) => {
-                            var script = document.createElement('script');
-                            script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
-                            document.getElementsByTagName("head")[0].appendChild(script);
-                            script.onload = function () {
-                                window['init'] = function () {
-                                    require.ensure([], (require) => {
-                                        cb(null, require('./src/component/rail'))
-                                    },'rail');
+                            if (!window.hasOwnProperty('AMap')) {
+                                var script = document.createElement('script');                               //防止异步加载js 出现document.write
+                                script.src = 'http://webapi.amap.com/maps?v=1.3&key=38d958d68761d76101760fed094d8049&callback=init';
+                                document.getElementsByTagName("head")[0].appendChild(script);
+                                script.onload = function () {
+                                    window['init'] = function () {
+                                        require.ensure([], (require) => {
+                                            if (window.AMap) {
+                                                console.log('amap load');
+                                            }
+                                            console.log('loaded alarm');
+                                            cb(null, require('./src/component/rail'))
+                                        }, 'rail');
+                                    };
                                 };
-                            };
+                            }else{
+                                require.ensure([], (require) => {
+                                    cb(null, require('./src/component/rail'))
+                                }, 'rail');
+                            }
                         },
-                    }
+                    },
                 ]
             },
             {
@@ -205,15 +233,15 @@ const router = [
                 getComponent: (nextState, cb) => {
                     require.ensure([], (require) => {
                         cb(null, require('./src/component/redirect'))
-                    },'redirect');
+                    }, 'redirect');
                 },
             },
             {
-                path: '/user&code=:ticket&isLogined=:false',
+                path: '/user/&code=:ticket&isLogined=:false',
                 getComponent: (nextState, cb) => {
                     require.ensure([], (require) => {
                         cb(null, require('./src/component/redirect'))
-                    },'redirect');
+                    }, 'redirect');
                 },
             },
             {
@@ -221,7 +249,7 @@ const router = [
                 getComponent: (nextState, cb) => {
                     require.ensure([], (require) => {
                         cb(null, require('./src/component/chatRedirect'))
-                    },'chatRedirect');
+                    }, 'chatRedirect');
                 },
             }
         ]

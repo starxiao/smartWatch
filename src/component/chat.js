@@ -189,7 +189,7 @@ var Chat = React.createClass({
                             });
                             wx.ready(function(){
                                 if (!localStorage.getItem('allowRecord') || localStorage.getItem('allowRecord') !== 'true') {
-                                    wx.startReocrd({
+                                    wx.startRecord({
                                         success: function () {
                                             localStorage.setItem('allowRecord', 'true');
                                             wx.stopRecord();
