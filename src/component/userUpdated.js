@@ -107,7 +107,7 @@ var UserUpdated = React.createClass({
                             <label className="weui_label">手机号码</label>
                         </div>
                         <div className="weui_cell_bd weui_cell_primary">
-                            <input className="weui_input" type="text" placeholder="输入手机号码" ref="username"/>
+                            <input className="weui_input" type="tel" placeholder="输入手机号码" ref="username"/>
                         </div>
                     </div>
                     <div className="weui_cell">

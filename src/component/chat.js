@@ -8,6 +8,7 @@ import Cookie from './cookie';
 import CreateXHR from './xhr';
 import RongYun from './RongYun';
 import ToastLoad from './ToastLoad';
+import ToastSuccess from './ToastSuccess';
 import ToastError from './ToastError';
 
 import 'weui';
@@ -93,45 +94,60 @@ var Chat = React.createClass({
                                     msg.push(ele);
                                 }
                             } else {
-                                var radiusStyle;
-                                if(res.data[i].flag_read === 1){
-                                    radiusStyle = {backgroundColor:'#FFF'};
-                                }else{
-                                    radiusStyle = {backgroundColor:'#FF0000'};
-                                }
-                                console.log(radiusStyle);
-                                let ele = function () {
-                                    return (
-                                        <div className="message" key={i}>
-                                            <p className="date">{res.data[i].created_at}</p>
-                                            <div className="bottom deviceBottom">
-                                                <div style={{
-                                                    fontSize: "1rem",
-                                                    margin: "15px 0 0 10px",
-                                                    color: "grey"
-                                                }}>
-                                                    <div className="radius" style={radiusStyle}></div>
-                                                    <div className="duration">{res.data[i].duration + '"'}</div>
+                                if(res.data[i].type === 'voice') {
+                                    var radiusStyle;
+                                    if (res.data[i].flag_read === 1) {
+                                        radiusStyle = {backgroundColor: '#FFF'};
+                                    } else {
+                                        radiusStyle = {backgroundColor: '#FF0000'};
+                                    }
+                                    let ele = function () {
+                                        return (
+                                            <div className="message" key={i}>
+                                                <p className="date">{res.data[i].created_at}</p>
+                                                <div className="bottom deviceBottom">
+                                                    <div style={{
+                                                        fontSize: "1rem",
+                                                        margin: "15px 0 0 10px",
+                                                        color: "grey"
+                                                    }}>
+                                                        <div className="radius" style={radiusStyle}></div>
+                                                        <div className="duration">{res.data[i].duration + '"'}</div>
+                                                    </div>
+                                                    <p onClick={that.playVoice}>
+                                                        <audio src={res.data[i].voiceUrl} value={res.data[i].id}/>
+                                                        <svg className="iconfont icon-voice-1" aria-hidden="true">
+                                                            <use xlinkHref="#icon-voice-1"/>
+                                                        </svg>
+                                                        <svg className="iconfont icon-voice-2" aria-hidden="true">
+                                                            <use xlinkHref="#icon-voice-2"/>
+                                                        </svg>
+                                                        <svg className="iconfont" aria-hidden="true">
+                                                            <use xlinkHref="#icon-voice-3"/>
+                                                        </svg>
+                                                    </p>
+                                                    <div className="bot"></div>
+                                                    <img src="../app/src/image/headImage.jpg"/>
                                                 </div>
-                                                <p onClick={that.playVoice}>
-                                                    <audio src={res.data[i].voiceUrl} value={res.data[i].id}/>
-                                                    <svg className="iconfont icon-voice-1" aria-hidden="true">
-                                                        <use xlinkHref="#icon-voice-1"/>
-                                                    </svg>
-                                                    <svg className="iconfont icon-voice-2" aria-hidden="true">
-                                                        <use xlinkHref="#icon-voice-2"/>
-                                                    </svg>
-                                                    <svg className="iconfont" aria-hidden="true">
-                                                        <use xlinkHref="#icon-voice-3"/>
-                                                    </svg>
-                                                </p>
-                                                <div className="bot"></div>
-                                                <img src="../app/src/image/headImage.jpg"/>
                                             </div>
-                                        </div>
-                                    )
-                                }();
-                                msg.push(ele);
+                                        )
+                                    }();
+                                    msg.push(ele);
+                                }else{
+                                    let ele = function () {
+                                        return(
+                                            <div className="message">
+                                                <p className="date">2017-3-19 10:42：41</p>
+                                                <div className="bottom deviceBottom">
+                                                    <img className="deviceImage" src="../app/src/image/headImage.jpg" alt=""/>
+                                                    {/*<div className="bot" style={{backgroundColor:'#999'}}></div>*/}
+                                                    <img src="../app/src/image/headImage.jpg"/>
+                                                </div>
+                                            </div>
+                                        )
+                                    }();
+                                    msg.push(ele);
+                                }
                             }
                         }
                         that.setState({message: msg}, function () {
@@ -238,36 +254,55 @@ var Chat = React.createClass({
     RongYunVoice: function (message) {
         var that = this;
         if (message.content.content === "MessageReceived") {
-            var ele = function () {
-                return (
-                    <div className="message" key={'user' + that.state.key}>
-                        <p className="date">{message.content.extra.created_at}</p>
-                        <div className="bottom deviceBottom">
-                            <div style={{
-                                fontSize: "1rem",
-                                margin: "15px 0 0 10px",
-                                color: "grey"
-                            }}>{message.content.extra.duration + '"'}</div>
-                            <p onClick={that.playVoice}>
-                                <audio src={message.content.extra.mp3Url}/>
-                                <svg className="iconfont icon-voice-1" aria-hidden="true">
-                                    <use xlinkHref="#icon-voice-1"/>
-                                </svg>
-                                <svg className="iconfont icon-voice-2" aria-hidden="true">
-                                    <use xlinkHref="#icon-voice-2"/>
-                                </svg>
-                                <svg className="iconfont icon-voice-3" aria-hidden="true">
-                                    <use xlinkHref="#icon-voice-3"/>
-                                </svg>
-                            </p>
-                            <div className="bot"></div>
-                            <img src="../app/src/image/headImage.jpg"/>
+            console.log(message);
+            if(message.content.extra.type === 'voice') {
+                var ele = function () {
+                    return (
+                        <div className="message" key={'user' + that.state.key}>
+                            <p className="date">{message.content.extra.created_at}</p>
+                            <div className="bottom deviceBottom">
+                                <div style={{
+                                    fontSize: "1rem",
+                                    margin: "15px 0 0 10px",
+                                    color: "grey"
+                                }}>{message.content.extra.duration + '"'}</div>
+                                <p onClick={that.playVoice}>
+                                    <audio src={message.content.extra.mp3Url}/>
+                                    <svg className="iconfont icon-voice-1" aria-hidden="true">
+                                        <use xlinkHref="#icon-voice-1"/>
+                                    </svg>
+                                    <svg className="iconfont icon-voice-2" aria-hidden="true">
+                                        <use xlinkHref="#icon-voice-2"/>
+                                    </svg>
+                                    <svg className="iconfont icon-voice-3" aria-hidden="true">
+                                        <use xlinkHref="#icon-voice-3"/>
+                                    </svg>
+                                </p>
+                                <div className="bot"></div>
+                                <img src="../app/src/image/headImage.jpg"/>
+                            </div>
                         </div>
-                    </div>
-                )
-            }();
-            var msg = that.state.message;
-            msg.push(ele);
+                    )
+                }();
+                let msg = that.state.message;
+                msg.push(ele);
+
+            } else{
+                let ele = function () {
+                    return(
+                        <div className="message">
+                            <p className="date">2017-3-19 10:42：41</p>
+                            <div className="bottom deviceBottom">
+                                <img className="deviceImage" src="../app/src/image/headImage.jpg" alt=""/>
+                                {/*<div className="bot" style={{backgroundColor:'#999'}}></div>*/}
+                                <img src="../app/src/image/headImage.jpg"/>
+                            </div>
+                        </div>
+                    )
+                }();
+                let msg = that.state.message;
+                msg.push(ele);
+            }
             that.setState({message: msg, key: that.state.key + 1}, function () {
                 window.scrollTo(0, 10000);
             });
@@ -365,38 +400,80 @@ var Chat = React.createClass({
     sendText: function () {
         var that = this,
             val = that.refs.content.value;
-        that.refs.content.value = '';
-        var Obj = new Date(), hour = Obj.getHours() < 10 ? '0' + Obj.getHours() : Obj.getHours(),
-            minute = Obj.getMinutes() < 10 ? '0' + Obj.getMinutes() : Obj.getMinutes(),
-            date = hour + ':' + minute;
-        var ele = function () {
-            return (
-                <div className="message" key={'user' + that.state.key}>
-                    <p className="date" style={{width: "3.4rem"}}>{date}</p>
-                    <div className="bottom">
-                        <p style={{marginLeft: "5rem"}}>{val}</p>
-                        <div className="bot"></div>
-                        <img src="../app/src/image/headImage.jpg"/>
+        if(typeof val === 'string' && val) {
+
+            that.refs.content.value = '';
+            var Obj = new Date(), hour = Obj.getHours() < 10 ? '0' + Obj.getHours() : Obj.getHours(),
+                minute = Obj.getMinutes() < 10 ? '0' + Obj.getMinutes() : Obj.getMinutes(),
+                date = hour + ':' + minute;
+            var ele = function () {
+                return (
+                    <div className="message" key={'user' + that.state.key}>
+                        <p className="date" style={{width: "3.4rem"}}>{date}</p>
+                        <div className="bottom">
+                            <p style={{marginLeft: "5rem"}}>{val}</p>
+                            <div className="bot"></div>
+                            <img src="../app/src/image/headImage.jpg"/>
+                        </div>
                     </div>
-                </div>
-            )
-        }();
-        var msg = that.state.message;
-        msg.push(ele);
-        that.setState({message: msg, key: that.state.key + 1}, function () {
-            window.scrollTo(0, 10000);
-        });
+                )
+            }();
+            var msg = that.state.message;
+            msg.push(ele);
+            that.setState({message: msg, key: that.state.key + 1}, function () {
+                window.scrollTo(0, 10000);
+            });
+            CreateXHR({
+                type: "post",
+                url: url + "device/" + IMEI + "/text",
+                data: {
+                    username: username,
+                    ticket: ticket,
+                    content: val
+                },
+                success: function (data) {
+                    switch (data.errcode) {
+                        case 0:
+                            break;
+                        default:
+                            hashHistory.push('/user/login');
+                            break;
+                    }
+                },
+                error: function () {
+                    that.setState({toast: '网络错误'});
+                    that.refs.toastError.show();
+                    window.setTimeout(function () {
+                        that.refs.toastError.hide();
+                    }, 2000);
+                }
+            });
+        }else{
+            that.setState({toast: '请输入文本'});
+            that.refs.toastError.show();
+            window.setTimeout(function () {
+                that.refs.toastError.hide();
+            }, 2000);
+        }
+
+    },
+    takePhoto:function () {
+
+        var that = this;
         CreateXHR({
-            type: "post",
-            url: url + "device/" + IMEI + "/text",
+            type: "POST",
+            url: url + "device/" + IMEI + "/action/takePhoto",
             data: {
                 username: username,
                 ticket: ticket,
-                content: val
             },
             success: function (data) {
                 switch (data.errcode) {
                     case 0:
+                        that.refs.successToast.show();
+                        window.setTimeout(function () {
+                            that.refs.successToast.hide();
+                        }, 2000);
                         break;
                     default:
                         hashHistory.push('/user/login');
@@ -413,7 +490,6 @@ var Chat = React.createClass({
         });
 
     },
-
     touchStart: function (e) {
         wx.startRecord();
         e.preventDefault();
@@ -477,24 +553,34 @@ var Chat = React.createClass({
 
         // 只关注点击的元素。
         //返回绑定事件的元素
-        var node = e.currentTarget;
 
-        console.log(node);
-        for(var i=0; i<node.previousSibling.childNodes.length; i++){
-            console.log(node.previousSibling.childNodes[i]);
-            if(node.previousSibling.childNodes[i].getAttribute('class') === 'radius'){
-                console.log('is ok');
-                node.previousSibling.childNodes[i].style.backgroundColor = '#FFF';
-            }
-        }
         if (this.state.node !== null) {
             this.state.node.firstElementChild.pause();
         }
-        this.animate(node);
-        node.firstElementChild.play();
+
+        var node = e.currentTarget;
+        console.log(node);   //目标元素p
+
+        node.firstElementChild.play();        //播放语音
+        this.animate(node);                 //动态icon
+
+
         if(node.firstElementChild.hasAttribute('value')){
+
+            //点击播放后清除红点
+
+            for(var i=0; i<node.previousSibling.childNodes.length; i++){
+
+                console.log(node.previousSibling.childNodes[i]);
+                if(node.previousSibling.childNodes[i].getAttribute('class') === 'radius'){
+                    console.log('is ok');
+                    node.previousSibling.childNodes[i].style.backgroundColor = '#FFF';
+                }
+            }
+
+            //发送给服务器标记
+
             var recordId = node.firstElementChild.getAttribute('value');
-            console.log('ok');
             CreateXHR({
                 type: "put",
                 url: url + "device/" + IMEI + "/chatRecord/" + recordId,
@@ -528,11 +614,17 @@ var Chat = React.createClass({
         this.animate(this.state.node);
         this.state.node.firstElementChild.play();
     },
+
     animate: function (e) {
+
         var eleArr = e.children;
         var arr = [];
+
+
+        console.log(eleArr);
         for (var i = 0; i < eleArr.length; i++) {
-            if (eleArr[i].tagName === 'SVG') {
+            console.log(eleArr[i].tagName);
+            if (eleArr[i].tagName === 'svg') {                      //<svg>不属于html标签返回的是小写
                 arr.push(eleArr[i]);
             }
             if (eleArr[i].tagName === 'LI') {
@@ -588,6 +680,9 @@ var Chat = React.createClass({
                                 onTouchCancel={this.touchCancel} onTouchEnd={this.touchEnd}>
                                 按住 录音
                             </li>
+                            <li className="icon">
+                                <img className="icon" src="../app/src/image/photo.png" onClick={this.takePhoto}/>
+                            </li>
                         </ul>
                     </div>
                     <div className="text" ref="text">
@@ -598,6 +693,7 @@ var Chat = React.createClass({
                 </footer>
                 <ToastLoad ref="toastLoad" content={this.state.content}/>
                 <ToastError ref="toastError" toast={this.state.toast}/>
+                <ToastSuccess ref="successToast" toast="发送成功"/>
             </div>
         )
     }

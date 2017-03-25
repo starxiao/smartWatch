@@ -107,7 +107,7 @@ var User = React.createClass({
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">
-                                <input className="weui_input" type="text" ref="username" placeholder="请输入您的手机号码"/>
+                                <input className="weui_input" type="tel" ref="username" placeholder="请输入您的手机号码"/>
                             </div>
                         </div>
                         <div className="weui_cell">

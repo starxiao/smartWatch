@@ -24,10 +24,10 @@ var Login = React.createClass({
         }
     },
     componentWillMount:function(){
-        if(!(Cookie('code'))){
-            var url = encodeURIComponent(window.location.href);
-            window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?redirectUri=" + url;
-        }
+        // if(!(Cookie('code'))){
+        //     var url = encodeURIComponent(window.location.href);
+        //     window.location.href = "http://api.smartlocate.cn/v1/wechat/authorize?redirectUri=" + url;
+        // }
     },
     HandleSubmit: function (e) {
         e.preventDefault();
@@ -133,7 +133,7 @@ var Login = React.createClass({
                                 </label>
                             </div>
                             <div className="weui_cell_bd weui_cell_primary">
-                                <input className="weui_input" type="text" name="username" placeholder="请输入您的手机号码"
+                                <input className="weui_input" type="tel" name="username" placeholder="请输入您的手机号码"
                                        ref="username"/>
                             </div>
                         </div>
